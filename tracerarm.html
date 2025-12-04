@@ -9,34 +9,37 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', 'Noto Sans KR', sans-serif;
-            background-color: #f7f7f7;
+            background: #0a0a0a;
             line-height: 1.6;
         }
         .notion-container {
             max-width: 900px;
             margin: 2rem auto;
             padding: 2rem;
-            background: white;
+            background: #1a1a1a;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
         h1, h2, h3 {
             font-weight: 700;
         }
+        h1 {
+            color: #e5e5e5;
+        }
         h2 {
             padding-top: 1rem;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 2px solid #3b82f6;
             padding-bottom: 0.5rem;
-            color: #1e40af; /* Blue accent */
+            color: #60a5fa;
         }
         h3 {
-            color: #374151;
+            color: #93c5fd;
             margin-top: 1.5rem;
         }
         .callout {
             border-left-width: 4px;
-            border-color: #3b82f6; /* Blue border */
-            background-color: #eff6ff; /* Light blue background */
+            border-color: #3b82f6;
+            background-color: #1e293b;
         }
     </style>
 </head>
@@ -45,8 +48,8 @@
 
         <!-- Header -->
         <header class="mb-8">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">HANDY2000용 트레이서암에 대하여</h1>
-            <p class="text-xl text-gray-500 font-light">ESTIC 위치제어 솔루션</p>
+            <h1 class="text-4xl sm:text-5xl font-extrabold mb-2">HANDY2000용 트레이서암에 대하여</h1>
+            <p class="text-xl text-gray-400 font-light">ESTIC 위치제어 솔루션</p>
         </header>
          <img src="image/1.jpg" 
         alt="Handheld Nutrunner with Smart Arm" 
@@ -54,29 +57,29 @@
         style="display: block; margin: 10pt auto;">
                 <!-- 핵심 요약 (Callout Block) -->
         <div class="callout p-5 rounded-lg mb-8 shadow-sm">
-            <p class="text-gray-700">이 문서는 ESTIC의 HANDY2000 시리즈 수지식 너트러너 전용 트레이스 제어 시스템에 대한 안내 입니다. <br>이 시스템의 핵심 목적은 체결 공정에서 작업자의 물리적 부담을 줄이고, 위치 감지 및 순서 제어를 통해 인적 오류를 제거하며, 체결 토크와 좌표 데이터를 연계하여 고차원적인 추적 가능성을 확보하는 것입니다.</p>
-            <p class="text-gray-700 mt-2">위치제어 필요 유무에 따라 다음의 제품을 준비합니다: <strong>트레이서 암 (Tracer Arm)</strong>은 물리적 지지 기능과 위치 감지를, <strong>서포트 암 (Support Arm)</strong>은 물리적 지지만을, <strong>트레이스 컨트롤 유닛 (TCU)</strong>은 위치 정보의 전송을 담당합니다.</p>
+            <p class="text-gray-300">이 문서는 ESTIC의 HANDY2000 시리즈 수지식 너트러너 전용 트레이스 제어 시스템에 대한 안내 입니다. <br>이 시스템의 핵심 목적은 체결 공정에서 작업자의 물리적 부담을 줄이고, 위치 감지 및 순서 제어를 통해 인적 오류를 제거하며, 체결 토크와 좌표 데이터를 연계하여 고차원적인 추적 가능성을 확보하는 것입니다.</p>
+            <p class="text-gray-300 mt-2">위치제어 필요 유무에 따라 다음의 제품을 준비합니다: <strong>트레이서 암 (Tracer Arm)</strong>은 물리적 지지 기능과 위치 감지를, <strong>서포트 암 (Support Arm)</strong>은 물리적 지지만을, <strong>트레이스 컨트롤 유닛 (TCU)</strong>은 위치 정보의 전송을 담당합니다.</p>
         </div>
 
         <!-- 1. 시스템 개요 및 목적 -->
         <h2 class="text-2xl mt-8">1. 시스템 개요 및 목적</h2>
-        <p class="mt-4 text-gray-700">트레이서 암 시스템은 핸디 시리즈 전용으로, 체결 공정의 정도와 효율성을 극대화하기 위해 설계되었습니다. 시스템의 근본적인 목적은 두 가지 측면에서 작업 환경을 개선하는 것입니다.</p>
+        <p class="mt-4 text-gray-300">트레이서 암 시스템은 핸디 시리즈 전용으로, 체결 공정의 정도와 효율성을 극대화하기 위해 설계되었습니다. 시스템의 근본적인 목적은 두 가지 측면에서 작업 환경을 개선하는 것입니다.</p>
 
-        <ul class="list-disc ml-6 text-gray-700 space-y-2 mt-4">
+        <ul class="list-disc ml-6 text-gray-300 space-y-2 mt-4">
             <li><strong>물리적 지원:</strong> 체결 시 발생하는 반력과 공구의 무게로 인한 작업자의 피로와 부담을 경감시키는 보조 암 역할을 수행합니다.</li>
             <li><strong>공정 제어 및 추적성:</strong> 트레이서 암의 위치 감지 기능을 통해 작업 지시서에 의존하던 체결 순서 및 위치 규정의 인적 오류를 원천적으로 차단합니다. <br>또한, 각 체결 작업의 토크 데이터를 위치(좌표) 데이터와 직접 연계하여 고차원적인 추적 가능성(Traceability)을 제공함으로써 품질 관리를 강화합니다.</li>
         </ul>
 
         <!-- 2. 주요 구성 요소 -->
         <h2 class="text-2xl">2. 주요 구성 요소</h2>
-        <p class="mt-4 text-gray-700">이 시스템은 크게 트레이서 암, 서포트 암, 트레이스 컨트롤 유닛으로 구성되며, 각각의 역할과 사양은 다음과 같습니다.</p>
+        <p class="mt-4 text-gray-300">이 시스템은 크게 트레이서 암, 서포트 암, 트레이스 컨트롤 유닛으로 구성되며, 각각의 역할과 사양은 다음과 같습니다.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
             <!-- 2.1. 트레이서 암 -->
-            <div class="bg-white p-5 rounded-lg shadow-md border border-blue-100">
-                <h3 class="text-xl font-semibold text-blue-600 mt-0 flex items-center">📍 트레이서 암 (Tracer Arm)</h3>
-                <p class="text-sm text-gray-600 mb-3">작업자 보조 + 정밀한 위치 감지 (핵심 장치)</p>
-                <ul class="text-sm text-gray-700 space-y-1">
+            <div class="bg-gray-800 p-5 rounded-lg shadow-md border border-blue-900">
+                <h3 class="text-xl font-semibold text-blue-400 mt-0 flex items-center">📍 트레이서 암 (Tracer Arm)</h3>
+                <p class="text-sm text-gray-400 mb-3">작업자 보조 + 정밀한 위치 감지 (핵심 장치)</p>
+                <ul class="text-sm text-gray-300 space-y-1">
                     <li><strong>기능:</strong> 공구 무게 및 반력흡수, 각도센서를 이용한 3차원 위치 감지.</li>
                     <li><strong>정밀도:</strong> 마이크로용 ±1mm, 그 외 모델 ±3mm.</li>
                     <li><strong>종류:</strong> 저토크(TA), 고토크(TH), 수직형(PA), 마이크로용(MTA).</li>
@@ -84,10 +87,10 @@
             </div>
 
             <!-- 2.2. 서포트 암 -->
-            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
-                <h3 class="text-xl font-semibold text-gray-600 mt-0 flex items-center">💪 서포트 암 (Support Arm)</h3>
-                <p class="text-sm text-gray-600 mb-3">물리적 지원 전용 (경제적 대안)</p>
-                <ul class="text-sm text-gray-700 space-y-1">
+            <div class="bg-gray-800 p-5 rounded-lg shadow-md border border-gray-700">
+                <h3 class="text-xl font-semibold text-gray-300 mt-0 flex items-center">💪 서포트 암 (Support Arm)</h3>
+                <p class="text-sm text-gray-400 mb-3">물리적 지원 전용 (경제적 대안)</p>
+                <ul class="text-sm text-gray-300 space-y-1">
                     <li><strong>기능:</strong> 공구 무게 및 반력 지원 기능만 제공.</li>
                     <li><strong>목적:</strong> 위치 추적이 불필요한 공정에 적합.</li>
                     <li><strong>종류:</strong> 저토크용(SA), 고토크용(SH), 수직형(SPA).</li>
@@ -95,10 +98,10 @@
             </div>
 
             <!-- 2.3. TCU -->
-            <div class="bg-white p-5 rounded-lg shadow-md border border-gray-100">
-                <h3 class="text-xl font-semibold text-gray-600 mt-0 flex items-center">🧠 트레이스 컨트롤 유닛 (TCU)</h3>
-                <p class="text-sm text-gray-600 mb-3">위치 데이터 처리 (위치제어용 컨트롤러)</p>
-                <ul class="text-sm text-gray-700 space-y-1">
+            <div class="bg-gray-800 p-5 rounded-lg shadow-md border border-gray-700">
+                <h3 class="text-xl font-semibold text-gray-300 mt-0 flex items-center">🧠 트레이스 컨트롤 유닛 (TCU)</h3>
+                <p class="text-sm text-gray-400 mb-3">위치 데이터 처리 (위치제어용 컨트롤러)</p>
+                <ul class="text-sm text-gray-300 space-y-1">
                     <li><strong>기능:</strong> 트레이서 암의 위치 정보를 HANDY2000 컨트롤러로 전송.</li>
                     <li><strong></strong> 틀어진 워크의 위치를 보정가능.</li>
                     <li><strong>I/O추가옵션:</strong> 표준 6점 입/출력, 옵션 확장 24점 입/출력.</li>
@@ -111,25 +114,25 @@
          <br>
 
         <h3 class="text-xl">3.1. 트레이스 잡 기능 (Trace Job Function)</h3>
-        <p class="text-gray-700">일련의 체결 순서를 정의하고 관리하는 핵심 기능입니다. 최대 99개의 Job등록 및 각 Job당 최대 63개의 체결 위치(Position) 설정이 가능합니다.</p>
-        <div class="mt-3 p-4 bg-gray-50 rounded-md border border-gray-200 text-sm">
-            <p class="font-medium text-gray-800">제어 모드:</p>
-            <ul class="list-disc ml-6 text-gray-600">
+        <p class="text-gray-300">일련의 체결 순서를 정의하고 관리하는 핵심 기능입니다. 최대 99개의 Job등록 및 각 Job당 최대 63개의 체결 위치(Position) 설정이 가능합니다.</p>
+        <div class="mt-3 p-4 bg-gray-800 rounded-md border border-gray-700 text-sm">
+            <p class="font-medium text-gray-300">제어 모드:</p>
+            <ul class="list-disc ml-6 text-gray-400">
                 <li><strong>순서 체결 비활성화 모드:</strong> 등록된 위치 내에서 자유로운 체결 허용 (이중 체결 방지).</li>
                 <li><strong>순서 체결 활성화 모드:</strong> 설정된 Step 순서를 엄격하게 준수해야만 체결 가능.</li>
             </ul>
         </div>
 
         <h3 class="text-xl">3.2. 위치 판정 기능 (Position Judgment Functions)</h3>
-        <ul class="list-disc ml-6 text-gray-700 space-y-1 mt-3">
+        <ul class="list-disc ml-6 text-gray-300 space-y-1 mt-3">
             <li><strong>체결 완료 위치 판정:</strong> 체결 완료 시점의 위치가 허용 오차 범위 내인지 판정 (와셔 누락, 볼트 길이 오류도 감지가능).</li>
             <li><strong>체결 중 위치 모니터링:</strong> 체결 중 공구가 허용 범위를 벗어나면 즉시 "POSITIONING NG" 오류 발생 및 작업 중단.</li><br>
         </ul>
 
         <h3 class="text-xl">3.3. 위치 보정 기능 (Position Correction Function)</h3>
-        <p class="text-gray-700">작업물의 회전 편차까지 보정하여 불안정한 작업 환경에 대응합니다. (2개의 기준점을 먼저 등록)</p>
-        <div class="mt-3 p-4 bg-gray-50 rounded-md border border-gray-200 text-sm">
-            <ul class="list-disc ml-6 text-gray-600">
+        <p class="text-gray-300">작업물의 회전 편차까지 보정하여 불안정한 작업 환경에 대응합니다. (2개의 기준점을 먼저 등록)</p>
+        <div class="mt-3 p-4 bg-gray-800 rounded-md border border-gray-700 text-sm">
+            <ul class="list-disc ml-6 text-gray-400">
                 <li><strong>MODE1 (독립 보정):</strong> 작업 시작 전, 별도 지정된 2개의 기준점을 측정하여 보정값 계산.</li>
                 <li><strong>MODE2 (체결 위치 보정):</strong> 트레이스 잡의 첫 번째/두 번째 체결 완료 위치를 기준점으로 자동 보정값 계산 </li>
                 </li>(순서 체결 활성화 모드에서만 사용 가능).</li>
@@ -141,19 +144,19 @@
         <h2 class="text-2xl">4. 위치제어 시스템 구성 및 설정</h2>
 <br>
         <h3 class="text-xl">4.1. 시스템 구성</h3>
-        <p class="text-gray-700"><strong>트레이서/서포트 암 → TCU → HANDY2000 컨트롤러</strong> 순서로 연결됩니다. <br>설치 시 레졸버 케이블, NET 케이블, TCU 전원 케이블, 마운팅 브라켓, 그리고 통신망 양 끝단의 NET 종단 저항(2개)이 필요합니다.</p><br>
+        <p class="text-gray-300"><strong>트레이서/서포트 암 → TCU → HANDY2000 컨트롤러</strong> 순서로 연결됩니다. <br>설치 시 레졸버 케이블, NET 케이블, TCU 전원 케이블, 마운팅 브라켓, 그리고 통신망 양 끝단의 NET 종단 저항(2개)이 필요합니다.</p><br>
 
         <h3 class="text-xl">4.2. 파라미터 설정</h3>
-        <p class="text-gray-700">HANDY2000 컨트롤러에서 다음의 주요 파라미터를 설정해야 합니다.</p>
-        <div class="mt-3 p-4 bg-white border border-gray-200 rounded-md shadow-sm">
-            <p class="font-medium text-gray-800 mb-2">① 트레이서 암 설정 (S18):</p>
-            <ul class="list-disc ml-6 text-gray-700 text-sm">
+        <p class="text-gray-300">HANDY2000 컨트롤러에서 다음의 주요 파라미터를 설정해야 합니다.</p>
+        <div class="mt-3 p-4 bg-gray-800 border border-gray-700 rounded-md shadow-sm">
+            <p class="font-medium text-gray-300 mb-2">① 트레이서 암 설정 (S18):</p>
+            <ul class="list-disc ml-6 text-gray-300 text-sm">
                 <li>TABLE SELECT (사용 암 종류 선택)</li>
                 <li>LENGTH 1/2, LENGTH 2 OFFSET (암 본체 라벨의 물리적 길이 입력 필수)</li>
                 <li>ARM TYPE (암의 동작 방향 Right/Left 지정)</li>
             </ul>
-            <p class="font-medium text-gray-800 mt-3 mb-2">② 트레이스 잡 설정:</p>
-            <ul class="list-disc ml-6 text-gray-700 text-sm">
+            <p class="font-medium text-gray-300 mt-3 mb-2">② 트레이스 잡 설정:</p>
+            <ul class="list-disc ml-6 text-gray-300 text-sm">
                 <li>TRACE JOB LIST (채널 번호, 수평/수직 허용 오차 정의)</li>
                 <li>SEQUENCE (순서 체결 활성화/비활성화 모드 선택)</li>
                 <li>END POSITION (체결 완료 시 위치 판정 사용 여부)</li>
@@ -162,8 +165,8 @@
         </div>
 <br>
         <h3 class="text-xl">4.3. 티칭 (Teaching)</h3>
-        <p class="text-gray-700">체결할 위치의 좌표를 시스템에 등록하는 과정입니다.</p>
-        <ul class="list-disc ml-6 text-gray-700 space-y-1 mt-3">
+        <p class="text-gray-300">체결할 위치의 좌표를 시스템에 등록하는 과정입니다.</p>
+        <ul class="list-disc ml-6 text-gray-300 space-y-1 mt-3">
             <li><strong>다이렉트 티칭:</strong> 암을 실제 위치로 이동 후 관리 소프트웨어/패널을 통해 등록.</li>
             <li><strong>수동 설정:</strong> 좌표값을 키보드로 직접 입력.</li>
             <li><strong>외부 신호 입력:</strong> 외부 PLC 등의 신호를 통해 티칭 수행.</li>
@@ -174,8 +177,8 @@
         <h2 class="text-2xl">5. 안전, 유지보수 및 보증</h2>
 <br>
         <h3 class="text-xl">5.1. 안전상 주의사항</h3>
-        <p class="text-gray-700">운용시는 하기에 유의해주십시오.</p>
-        <div class="mt-3 p-4 rounded-md border border-red-500 bg-red-50 text-red-800 font-medium">
+        <p class="text-gray-300">운용시는 하기에 유의해주십시오.</p>
+        <div class="mt-3 p-4 rounded-md border border-red-600 bg-red-950 text-red-300 font-medium">
             🚨 주요 경고 사항
             <ul class="list-disc ml-6 mt-2 text-sm">
                 <li>본 제품은 <strong>방폭 사양이 아닙니다.</strong> 가연성/폭발성 환경에서 절대 사용 금지.</li>
@@ -186,46 +189,56 @@
         </div>
 <br>
         <h3 class="text-xl">5.2. 유지보수 및 예방 보전 (v1.11 지침)</h3>
-        <p class="text-gray-700">체계적인 예방 보전 지침을 준수하여 장기적인 성능을 확보해야 합니다.</p>
-        <div class="mt-3 p-4 bg-gray-50 rounded-md border border-gray-200">
-            <p class="font-medium text-gray-800 mb-2">주요 유지보수 항목:</p>
-            <ul class="list-disc ml-6 text-gray-700 text-sm">
+        <p class="text-gray-300">체계적인 예방 보전 지침을 준수하여 장기적인 성능을 확보해야 합니다.</p>
+        <div class="mt-3 p-4 bg-gray-800 rounded-md border border-gray-700">
+            <p class="font-medium text-gray-300 mb-2">주요 유지보수 항목:</p>
+            <ul class="list-disc ml-6 text-gray-300 text-sm">
                 <li><strong>가스 스프링 교체:</strong> 조정 노브로 보정이 불가능할 경우 교체 (소모품).</li>
                 <li><strong>회전식 그립 윤활:</strong> 스위치 동작 불량 시 지정된 윤활유 주입.</li>
             </ul>
-            <p class="font-medium text-gray-800 mt-3 mb-2">예방 보전 주기:</p>
-            <table class="min-w-full divide-y divide-gray-200 mt-2 text-sm">
-                <thead class="bg-gray-100">
+            <p class="font-medium text-gray-300 mt-3 mb-2">예방 보전 주기:</p>
+            <table class="min-w-full divide-y divide-gray-700 mt-2 text-sm">
+                <thead class="bg-gray-700">
                     <tr>
-                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">주기</th>
-                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">항목</th>
+                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">주기</th>
+                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">항목</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-gray-800 divide-y divide-gray-700">
                     <tr>
-                        <td class="px-3 py-2 whitespace-nowrap">시업 점검 (매일)</td>
-                        <td class="px-3 py-2">부품 파손 여부 등 외관 확인.</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-300">시업 점검 (매일)</td>
+                        <td class="px-3 py-2 text-gray-300">부품 파손 여부 등 외관 확인.</td>
                     </tr>
                     <tr>
-                        <td class="px-3 py-2 whitespace-nowrap">정기 점검 (월 1회)</td>
-                        <td class="px-3 py-2">리졸버 센서의 각도 값 확인 및 정확도 점검.</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-300">정기 점검 (월 1회)</td>
+                        <td class="px-3 py-2 text-gray-300">리졸버 센서의 각도 값 확인 및 정확도 점검.</td>
                     </tr>
                     <tr>
-                        <td class="px-3 py-2 whitespace-nowrap">오버홀 (100만 사이클)</td>
-                        <td class="px-3 py-2">소모품 (가스 스프링) 교체 권장.</td>
+                        <td class="px-3 py-2 whitespace-nowrap text-gray-300">오버홀 (100만 사이클)</td>
+                        <td class="px-3 py-2 text-gray-300">소모품 (가스 스프링) 교체 권장.</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 <br>
         <h3 class="text-xl">5.3. 보증 (v1.11 기준)</h3>
-        <ul class="list-disc ml-6 text-gray-700 space-y-1 mt-3">
+        <ul class="list-disc ml-6 text-gray-300 space-y-1 mt-3">
             <li><strong>보증 기간:</strong> 공장 출하 후 18개월 또는 사용 개시 후 12개월 중 먼저 도래하는 기간 적용.</li>
             <li><strong>보증 범위:</strong> 정상 사용 상태에서 발생한 고장에 대한 무상 수리 제공.</li>
             <li><strong>보증 제외 항목:</strong> 사용자 개조/분해, 천재지변, 소모품 (가스 스프링 등).</li>
         </ul>
 
-        <footer class="mt-12 pt-6 border-t border-gray-300 text-center text-gray-500 text-sm">
+<br>
+        <h2 class="text-2xl">6. 툴취부 브라켓</h2><br>
+    </Ul>
+         <ul class="list-disc ml-6 text-gray-300 space-y-1 mt-3">
+
+         <img src="image/EH2-AT.jpg" />
+         <li><strong>EH2-AT2브라켓의 경우 ENRH-SH01(리액션 플레이트), ENRH-LNM30(락너트)를 포함합니다.<br>
+         (2025/12/01년 출하기준)</li>       
+    </Ul>
+
+        <footer class="mt-12 pt-6 border-t border-gray-700 text-center text-gray-500 text-sm">
             <p>문서 버전: v1.11 기준 요약. 이 문서는 HANDY2000 트레이스 제어 시스템 브리핑을 위해 작성되었습니다.</p>
         </footer>
     </div>

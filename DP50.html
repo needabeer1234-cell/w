@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENRZ-DP50 디스플레이 장치 매뉴얼</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(30, 30, 46, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #60a5fa;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3b82f6;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #93c5fd;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(30, 41, 59, 0.7);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            color: #e0e0e0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.15);
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #e0e0e0;
+            backdrop-filter: blur(10px);
+        }
+
+        .warning-box {
+            background: rgba(251, 146, 60, 0.15);
+            border-left: 4px solid #fb923c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #e0e0e0;
+            backdrop-filter: blur(10px);
+        }
+
+        .danger-box {
+            background: rgba(239, 68, 68, 0.15);
+            border-left: 4px solid #ef4444;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #e0e0e0;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .feature-card {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            color: #e0e0e0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .feature-card h4 {
+            color: #60a5fa;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        code {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            color: #e0e0e0;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.95em;
+            border-top: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            padding-left: 50px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: -5px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            header {
+                padding: 35px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 ENRZ-DP50 디스플레이 장치</h1>
+            <div class="subtitle">핵심 기능 중심 퀵 매뉴얼</div>
+        </header>
+
+        <div class="content">
+            <div class="info-box">
+                <strong>ENRZ-DP50</strong>은 Z50 시리즈 서보 너트러너 및 서보 프레스 시스템의 운영을 혁신하는 강력한 <strong>휴먼-머신 인터페이스(Human-Machine Interface, HMI)</strong>입니다. PC 없이 현장에서 <strong>실시간 모니터링, 설정 변경, 데이터 분석</strong> 및 <strong>직접 제어</strong>를 가능하게 하여 생산성과 관리 효율성을 극대화합니다.
+            </div>
+
+            <section>
+                <h2>🚀 1. 핵심 기능 활용</h2>
+                <p>ENRZ-DP50은 현장 중심의 운영 및 관리를 위한 강력한 기능들을 제공합니다.</p>
+
+                <h3>A. 실시간 모니터링 기능</h3>
+                <p>PC 없이 <strong>생산 현황</strong>과 <strong>장비 상태</strong>를 즉시 파악합니다.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📊 I/O 모니터</h4>
+                        <p>입출력 신호 ON/OFF 상태를 실시간 확인하며, 출력을 강제 출력하는 기능을 통해 초기 설정 및 문제 해결 시간을 획기적으로 단축합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📈 체결/가압 결과 모니터</h4>
+                        <p>작업 완료 후의 최종 결과 데이터를 상세 조회 및 분석합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔍 NG 이력 모니터</h4>
+                        <p>불량(NG) 이력 및 시스템 에러 이력(최대 128건)을 상세히 저장하여 신속한 원인 분석 및 조치를 지원합니다.</p>
+                    </div>
+                </div>
+
+                <h3>B. 파라미터 편집 (현장 설정 변경)</h3>
+                <p>현장에서 즉시 작업 조건을 변경하여 생산 <strong>유연성</strong>을 높입니다.</p>
+
+                <div class="info-box">
+                    <strong>기본 절차:</strong> READ (읽기) → 항목 선택/값 변경 → WRITE (쓰기)의 3단계 프로세스
+                </div>
+
+                <ul>
+                    <li><strong>체결 프로그램 편집:</strong> 너트러너의 목표 토크, 각도, 속도 등 핵심 작업 조건 정밀 편집</li>
+                    <li><strong>SPU50 프레스 파라미터 편집:</strong> 프레스의 목표 압력(하중), 정지 위치, 속도 설정</li>
+                </ul>
+
+                <h3>C. 데이터 시각화 및 분석</h3>
+                <p>품질 관리를 위해 정량적 데이터뿐만 아니라 시각적 그래프 분석을 제공합니다.</p>
+
+                <div class="feature-card">
+                    <h4>📉 토크/프레스 커브 표시</h4>
+                    <ul>
+                        <li>너트러너: <strong>'토크-각도'</strong> 또는 <strong>'토크-시간'</strong> 커브</li>
+                        <li>프레스: <strong>'하중-위치'</strong> 또는 <strong>'하중-시간'</strong> 커브</li>
+                        <li><strong>최대 4개 축 데이터 동시 표시</strong>로 작업 편차 비교 분석 가능</li>
+                    </ul>
+                </div>
+
+                <h3>D. 직접 운전 제어</h3>
+                <p>자동 운전 중의 문제 발생이나 테스트 시 <strong>화면 터치</strong>를 통해 시스템을 직접 제어합니다.</p>
+
+                <ul>
+                    <li><strong>워크그룹 조작:</strong> 프로그램 선택, 시작, 정지, 리셋 등의 명령을 시운전 및 테스트에 활용</li>
+                    <li><strong>축 분리:</strong> 문제가 발생한 특정 축만 일시적으로 작업에서 제외하고 생산을 계속할 수 있도록 하여 <strong>가동률(Uptime)을 극대화</strong>하는 핵심 기능</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>💡 핵심 가치:</strong> ENRZ-DP50은 단순한 디스플레이가 아닌, <strong>생산 효율성</strong>과 <strong>품질 관리</strong>를 한 차원 높이는 현장 운영의 <strong>통합 핵심 솔루션</strong>입니다.
+                </div>
+            </section>
+
+            <section>
+                <h2>⚙️ 2. 시스템 구성 및 하드웨어</h2>
+                <p>ENRZ-DP50은 <strong>마스터 컨트롤러(MU50)</strong>와 작업자 간의 핵심 접점 역할을 합니다. 직관적인 터치스크린을 통해 시스템 상태를 파악하고 명령을 내립니다.</p>
+
+                <h3>시스템 연결 방식</h3>
+                <p>ENRZ-DP50은 시스템 환경에 따라 두 가지 방식으로 MU50과 연결됩니다.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🌐 Ethernet 연결</h4>
+                        <ul>
+                            <li>CAT.5E 이상 스트레이트 LAN 케이블 사용</li>
+                            <li>HUB를 통한 다중 장비 연결 가능</li>
+                            <li>1:1 직접 연결 지원</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔌 RS-422 직렬 연결</h4>
+                        <ul>
+                            <li>전용 통신 케이블 사용 (ENRZ-CVDP2-□□□)</li>
+                            <li>안정적인 1:1 통신 구성</li>
+                            <li>노이즈에 강한 직렬 통신</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>주요 부분 명칭 및 기능</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>명칭</th>
+                            <th>핵심 기능</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>상태 LED</strong></td>
+                            <td>운전 상태를 색상으로 표시 (녹색: 운전 중, 적색: 전원 기동 시 등)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>시리얼 인터페이스 (COM2)</strong></td>
+                            <td>RS-422 직렬 통신 케이블 연결 포트</td>
+                        </tr>
+                        <tr>
+                            <td><strong>전원 플러그 커넥터</strong></td>
+                            <td>장치 구동을 위한 DC24V 전원 공급</td>
+                        </tr>
+                        <tr>
+                            <td><strong>이더넷 인터페이스</strong></td>
+                            <td>Ethernet 통신용 표준 RJ-45 포트 (10BASE-T/100BASE-TX)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>🔩 3. 설치 및 배선 가이드</h2>
+                <p>장비의 높은 성능과 안정적인 운영을 보장하기 위해 올바른 설치 절차를 준수해야 합니다.</p>
+
+                <h3>패널 설치 절차</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>사전 조건 확인:</strong> 패널 두께 1.6mm ~ 5mm, 주변 공간 확보 상하좌우 100mm 이상, 설치 각도 수직 기준 30° 이내
+                    </li>
+                    <li>
+                        <strong>패널 가공 및 방수 패킹 확인</strong> (IP65f 등급 보장)
+                    </li>
+                    <li>
+                        <strong>DP50 삽입 및 후면 고정:</strong> 고정쇠 장착 및 체결, 체결 토크 0.5 N·m (대각선 방향 균등 체결)
+                    </li>
+                </ol>
+
+                <h3>전원 연결 및 접지</h3>
+                <div class="warning-box">
+                    <strong>⚠️ 중요:</strong> 안정적인 전원 공급과 접지는 노이즈 방지 및 장비 보호에 필수입니다.
+                </div>
+
+                <p><strong>DC24V 전원 연결:</strong> 권장 전선 규격(0.75 ~ 2.5 mm²)에 맞게 전용 커넥터의 <strong>+, -, FG</strong> 단자에 정확히 결선합니다.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>접지 방식</th>
+                            <th>평가</th>
+                            <th>설명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>전용 접지</strong></td>
+                            <td><span style="color: #27ae60;">✓ 최선 (권장)</span></td>
+                            <td>DP50의 FG 단자를 다른 장비와 공유하지 않고 독립적으로 접지</td>
+                        </tr>
+                        <tr>
+                            <td><strong>공용 접지</strong></td>
+                            <td><span style="color: #f39c12;">○ 양호</span></td>
+                            <td>제3종 접지(100Ω 이하) 수준의 안정적인 공용 접지점 이용</td>
+                        </tr>
+                        <tr>
+                            <td><strong>건너뛰기 접지</strong></td>
+                            <td><span style="color: #e74c3c;">✗ 금지</span></td>
+                            <td>하나의 접지선으로 여러 장비를 직렬 연결하는 방식은 절대 금지</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="danger-box">
+                    <strong>🚫 절대 금지:</strong> 건너뛰기 접지(데이지 체인) 방식은 과부하 및 보호 미흡으로 절대 사용하지 마십시오.
+                </div>
+            </section>
+
+            <section>
+                <h2>🖥️ 4. 초기 시스템 설정</h2>
+                <p>장치의 모든 핵심 기능을 사용하기 위한 필수 단계입니다.</p>
+
+                <h3>연결 방식별 초기 설정</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>연결 방식</th>
+                            <th>모델</th>
+                            <th>설정 절차 요약</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ethernet</strong></td>
+                            <td>ENRZ-DP50-E</td>
+                            <td>
+                                <ol style="margin: 0; padding-left: 20px;">
+                                    <li>MU50 전원 ON 및 시스템 파라미터(IP, 서브넷) 설정</li>
+                                    <li>DP50 전원 ON → 오프라인 메뉴 → [본체 설정] > [이더넷 설정]에서 IP/마스크/게이트웨이 설정</li>
+                                    <li>[주변기기 설정]에서 통신할 MU50의 IP 주소 입력 후 재부팅</li>
+                                </ol>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>RS-422</strong></td>
+                            <td>ENRZ-DP50-S</td>
+                            <td>
+                                <ol style="margin: 0; padding-left: 20px;">
+                                    <li>전용 통신 케이블로 DP50의 COM2와 MU50의 PANEL 포트 연결</li>
+                                    <li>양쪽 장치 전원 ON 시 자동으로 연결 완료</li>
+                                </ol>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>최초 기동 시 보안 설정 해제</h3>
+                <p>공장 출하 시 잠금 상태인 주요 기능을 사용하기 위해 보안을 해제해야 합니다.</p>
+                
+                <ol class="step-list">
+                    <li>초기 화면 우측 하단 <strong>보안 버튼</strong> 터치</li>
+                    <li>초기 비밀번호 <code>1234</code> 입력</li>
+                    <li>보안 설정 화면에서 <strong>'파라미터 편집'</strong>과 <strong>'오퍼레이션'</strong> 항목을 <strong>'금지'에서 '허가'로 변경</strong></li>
+                </ol>
+            </section>
+        </div>
+
+        <footer>
+            <p><strong>ENRZ-DP50 디스플레이 장치</strong></p>
+            <p>Z50 시리즈 서보 너트러너 및 프레스 시스템용 HMI</p>
+        </footer>
+    </div>
+</body>
+</html>

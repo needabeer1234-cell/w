@@ -159,13 +159,24 @@
                             <span className="text-sm font-semibold text-white">유선 수지식 너트러너</span>
                         </div>
 
+                        <p class="text-xl text-slate-300 mb-12 leading-relaxed max-w-3xl mx-auto">
+                            CSV, EXCEL파일 샘플:
+                            <a 
+                                href="https://www.dropbox.com/scl/fo/ptfjq33aw5w4dnp2jfvle/AEzHS5-Hyl8f6CPSEUd1gGo?rlkey=oca0qyr30vzqwcr0hnnb1erwd&dl=0"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="underline text-blue-300"
+                            >
+                                다운로드 링크
+                            </a>
+                        </p>
 
 
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                             {[
                                 { icon: DatabaseIcon, title: '다중 수집', desc: '통합 관리', color: 'from-blue-500 to-cyan-500' },
                                 { icon: SearchIcon, title: '정밀 검색', desc: '상세 조회', color: 'from-purple-500 to-pink-500' },
-                                { icon: FileUpIcon, title: '파일 출력', desc: 'Excel/CSV', color: 'from-green-500 to-emerald-500' },
+                                { icon: FileUpIcon, title: '파일 출력', desc: 'Excel/CSV ', color: 'from-green-500 to-emerald-500' },
                                 { icon: LineChartIcon, title: '커브 분석', desc: '시각화', color: 'from-orange-500 to-red-500' }
                             ].map((item, idx) => (
                                 <div key={idx} className="glassmorphism p-6 rounded-2xl card-hover group">
@@ -347,12 +358,11 @@
                                 데이터 유실<br/>걱정 없는 시스템
                             </h2>
                             <p className="text-lg text-slate-300 mb-8 leading-relaxed">
-                                MPU60 시리즈는 네트워크가 단절되어도 컨트롤러 내부에 데이터를 임시 저장합니다. 
+                                네트워크가 단절되어도 컨트롤러 내부에 데이터를 임시 저장합니다. 
                                 연결이 복구되면 자동으로 누락된 데이터를 보완하여 완벽한 이력 관리를 실현합니다.
                             </p>
                             <div className="space-y-4">
                                 {[
-                                    '99.9% 데이터 보존율 달성',
                                     '자동 재연결 및 동기화',
                                     '실시간 상태 모니터링'
                                 ].map((text, idx) => (
