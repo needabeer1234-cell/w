@@ -56,10 +56,10 @@
         <!-- 메인 헤더 -->
         <header class="text-center py-6 mb-8 border-b border-gray-700">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-white">
-                Z50 고정식 너트러너 설치관련 가이드
+                Z50 고정식 너트러너 설치가이드
             </h1>
             <p class="text-gray-400 mt-2 text-lg">
-                AXIS 제어 유닛(ENRZ-AU50M) 및 마스터 제어 유닛(ENRZ-MU50)
+                AU50M(드라이버), MU50(통신모듈)
             </p>
         </header>
 
@@ -67,13 +67,15 @@
         <section class="mb-12">
             <div class="section-header">
                 <h2 class="text-2xl font-bold text-sky-400">
-                    1. AXIS 제어 유닛 (ENRZ-AU50M) 제품 설치 주의사항
+                    1. ENRZ-AU50M, 드라이버 설치 주의사항
                 </h2>
             </div>
             
             <!-- DIP 스위치 설정 카드 -->
             <div class="info-card">
-                <h3 class="text-xl font-semibold mb-4 text-gray-200">딥 스위치 설정</h3>
+                <h3 class="text-xl font-semibold mb-4 text-gray-200">DIP 스위치 설정</h3>
+                         <img src="image/AU_DIP.jpg" 
+
                 <ul class="detail-list space-y-3 text-sm sm:text-base">
                     <li>
                         <span class="font-bold text-sky-300">MAS/LOC 국 전환 (DIP스위치 1):</span> 다축 시스템 사용 시 설정. 단독 사용 시 <span class="highlight-value">ON (MAS 국)</span>으로 설정. (공장 출하: <span class="highlight-value">OFF (LOC 국)</span>)
@@ -85,7 +87,7 @@
                         <span class="font-bold text-sky-300">핫스와핑 기능 (DIP스위치 3):</span> <span class="highlight-value">ON</span> 설정 시 핫스와핑 기능 유효 (펌웨어 Ver.AA1400 이상). (공장 출하: <span class="highlight-value">OFF (무효)</span>)
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">모터 센서 전환 (DIP스위치 9):</span> 레졸버 또는 엔코더 선택. <span class="highlight-value">ON (레졸버)</span>, <span class="highlight-value">OFF (엔코더)</span>. <span class="text-red-400 font-bold">주의: 설정을 잘못하면 시스템 에러 발생!</span> (공장 출하: <span class="highlight-value">ON (레졸버)</span>)
+                        <span class="font-bold text-sky-300">모터센서 사양 전환 (DIP스위치 9):</span> 레졸버 또는 엔코더 선택. <span class="highlight-value">ON (레졸버)</span>, <span class="highlight-value">OFF (엔코더)</span>.<br> <span class="text-red-400 font-bold">주의: 설정을 잘못하면 시스템 에러 발생!</span> (공장 출하: <span class="highlight-value">ON (레졸버)</span>)
                     </li>
                 </ul>
             </div>
@@ -95,7 +97,7 @@
                 <h3 class="text-xl font-semibold mb-4 text-gray-200">배선 및 연결</h3>
                 <ul class="detail-list space-y-3 text-sm sm:text-base">
                     <li>
-                        <span class="font-bold text-sky-300">접지:</span> 감전 방지를 위해 보호 접지 단자를 제어반의 보호 접지와 반드시 연결. 권장: 제3종 접지 (100Ω 이하).
+                        <span class="text-red-400 font-bold">접지:감전 방지를 위해 보호 접지 단자를 제어반의 보호 접지와 반드시 연결. </span> <br/>권장: 제3종 접지 (100Ω 이하).
                     </li>
                     <li>
                         <span class="font-bold text-sky-300">제어 전원:</span> 단상 AC200~230V±10% (50/60Hz)를 L1C, L2C 단자에 연결.
@@ -103,10 +105,12 @@
                     <li>
                         <span class="font-bold text-sky-300">동력 전원:</span> 
                         <ul class="list-disc ml-6 mt-1 text-gray-400 space-y-1">
-                            <li>AU50M-10 모델: L1, L2 (단상)</li>
-                            <li>AU50M-20, 40, 2K, 5K2 모델: L1, L2, L3 (삼상)</li>
-                            <li>제어 전원과 주 전원은 별도 운용 가능하며, 주 전원은 제어 전원과 동시에 또는 그 이후에 입력해야 함.</li>
-                            <li><span class="font-bold text-green-400">확인 사항:</span> 반드시 “CHARGE”부에 빨강색 점등 확인.</li>
+                            * AU50M-10 모델: L1, L2 (단상)<br>
+                            * AU50M-20, 40, 2K, 5K2 모델: L1, L2, L3 (삼상)<br>
+                            * 제어 전원과 주 전원은 별도 운용 가능하며, 주 전원은 제어 전원과 동시에 또는 그 이후에 입력해야 함.<br>  
+                            <span class="font-bold text-red-400">확인 사항: 반드시 “CHARGE”부에 빨강색 점등 확인.</span> <br> 
+                            <img src="image/au_1.png" 
+
                         </ul>
                     </li>
                     <li>
@@ -116,10 +120,10 @@
                         <span class="font-bold text-sky-300">NET 케이블 (RS485-NET):</span> 다축 제어 시 AXIS 컨트롤 유닛 간 연결. 연결되지 않은 커넥터에는 반드시 종단저항(ENRZ-CVST3) 장착.
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">케이블 배치/노이즈 대책:</span> 너트러너 케이블은 가능한 짧게 선정. 토크 트랜스듀서 및 레졸버 케이블은 **모터 케이블과 별도로 배선 (30cm 이상 이격 또는 금속 벽 삽입)** 권장. 중계 케이블은 1개 이상 사용 금지.
+                        <span class="font-bold text-sky-300">케이블 배치/노이즈 대책:</span> 너트러너 케이블은 가능한 짧게 선정. 토크 트랜스듀서 및 레졸버 케이블은 **모터 케이블과 별도로 배선 (30cm 이상 이격 또는 금속 벽 삽입)** 권장. <br>중계 케이블은 1개 이상 사용 금지.
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">백업 배터리:</span> 시스템 달력 기능(날짜/시간)을 위해 옵션 배터리(ENRZ-BATT) 장착. <span class="text-yellow-400">2년마다 교체 권장.</span>
+                        <span class="font-bold text-sky-300">백업 배터리:</span> 시스템 달력 기능(날짜/시간)을 위해 옵션 배터리(ENRZ-BATT) 장착. <br><span class="text-yellow-400">2년마다 교체 권장.</span>
                     </li>
                 </ul>
             </div>
@@ -136,13 +140,15 @@
 
             <!-- DIP 스위치 설정 카드 -->
             <div class="info-card">
-                <h3 class="text-xl font-semibold mb-4 text-gray-200">딥 스위치 설정</h3>
+                <h3 class="text-xl font-semibold mb-4 text-gray-200">DIP 스위치 설정</h3>
+                                         <img src="image/MU_DIP.jpg" 
+
                 <ul class="detail-list space-y-3 text-sm sm:text-base">
                     <li>
                         <span class="font-bold text-sky-300">CC-Link 리셋 설정 (SW1):</span> (공장 출하: <span class="highlight-value">OFF</span>)
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">FROM 설정 값 우선 설정 (SW2):</span> (공장 출하: <span class="highlight-value">OFF</span>)
+                        <span class="font-bold text-sky-300">FROM 설정 값 우선(CF카드보다 우선) 설정 (SW2):</span> (공장 출하: <span class="highlight-value">OFF</span>)
                     </li>
                     <li>
                         <span class="font-bold text-sky-300">AU 각 축 체결 결과 NG 출력 설정 (SW4):</span> <span class="highlight-value">ON</span> 설정 시 작동하지 않거나 축 절단된 축의 체결 완료 및 NG 출력이 무효화됨 (Ver.MA1240 이상). (공장 출하: <span class="highlight-value">OFF (유효)</span>)
@@ -151,7 +157,7 @@
                         <span class="font-bold text-sky-300">설정 보호기능 (SW8):</span> <span class="highlight-value">ON</span> 설정 시 MU50 패널에서 주요 설정 및 초기화 실행 불가. PC50/DP50을 통한 설정 변경은 보호되지 않음 (Ver.MA1380 이상).
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">FIELDBUS 1BYTE 출력 설정 (SW6):</span> 외부기기 수신 캐릭터 데이터 깨짐 발생 시 <span class="highlight-value">ON</span>. (공장 출하: <span class="highlight-value">OFF</span>)
+                        <span class="font-bold text-sky-300">FIELDBUS 1BYTE 출력 설정 (SW6):</span> 데이터 출력시 글자 깨짐 발생 시 <span class="highlight-value">ON</span>하여 시도할 것. <br>(공장 출하: <span class="highlight-value">OFF</span>)
                     </li>
                 </ul>
             </div>
@@ -159,9 +165,11 @@
             <!-- 배선 및 연결 카드 -->
             <div class="info-card">
                 <h3 class="text-xl font-semibold mb-4 text-gray-200">배선 및 연결</h3>
+                                            <img src="image/MU_1.png" 
+
                 <ul class="detail-list space-y-3 text-sm sm:text-base">
                     <li>
-                        <span class="font-bold text-sky-300">접지:</span> 마스터 컨트롤 유닛은 반드시 접지해야 함.
+                        <span class="font-bold text-sky-300">접지:</span> MU50은 반드시 접지해야 함.
                     </li>
                     <li>
                         <span class="font-bold text-sky-300">전원 공급:</span> AC100~230V±10% (50/60Hz)를 POWER 커넥터에 연결.
@@ -173,19 +181,19 @@
                         <span class="font-bold text-sky-300">NET1 커넥터:</span> MU50과 AU50/SPU50 간 연결.
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">FIELDBUS 포트 (옵션):</span> 필드버스 유형(DeviceNet, CC-Link 등)에 따라 노드 주소 및 통신 속도 설정 필수.
+                        <span class="font-bold text-sky-300">FIELDBUS 포트 (있을 경우):</span> 필드버스 유형(DeviceNet, CC-Link 등)에 따라 노드 주소 및 통신 속도 설정 필수.
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">CF 카드:</span> 메인 메모리 역할. 지정된 CF 카드만 사용해야 하며, <span class="text-red-400">파일 쓰기 중 전원 차단 시 고장(CF 카드 이상) 주의.</span>
+                        <span class="font-bold text-sky-300">CF 카드:</span> 메인 메모리 역할. 지정된 CF 카드만 사용해야 하며, <br><span class="text-red-400">파일 쓰기 중 전원 차단 시 고장나므로 (CF 카드 이상) 주의.</span>
                     </li>
                     <li>
                         <span class="font-bold text-sky-300">USB 메모리 포트:</span> 외부 저장 장치 연결. FAT32 형식, USB 2.0/TYPE-A 호환.
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">RS-232C (SERIAL 포트):</span> PC 또는 프린터 연결 (실드 처리된 크로스 케이블 사용). RS-422와 동시 사용 불가.
+                        <span class="font-bold text-sky-300">RS-232C (SERIAL 포트):</span> PC 또는 프린터 연결 (당사 순정품 사용 혹은 실드 처리된 크로스 케이블을 배선하여 사용; 매뉴얼 참조). <br>RS-422와 동시 사용 불가.
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">ETHERNET 포트:</span> PC(PC50) 연결. CAT.5E 등급 이상 LAN 케이블 및 FA용 스위칭 허브 권장. RJ45 표준 커넥터 사용.
+                        <span class="font-bold text-sky-300">ETHERNET 포트:</span> PC(PC50) 연결. CAT.5E 등급 이상 LAN 케이블 및 FA용 스위칭 허브 권장. <br>RJ45 표준 커넥터 사용.
                     </li>
                     <li>
                         <span class="font-bold text-sky-300">케이블 및 노이즈 대책:</span> 통신선은 짧게 유지. 다른 동력선이나 에어 호스와 별도 계통으로 배선하거나 차폐판 설치하여 노이즈로 인한 시스템 에러 방지.
@@ -195,9 +203,9 @@
         </section>
 
         <footer class="text-center py-4 mt-8 text-gray-500 border-t border-gray-800">
-            <p>&copy; 제품 설치 주의사항 안내 문서. 고객 전달용 자료.</p>
+            <p>&copy; 간이 안내문서. 설비업체, 유저에 전달가능.</p>
         </footer>
 
     </div>
 </body>
-</html>
+</html>ㄴ
