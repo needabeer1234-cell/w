@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ISO 5393 나사 체결용 회전 공구 성능 시험 표준에 대한 완벽한 가이드">
+    <title>ISO 5393: 체결용 공구 검증 가이드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&display=swap');
+        
+        * {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+        
+        body {
+            line-height: 1.7;
+            background-color: #000000;
+            color: #cbd5e1;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #38bdf8;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #38bdf8;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .section-card {
+            background: linear-gradient(135deg, #243139 0%, #1a2332 100%);
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .formula-block {
+            background: #0e2049;
+            padding: 1.5rem;
+            border-left: 4px solid #0ea5e9;
+            border-radius: 0 0.5rem 0.5rem 0;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 1.5rem 0;
+            color: #f1f5f9;
+            overflow-x: auto;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: #0ea5e9;
+        }
+        
+        @media (max-width: 768px) {
+            .section-card {
+                padding: 1.5rem;
+            }
+            
+            nav {
+                padding: 1rem;
+            }
+        }
+        
+        /* 스무스 스크롤 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 포커스 스타일 개선 */
+        a:focus, button:focus {
+            outline: 2px solid #38bdf8;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+
+</nav>
+
+    <header class="py-16 sm:py-20 px-4 sm:px-6 text-center bg-gradient-to-b from-slate-900 to-[#0f172a]">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 sm:mb-8 leading-tight">
+                체결공구의 정도 검사에 대한 가이드</span>
+            </h1>
+            <p class="text-base sm:text-lg text-slate-400 leading-relaxed px-4">
+                체결 품질 신뢰성을 확보를 위한 ISO5393 표준을 상세히 설명합니다.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
+
+        <article id="section1" class="section-card">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 flex items-center">
+                <i class="fa-solid fa-circle-info mr-3 sm:mr-4 text-sky-500" aria-hidden="true"></i>
+                <span>1. ISO 5393 표준의 이해</span>
+            </h2>
+            <div class="space-y-4 text-sm sm:text-base">
+                <p>제조업에서 제품의 품질은 부품의 조립(체결)의 안정성에 의해 좌우됩니다. 
+                    나사, 볼트 등의 체결공정은 제품의 내구성과 안전성에 직접적인 영향을 미치는 핵심입니다.</p>
+                
+                <p><strong class="text-sky-400">ISO 5393 표준</strong>은 바로 이 체결 공정에서 사용되는 동력 공구(Power Assembly Tools)의 
+                    성능을 실험실 환경에서 정밀하게 측정하고 평가하기 위해 고안된 국제 표준입니다.</br></br>
+                     이 표준은 공구가 조인트(체결부)에 적용하는 토크의 정확성과 반복 정밀도를 객관적인 데이터로 제시합니다.</p>
+                
+                <h3 class="text-lg sm:text-xl font-bold text-sky-400 mt-8 mb-4">핵심</h3>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-4">
+                    <div class="feature-card p-4 sm:p-5 bg-slate-800 rounded-lg border border-slate-700">
+                        <h4 class="font-bold text-white mb-2">이 표준의 목적</h4>
+                        <p class="text-xs sm:text-sm text-slate-300">공구 생산자에게는 제품의 정도를 표준화된 방식으로 제공할 수 있는
+                             기준을 제시합니다.</br>
+                             또한 유저게는 공정에 가장 적합한 공구를 선정할 수 있는 기준을 제공합니다.</p>
+                    </div>
+                    <div class="feature-card p-4 sm:p-5 bg-slate-800 rounded-lg border border-slate-700">
+                        <h4 class="font-bold text-white mb-2"> 버전 2017</h4>
+                        <p class="text-xs sm:text-sm text-slate-300">선호 시험 토크 레벨(Preferred test torque levels) 제시, 
+                            규정된 작동 사이클 수에 따른 성능 변화 평가, 공구 내장 토크 측정 시스템의 정밀도 측정 절차 등이 포함되었습니다.</p>
+                    </div>
+                    <div class="feature-card p-4 sm:p-5 bg-slate-800 rounded-lg border border-slate-700">
+                        <h4 class="font-bold text-white mb-2">표준의 성격</h4>
+                        <p class="text-xs sm:text-sm text-slate-300">통제된 환경에서 지정된 측정기를 사용하여 수행하는 
+                            <em class="text-sky-400">실험실 성능 시험(Laboratory Performance Test)</em>입니다. </br>
+                            외부 변수를 최소화하여 정확히 기계적 성능을 측정합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="section2" class="section-card">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 flex items-center">
+                <i class="fa-solid fa-crosshairs mr-3 sm:mr-4 text-sky-500" aria-hidden="true"></i>
+                <span>2. ISO 5393 적용 범위</span>
+            </h2>
+            <p class="mb-6 text-sm sm:text-base">전동 공구는 각각 다른 원리로 작동하며, ISO 5393은 연속적인 방식(다이렉트 모드)로 토크를 가하는 체결공구를 대상으로 합니다.</p>
+                     <img src="image/iso1.jpg">
+
+            <div class="space-y-6">
+                <div class="bg-slate-800 p-4 sm:p-6 rounded-lg border border-slate-700">
+                    <h3 class="font-bold text-base sm:text-lg mb-4 text-sky-400">적용 대상 공구</h3>
+                    <p class="text-xs sm:text-sm mb-4 text-slate-300">아래와 같은 동력원을 사용하는 회전 공구에 적용 가능합니다.</p>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300 text-sm sm:text-base">
+                        <li><i class="fa-solid fa-check mr-2 text-sky-500" aria-hidden="true"></i>공압 (Pneumatic)</li>
+                        <li><i class="fa-solid fa-check mr-2 text-sky-500" aria-hidden="true"></i>유압 (Hydraulic)</li>
+                        <li><i class="fa-solid fa-check mr-2 text-sky-500" aria-hidden="true"></i>전동 (Electric)</li>
+                        <li><i class="fa-solid fa-check mr-2 text-sky-500" aria-hidden="true"></i>배터리 구동 (Battery-powered)</li>
+                    </ul>
+                </div>
+
+                <div class="bg-rose-900/20 p-4 sm:p-6 border border-rose-500/30 rounded-lg">
+                    <h3 class="font-bold text-rose-400 text-base sm:text-lg mb-4">적용 제외 대상</h3>
+                    <p class="text-xs sm:text-sm mb-4 text-slate-300">간헐적으로 힘을 가하는 임팩트 기능의 체결 공구는 제외됩니다.</p>
+                    <ul class="list-disc list-inside space-y-2 text-slate-300 text-xs sm:text-sm">
+                        <li>임팩트 렌치 (Impact wrenches)</li>
+                        <li>라쳇 클러치가 장착된 렌치 (Ratchet wrenches)</li>
+                        <li>기타 마찰을 극복하며 불연속적인 증분으로 조이는 공구 *당사의 펄스 모드도 이에 해당합니다.
+                        </li></li>
+                    </ul>
+                </div>
+
+                <div class="text-xs sm:text-sm border-l-4 border-sky-500 pl-4 py-2 bg-slate-800/50 rounded-r">
+                    <strong class="text-white">적용가능한 토크 범위:</strong> 일반적으로
+                     <span class="text-sky-400 font-bold">0.5 Nm ~ 2000 Nm</span> 입니다. 
+                    </br>이 범위를 벗어날 경우 시험 방법을 수정하고 변경 사항을 보고서에 명확히 기입해야 합니다.
+                </div>
+            </div>
+        </article>
+
+        <article id="section3" class="section-card">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 flex items-center">
+                <i class="fa-solid fa-microscope mr-3 sm:mr-4 text-sky-500" aria-hidden="true"></i>
+                <span>3. 시험 방법</span>
+            </h2>
+            <img src="image/iso2.jpg">
+
+            <div class="space-y-8">
+                <section>
+                    
+                    <h3 class="text-lg sm:text-xl font-bold text-sky-400 mb-4">시험 표준 환경 조건</h3>
+                    <div class="bg-slate-900 p-4 sm:p-6 rounded border border-slate-700 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-0">
+                        <div class="text-center">
+                            <p class="text-xs text-slate-500 mb-1">주변 온도</p>
+                            <p class="text-xl sm:text-2xl font-bold text-sky-400">22°C ±5°C</p>
+                        </div>
+                        <div class="text-center sm:border-l border-slate-700 sm:pl-8">
+                            <p class="text-xs text-slate-500 mb-1">상대 습도</p>
+                            <p class="text-xl sm:text-2xl font-bold text-sky-400">90% 이하</p>
+                        </div>
+                                            </div>
+                                            
+                </section>
+
+                <section>
+                    <h3 class="text-lg sm:text-xl font-bold text-sky-400 mb-4">기본 테스트 설치(Test Installation)</h3>
+                    <p class="text-slate-400 mb-4 text-sm sm:text-base">정확한 토크 측정을 위해 시험 장비는 외부 영향을 최소화하도록 구성되어야 합니다. 토크 변환기는 공구와 테스트 조인트 사이에 위치하여 순수 회전력을 직접 측정합니다.</p>
+                    <blockquote class="text-xs sm:text-sm bg-sky-900/20 p-4 rounded-lg border-l-4 border-sky-500 text-slate-300">
+                        "공구는 테스트 스탠드에 단단히 고정되어야 합니다. </br>이는 시험 중 작업자의 미세한 움직임이 측정 결과에 영향을 미치는 것을 원천 차단하기 위함입니다."
+                    </blockquote>
+                </section>
+
+                <section>
+                    <h3 class="text-lg sm:text-xl font-bold text-sky-400 mb-6">테스트 조인트(Test Joint)의 이해</h3>
+                    <img src="image/iso3.png" width="w-auto" class="mb-6 rounded-lg border border-slate-700"/>
+
+                    
+                    <div class="grid sm:grid-cols-2 gap-4 sm:gap-8 mt-8">
+                        <div class="bg-rose-900/20 p-4 sm:p-6 rounded-lg border border-rose-500/30">
+                            <h4 class="font-bold text-rose-400 mb-3 text-base sm:text-lg">H 조인트 (Hard joint)</h4>
+                            <p class="text-xs sm:text-sm leading-relaxed text-slate-300">경질 조인트 재현. 토크가 10%에서 100%에 
+                                도달하는 데 필요한 회전 각도가 <span class="font-bold text-white">27°</span>에 불과합니다. 
+                                <br>
+                                엔진, 트랜스미션등의 워크에 해당하며,                               매우 급격한 체결 환경을 의미합니다.</p>
+                        </div>
+                        <div class="bg-sky-900/20 p-4 sm:p-6 rounded-lg border border-sky-500/30">
+                            <h4 class="font-bold text-sky-400 mb-3 text-base sm:text-lg">L 조인트 (Soft joint)</h4>
+                            <p class="text-xs sm:text-sm leading-relaxed text-slate-300">연질 조인트 재현. 토크가 10%에서 100%에 
+                                도달하는 데 필요한 회전 각도가 최소 <span class="font-bold text-white">650° 이상</span>입니다. 
+                                <br>바디, 샤시등의 워크에 해당하며, 매우 완만한 체결 환경을 의미합니다.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </article>
+
+        <article id="section4" class="section-card">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 flex items-center">
+                <i class="fa-solid fa-chart-line mr-3 sm:mr-4 text-sky-500" aria-hidden="true"></i>
+                <span>4. 데이터 측정 및 평가</span>
+            </h2>
+            <div class="space-y-6">
+                <p class="text-sm sm:text-base">측정 시 공구는 시험 조인트의 토크 상승 구간 도달 전 최소
+                     <strong class="text-sky-400">3회전의 자유 회전(free running)</strong>이 가능해야 합니다.</p>
+                
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="bg-slate-800 p-4 rounded text-center border border-slate-700">
+                        <p class="text-s text-slate-500 mb-2">하드 조인트 측정 횟수</p>
+                        <p class="text-2xl sm:text-3xl font-bold text-rose-400">25회</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded text-center border border-slate-700">
+                        <p class="text-s text-slate-500 mb-2">소프트 조인트 측정 횟수</p>
+                        <p class="text-2xl sm:text-3xl font-bold text-sky-400">25회</p>
+                    </div>
+                </div>
+
+                <section>
+                    <h3 class="text-lg sm:text-xl font-bold text-sky-400 mt-10 mb-4">핵심 성능 지표 (Core KPIs)</h3>
+                    <ul class="space-y-3 text-xs sm:text-sm leading-relaxed">
+                        <li class="flex"><span class="text-sky-500 mr-2">●</span><span><strong class="text-white">평균 토크 (T̄):</strong> 25회 측정한 토크 값의 산술 평균.</span></li>
+                        <li class="flex"><span class="text-sky-500 mr-2">●</span><span><strong class="text-white">표준 편차 (s):</strong> 평균 토크로부터 분포하는 통계적 지표.</span></li>
+                        <li class="flex"><span class="text-sky-500 mr-2">●</span><span><strong class="text-white">6s 토크 산포:</strong> 표준 편차(s) × 6: 샘플의 99.73%가 포함되는 공구의 반복 정밀도 핵심 지표.</span></li>
+                        <li class="flex"><span class="text-sky-500 mr-2">●</span><span><strong class="text-white">6s 토크 산포율 (%):</strong> (6s / T̄) × 100: 공구들의 정밀도를 비교하는 척도.</span></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3 class="text-lg sm:text-xl font-bold text-sky-400 mt-10 mb-4">종합 성능 평가 (Combined Analysis)</h3>
+                    <div class="formula-block text-xs sm:text-sm">
+                        <p class="mb-4 text-slate-400">네 가지 변수 정의:</p>
+                        <p class="mb-2">a = T̄<sub>H</sub> - 3s<sub>H</sub> | b = T̄<sub>L</sub> + 3s<sub>L</sub></p>
+                        <p class="mb-4">c = T̄<sub>H</sub> + 3s<sub>H</sub> | d = T̄<sub>L</sub> - 3s<sub>L</sub></p>
+                        <p class="text-base sm:text-lg mb-2">종합 평균 토크 (T<sub>comb</sub>) = <span class="text-sky-400">(max(a, b) + min(c, d)) / 2</span></p>
+                        <p class="text-base sm:text-lg">종합 토크 산포 (ΔT<sub>comb</sub>) = <span class="text-sky-400">max(a, b) - min(c, d)</span></p>
+                    </div>
+                </section>
+                            <img src="image/iso4.jpg" width="w-auto" class="mb-6 rounded-lg border border-slate-700"/>
+            </div>
+        </article>
+
+        <article id="section5" class="section-card">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 flex items-center">
+                <i class="fa-solid fa-toolbox mr-3 sm:mr-4 text-sky-500" aria-hidden="true"></i>
+                <span>5. 결과의 해석과 현장 활용</span>
+            </h2>
+            <div class="space-y-6 sm:space-y-8">
+                <section class="border-l-4 border-sky-500 pl-4 sm:pl-6 py-2">
+                    <h3 class="font-bold text-base sm:text-xl text-white mb-2">신규 공구 도입시</h3>
+                    <p class="text-s sm:text-sm text-slate-400">사양서의 정도 대신 ISO 5393에 기반한 시험성적서를 확인하여 객관적 데이터를 기반으로 공구를 선정합니다.</p>
+                </section>
+                <section class="border-l-4 border-sky-500 pl-4 sm:pl-6 py-2">
+                    <h3 class="font-bold text-base sm:text-xl text-white mb-2">기존 공구 관리 (예방 보전)</h3>
+                    <p class="text-s sm:text-sm text-slate-400">정기 정검을 통해 6s 산포 값이 증가하면 수리 또는 교체 시점으로 판단합니다.</p>
+                </section>
+            </div>
+        </article>
+
+        <aside class="section-card border-t-4 border-sky-600 bg-gradient-to-br from-sky-900/20 to-slate-800/50">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-center text-white">체결 공정의 고도화</h2>
+            <p class="text-center text-slate-300 leading-relaxed max-w-3xl mx-auto text-sm sm:text-base px-4">
+                ISO 5393은 체결정도의 관리를 '데이터' 기반의 과학적 관리로 전환합니다. </br>신뢰할 수 있는 검사장비를 준비, 
+                데이터베이스화하를 통해 본 규격을 활용하므로써, </br>글로벌 시장에서 제조기업의 경쟁력의 강화에 기여합니다.
+            </p>
+        </aside>
+    </main>
+    <footer class="bg-slate-900 py-12 sm:py-6 text-center text-slate-100 border-t border-slate-800">
+            <p class="text-xs sm:text-sm font-bold uppercase tracking-widest mb-4 text-sky-500">라이선스: 대리점, 최종유저 배포가능</p>
+        </div>
+    </footer>
+
+</body>
+</html>
