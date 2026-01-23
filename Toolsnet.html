@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+</table><!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolsNet 통신 최적화 가이드</title>
+    <title>HT50 ToolsNet 접속 가이드</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: #e0e0e0;
             line-height: 1.8;
             min-height: 100vh;
@@ -23,7 +23,7 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 50px;
@@ -32,24 +32,36 @@
         }
 
         h1 {
-            color: #64ffda;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 2.2em;
             margin-bottom: 20px;
             text-align: center;
-            text-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+            font-weight: 700;
         }
 
         .language-selector {
             text-align: center;
             margin-bottom: 30px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 10px;
+        }
+
+        .lang-info {
+            color: #b0b0b0;
+            font-size: 0.9em;
+            margin-bottom: 10px;
         }
 
         .lang-btn {
-            background: rgba(100, 255, 218, 0.2);
-            border: 2px solid #64ffda;
-            color: #64ffda;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            color: #e0e0e0;
             padding: 10px 20px;
-            margin: 0 5px;
+            margin: 5px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1em;
@@ -58,26 +70,27 @@
         }
 
         .lang-btn:hover {
-            background: rgba(100, 255, 218, 0.3);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
-        }
-
-        .lang-btn.active {
-            background: #64ffda;
-            color: #0f0c29;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
         h2 {
-            color: #82aaff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 40px 0 20px 0;
             padding-bottom: 10px;
-            border-bottom: 2px solid rgba(130, 170, 255, 0.3);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
             font-size: 1.6em;
         }
 
         h3 {
-            color: #c792ea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 25px 0 15px 0;
             font-size: 1.3em;
         }
@@ -86,14 +99,14 @@
             width: 100%;
             border-collapse: collapse;
             margin: 25px 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 10px;
             overflow: hidden;
         }
 
         th {
-            background: rgba(130, 170, 255, 0.2);
-            color: #82aaff;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            color: #e0e0e0;
             padding: 15px;
             text-align: left;
             font-weight: 600;
@@ -105,12 +118,12 @@
         }
 
         tr:hover {
-            background: rgba(100, 255, 218, 0.05);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
         }
 
         code {
-            background: rgba(100, 255, 218, 0.15);
-            color: #64ffda;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+            color: #e0e0e0;
             padding: 3px 8px;
             border-radius: 4px;
             font-family: 'Courier New', monospace;
@@ -118,12 +131,13 @@
         }
 
         strong {
-            color: #ffcb6b;
+            color: #f0f0f0;
+            font-weight: 600;
         }
 
         .warning {
-            background: rgba(255, 83, 112, 0.15);
-            border-left: 4px solid #ff5370;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-left: 4px solid #667eea;
             padding: 15px 20px;
             margin: 20px 0;
             border-radius: 5px;
@@ -136,6 +150,22 @@
 
         li {
             margin: 10px 0;
+        }
+
+        small {
+            color: #b0b0b0;
+            display: block;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 10px;
+            color: #b0b0b0;
+            font-size: 0.9em;
         }
 
         @media (max-width: 768px) {
@@ -154,12 +184,10 @@
         <h1>HT50으로 ToolsNet/Open Protocol 접속법</h1>
         
         <div class="language-selector">
-            <button class="lang-btn active" onclick="changeLanguage('ko')">한국어</button>
-            <button class="lang-btn" onclick="changeLanguage('en')">English</button>
-            <button class="lang-btn" onclick="changeLanguage('ja')">日本語</button>
+            <div class="lang-info">💡 브라우저 번역 기능을 사용하려면 아래 버튼을 클릭하세요</div>
+            <button class="lang-btn" onclick="openTranslate('en')">🇺🇸 English</button>
+            <button class="lang-btn" onclick="openTranslate('ja')">🇯🇵 日本語</button>
         </div>
-
-        <div id="content">
 
         <h2>1. 포트 설정</h2>
         <table>
@@ -193,17 +221,17 @@
             <tr>
                 <td><strong>System Type</strong></td>
                 <td><code>42</code> (또는 <code>43</code>)</td>
-                <td>42는 Focus61용이지만 경험상 성공확률 높음<br><small>42 실패 시 43 시도</small></td>
+                <td>42는 Focus61용이지만 경험상 성공확률 높음<small>42 실패 시 43 시도</small></td>
             </tr>
             <tr>
-                <td><strong>System Number</strong></td>             
+                <td><strong>System Number</strong></td>
                 <td><code>90</code> (고유값)</td>
-                <td>다른 컨트롤러와 데이터 충돌 방지룰 위해 큰값입력.<br>System Number는 ToolsNet 시스템 내에서 동일한 System Type(장치 유형)에 속한 컨트롤러들 중 해당 기기를 고유하게 식별하기 위해 부여하는 4자리 고유 번호입니다</td>
+                <td>다른 컨트롤러와 데이터 충돌 방지를 위해 큰값입력<small>System Number는 ToolsNet 시스템 내에서 동일한 System Type(장치 유형)에 속한 컨트롤러들 중 해당 기기를 고유하게 식별하기 위해 부여하는 4자리 고유 번호입니다</small></td>
             </tr>
             <tr>
                 <td><strong>Station Number</strong></td>
-                <td>90</td>
-                <td>다른 컨트롤러와 데이터 충돌 방지룰 위해 큰값입력.<br>ToolsNet 및 오픈 프로토콜 시스템의 논리적 계층 구조에서 특정 작업 위치(스테이션)를 고유하게 식별하기 위해 사용하는 번호입니다.</td>
+                <td><code>90</code></td>
+                <td>다른 컨트롤러와 데이터 충돌 방지를 위해 큰값입력<small>ToolsNet 및 오픈 프로토콜 시스템의 논리적 계층 구조에서 특정 작업 위치(스테이션)를 고유하게 식별하기 위해 사용하는 번호입니다</small></td>
             </tr>
         </table>
         <div class="warning">
@@ -257,70 +285,21 @@
                 <td>MID 0004 주기적 확인</td>
             </tr>
         </table>
-        </div>
     </div>
 
     <script>
-        function changeLanguage(lang) {
-            // 버튼 활성화 상태 변경
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // Google Translate 위젯이 로드되어 있는지 확인
-            if (typeof google !== 'undefined' && google.translate) {
-                const select = document.querySelector('.goog-te-combo');
-                if (select) {
-                    select.value = lang;
-                    select.dispatchEvent(new Event('change'));
-                }
-            } else {
-                // Google Translate 위젯이 없으면 새로 로드
-                const script = document.createElement('script');
-                script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-                document.body.appendChild(script);
-                
-                window.googleTranslateElementInit = function() {
-                    new google.translate.TranslateElement({
-                        pageLanguage: 'ko',
-                        includedLanguages: 'ko,en,ja',
-                        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                        autoDisplay: false
-                    }, 'google_translate_element');
-                    
-                    // 위젯이 로드된 후 언어 변경
-                    setTimeout(() => {
-                        const select = document.querySelector('.goog-te-combo');
-                        if (select) {
-                            select.value = lang;
-                            select.dispatchEvent(new Event('change'));
-                        }
-                    }, 1000);
-                };
+        function openTranslate(lang) {
+            const url = window.location.href;
+            let translateUrl;
+            
+            if (lang === 'en') {
+                translateUrl = `https://translate.google.com/translate?sl=ko&tl=en&u=${encodeURIComponent(url)}`;
+            } else if (lang === 'ja') {
+                translateUrl = `https://translate.google.com/translate?sl=ko&tl=ja&u=${encodeURIComponent(url)}`;
             }
+            
+            window.open(translateUrl, '_blank');
         }
-
-        // 페이지 로드 시 Google Translate 위젯 초기화
-        window.onload = function() {
-            const div = document.createElement('div');
-            div.id = 'google_translate_element';
-            div.style.display = 'none';
-            document.body.appendChild(div);
-            
-            const script = document.createElement('script');
-            script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.body.appendChild(script);
-            
-            window.googleTranslateElementInit = function() {
-                new google.translate.TranslateElement({
-                    pageLanguage: 'ko',
-                    includedLanguages: 'ko,en,ja',
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                    autoDisplay: false
-                }, 'google_translate_element');
-            };
-        };
     </script>
 </body>
 </html>
