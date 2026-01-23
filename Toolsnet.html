@@ -1,4 +1,4 @@
-</table><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -158,6 +158,30 @@
             margin-top: 5px;
         }
 
+        #google_translate_element {
+            text-align: center;
+        }
+
+        .goog-te-gadget {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        }
+
+        .goog-te-gadget-simple {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%) !important;
+            border: 2px solid rgba(102, 126, 234, 0.5) !important;
+            padding: 10px 15px !important;
+            border-radius: 8px !important;
+            font-size: 14px !important;
+        }
+
+        .goog-te-gadget-simple:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%) !important;
+        }
+
+        .goog-te-menu-value span {
+            color: #e0e0e0 !important;
+        }
+
         footer {
             text-align: center;
             margin-top: 40px;
@@ -184,9 +208,8 @@
         <h1>HT50으로 ToolsNet/Open Protocol 접속법</h1>
         
         <div class="language-selector">
-            <div class="lang-info">💡 브라우저 번역 기능을 사용하려면 아래 버튼을 클릭하세요</div>
-            <button class="lang-btn" onclick="openTranslate('en')">🇺🇸 English</button>
-            <button class="lang-btn" onclick="openTranslate('ja')">🇯🇵 日本語</button>
+            <div class="lang-info">💡 Language Change(言語変換) </div>
+            <div id="google_translate_element"></div>
         </div>
 
         <h2>1. 포트 설정</h2>
@@ -287,19 +310,19 @@
         </table>
     </div>
 
-    <script>
-        function openTranslate(lang) {
-            const url = window.location.href;
-            let translateUrl;
-            
-            if (lang === 'en') {
-                translateUrl = `https://translate.google.com/translate?sl=ko&tl=en&u=${encodeURIComponent(url)}`;
-            } else if (lang === 'ja') {
-                translateUrl = `https://translate.google.com/translate?sl=ko&tl=ja&u=${encodeURIComponent(url)}`;
-            }
-            
-            window.open(translateUrl, '_blank');
+    <footer>
+        <p>📄 <strong>라이선스:</strong> 대리점, 최종유저 배포가능</p>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ko',
+                includedLanguages: 'ko,en,ja',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
         }
     </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
