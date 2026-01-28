@@ -158,7 +158,7 @@ td:hover {
 <body>
 
 <!-- 로그인 -->
-<div id="login-section">
+  <div id="login-section">
   <div class="login-box">
     <h2>에스틱 대리점 전용 페이지</h2>
     <input type="password" id="pass" placeholder="비밀번호 입력"
@@ -195,7 +195,7 @@ let currentSheet = 0;
 function login() {
   const pw = document.getElementById('pass').value;
 
-  fetch('https://script.google.com/macros/s/너의_ID/exec', {
+  fetch('https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
