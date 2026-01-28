@@ -31,20 +31,20 @@ body {
   box-shadow: 0 0 30px rgba(0,0,0,.8);
   text-align: center;
 
-  /* --- 여기서부터 추가된 세로 정렬 설정 --- */
-  display: flex;           /* 플렉스 모드 켜기 */
-  flex-direction: column;  /* 아래로 하나씩 쌓기 */
-  align-items: center;     /* 가로 중앙 정렬 */
-  gap: 12px;               /* 요소 사이의 간격 (줄바꿈 효과 + 여백) */
+  /* --- 세로 정렬 설정 --- */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 /* 공통 스타일: input과 button의 크기를 똑같이 맞춤 */
 input, button {
-  width: 300px;        /* 가로 길이를 300px로 통일 */
-  height: 45px;        /* 세로 높이를 45px로 통일 */
-  box-sizing: border-box; /* 패딩이 추가되어도 전체 크기가 변하지 않게 고정 */
+  width: 300px;
+  height: 45px;
+  box-sizing: border-box;
   border-radius: 6px;
-  font-size: 16px;     /* 글자 크기 통일 */
+  font-size: 16px;
   text-align: center;
 }
 
@@ -52,16 +52,16 @@ input {
   background: #0f1115;
   border: 1px solid #2a2f3a;
   color: #fff;
-  padding: 0 12px;     /* 높이를 고정했으므로 상하 패딩은 빼고 좌우만 */
+  padding: 0 12px;
 }
 
 button {
   border: none;
   cursor: pointer;
-  display: flex;       /* 글자를 중앙에 완벽히 맞추기 위해 사용 */
+  display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.2s;    /* 호버 시 부드러운 변화 효과 */
+  transition: 0.2s;
 }
 
 /* 각 버튼별 색상만 따로 설정 */
@@ -71,17 +71,17 @@ button {
 }
 .login-btn:hover { background: #2458b8; }
 
-/* 메인 화면의 시트 전환 버튼만 너비를 자동으로 조절하고 싶을 때 */
+/* 메인 화면의 시트 전환 버튼 */
 .btn-swap {
-  width: auto;         /* 고정된 300px을 해제 */
-  min-width: 120px;    /* 최소한의 크기 유지 */
-  padding: 0 15px;     /* 좌우 여백 */
-  height: 45px;        /* 높이는 다른 요소와 통일 */
-  font-size: 14px;     /* 글자 크기 살짝 조정 */
+  width: auto;
+  min-width: 120px;
+  padding: 0 15px;
+  height: 45px;
+  font-size: 14px;
 }
 
 .protect-btn {
-  margin-top: 10px;    /* 위쪽 간격 살짝 조정 */
+  margin-top: 10px;
   background: #0f1115;
   border: 2px solid #ff5252;
   color: #ff5252;
@@ -92,11 +92,16 @@ button {
   color: #0f1115; 
 }
 
-/* 검색창 전용 설정 (이전에 요청하신 노란 배경 유지) */
+/* 검색창 전용 설정 (노란 배경 유지) */
 #searchInput {
   background: #ffeb3b;
   color: #000;
   border: 1px solid #fdd835;
+}
+
+/* 합쳐진 검색창 스타일 및 placeholder 색상 */
+#searchInput::placeholder {
+  color: #444;
 }
 
 #content {
@@ -130,6 +135,7 @@ th {
   background:#202b38;
   position:sticky;
   top:0;
+  z-index:2; /* 스티키 헤더가 테이블 셀 위에 나오도록 */
 }
 
 td:hover {
@@ -137,21 +143,13 @@ td:hover {
   background:#2a3a4a;
 }
 
+/* 검색박스: display:flex으로 gap이 동작하도록 하고 너비 설정 추가 */
 #search-box {
-  display:30ch;
+  display:flex;
+  width:30ch;
   gap:10px;
   margin:10px 0;
 }
-
-#searchInput {
-  background: #ffeb3b;  /* 노란색 배경 */
-  color: #000000;       /* 검정색 글씨 */
-  border: 1px solid #fdd835; /* 테두리도 노랑 계열로 */
-}
-
-/* 노란 배경이라 흰색 안내문구(placeholder)가 안 보일 수 있어 진한 색으로 변경 */
-#searchInput::placeholder {
-  color: #444;
 </style>
 </head>
 
@@ -191,29 +189,34 @@ td:hover {
 </div>
 
 <script>
+const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycby9nk4fuhcSM8HAdjqIcj1vt1QfuEWITv_3COPWjajPCTyCXeD0nVMnMXy62vyWAWGJnA/exec';
+
 let currentSheet = 0;
 function login() {
-  const pw = document.getElementById('pass').value;
+  const pw = document.getElementById('pass').value.trim();
+  const url = `${WEBAPP_URL}?action=login&password=${encodeURIComponent(pw)}`;
 
-  fetch('https://script.google.com/macros/s/AKfycby9nk4fuhcSM8HAdjqIcj1vt1QfuEWITv_3COPWjajPCTyCXeD0nVMnMXy62vyWAWGJnA/exec', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      action: 'login',
-      password: pw
-    })
-  })
+  fetch(url, { method: 'GET' })
   .then(res => res.json())
   .then(res => {
-    if (!res.success) {
+    if (!res || res.success === false) {
       alert('비밀번호 오류');
       return;
     }
 
+    // If login response includes sheet data, show it
     document.getElementById('login-section').classList.add('hidden');
     document.getElementById('content').classList.remove('hidden');
-    document.getElementById('protectBtn').remove();
-    loadSheet(0);
+
+    const pb = document.getElementById('protectBtn');
+    if (pb) pb.remove();
+
+    if (res.name || res.data) {
+      document.getElementById('sheet-name').innerText = '📄 ' + (res.name || '');
+      makeTable(res.data || []);
+    } else {
+      loadSheet(0);
+    }
   })
   .catch(err => {
     alert('통신 오류');
@@ -221,15 +224,26 @@ function login() {
   });
 }
 
-/* 시트 로드 */
+/* 시트 로드 (GET-based) */
 function loadSheet(idx) {
   currentSheet = idx;
   document.getElementById('searchInput').value = '';
+  const url = `${WEBAPP_URL}?action=getSheetByIndex&index=${encodeURIComponent(idx)}`;
 
-  google.script.run.withSuccessHandler(res => {
-    document.getElementById('sheet-name').innerText = '📄 ' + res.name;
-    makeTable(res.data);
-  }).getSheetDataByIndex(idx);
+  fetch(url, { method: 'GET' })
+  .then(res => res.json())
+  .then(res => {
+    if (!res || res.success === false) {
+      alert('시트 로드 실패: ' + (res && res.msg ? res.msg : 'unknown'));
+      return;
+    }
+    document.getElementById('sheet-name').innerText = '📄 ' + (res.name || '');
+    makeTable(res.data || []);
+  })
+  .catch(err => {
+    alert('통신 오류');
+    console.error(err);
+  });
 }
 
 /* 스왑 */
