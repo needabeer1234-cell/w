@@ -195,7 +195,7 @@ let currentSheet = 0;
 function login() {
   const pw = document.getElementById('pass').value;
 
-  fetch('https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform', {
+  fetch('https://script.google.com/macros/s/AKfycby9nk4fuhcSM8HAdjqIcj1vt1QfuEWITv_3COPWjajPCTyCXeD0nVMnMXy62vyWAWGJnA/exec', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
