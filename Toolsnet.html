@@ -21,13 +21,17 @@
 
     <!-- Google Translate Styles -->
     <style>
-        .goog-te-banner-frame { display: none !important; }
-        body { top: 0 !important; }
+         .goog-te-banner-frame { display: none !important; }
+         .goog-te-banner-frame.skiptranslate { display: none !important; }
+         body { top: 0 !important; }
+         body.translated { top: 0 !important; }
+         iframe.goog-te-banner-frame { display: none !important; }
+         .skiptranslate iframe { display: none !important; }
         #google_translate_element {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(203, 159, 159, 0.1);
             padding: 12px;
             border-radius: 8px;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         .goog-te-gadget { font-family: 'Noto Sans KR', sans-serif !important; color: #e5e7eb !important; }
         .goog-te-gadget-simple { background-color: transparent !important; border: none !important; padding: 4px !important; font-size: 14px !important; }
@@ -39,12 +43,12 @@
 
         <!-- Language Selector -->
         <div class="bg-gray-800 rounded-lg p-6 border border-blue-700">
-            <div class="flex items-center justify-between flex-wrap gap-4">
+            <div class="space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="text-2xl">🌐</span>
                     <div>
                         <h3 class="text-lg font-bold text-blue-300">언어 선택 / Language / 言語選択</h3>
-                        <p class="text-sm text-gray-400">Google 번역으로 다른 언어로 보기</p>
+                        <p class="text-lg text-gray-100">Google 번역으로 다른 언어로 보기</p>
                     </div>
                 </div>
                 <div id="google_translate_element"></div>
