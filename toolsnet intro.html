@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolsNet 레거시 접속 가이드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        .section-card {
+            transition: all 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-blue-400">ToolsNet 레거시 접속 가이드</h1>
+                    <p class="text-sm text-gray-400 mt-1">써드파티 컨트롤러 데이터 연동 표준 문서</p>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block bg-blue-900 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold">
+                        Protocol v3.7
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-8">
+        
+        <!-- Section 1: 개요 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">1</span>
+                <h2 class="text-xl font-bold text-blue-300">개요: 써드파티 컨트롤러 통합의 전략적 가치</h2>
+            </div>
+            <div class="ml-11 space-y-4 text-gray-300 leading-relaxed">
+                <p>
+                    인더스트리 4.0 환경에서 제조 데이터의 무결성은 단순히 기록을 넘어 품질 최적화의 핵심 자산입니다. 
+                    <span class="text-blue-400 font-semibold">ToolsNet 오픈 프로토콜(Open Protocol) 3.7</span>을 활용하여 
+                    써드파티 컨트롤러(Generic Controller)를 통합하는 것은 이기종 장비 간의 
+                    <span class="text-yellow-400">'데이터 사일로(Data Silo)'</span>를 제거하고 
+                    전사적 차원의 실시간 모니터링 체계를 구축하는 전략적 가치를 지닙니다.
+                </p>
+                <div class="bg-gray-900 border border-gray-600 rounded-lg p-4">
+                    <p class="text-sm text-gray-400 mb-2">핵심 특징</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">✓</span>
+                            <span>표준화된 ASCII 기반 TCP/IP 통신</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">✓</span>
+                            <span>하드웨어 제조사 독립적 유연성</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">✓</span>
+                            <span>명확한 텍스트 기반 검증 및 유지보수</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: 통신 아키텍처 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">2</span>
+                <h2 class="text-xl font-bold text-purple-300">통신 아키텍처 및 논리적 계층 구조</h2>
+            </div>
+            <div class="ml-11 space-y-5 text-gray-300">
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-200 mb-3">2.1 계층적 식별자 및 고유성</h3>
+                    <p class="mb-3 leading-relaxed">
+                        ToolsNet은 <code class="bg-gray-900 px-2 py-1 rounded text-blue-300">System Type</code>, 
+                        <code class="bg-gray-900 px-2 py-1 rounded text-blue-300">System Number</code>, 
+                        <code class="bg-gray-900 px-2 py-1 rounded text-blue-300">Unit Number</code>의 조합을 통해 
+                        개별 장치를 식별합니다.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div class="bg-gray-900 border border-indigo-700 rounded-lg p-4">
+                            <h4 class="font-semibold text-indigo-300 mb-2">Unit (Station)</h4>
+                            <p class="text-sm text-gray-400">네트워크에 연결되는 물리적 장치. 하나의 컨트롤러 유닛.</p>
+                        </div>
+                        <div class="bg-gray-900 border border-indigo-700 rounded-lg p-4">
+                            <h4 class="font-semibold text-indigo-300 mb-2">Spindle</h4>
+                            <p class="text-sm text-gray-400">유닛 내의 개별 체결 축. 각 유닛 내에서 고유한 번호.</p>
+                        </div>
+                        <div class="bg-gray-900 border border-indigo-700 rounded-lg p-4">
+                            <h4 class="font-semibold text-indigo-300 mb-2">Program</h4>
+                            <p class="text-sm text-gray-400">해당 스핀들에서 실행되는 체결 파라미터 세트.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-200 mb-3">2.2 프로토콜 3.7의 확장성: Multi-unit Socket</h3>
+                    <div class="bg-amber-900 bg-opacity-20 border border-amber-700 rounded-lg p-4">
+                        <p class="text-amber-200 text-sm leading-relaxed">
+                            <span class="font-semibold">버전 3.7 신규 기능:</span> 
+                            하나의 시스템 내에서 하나의 소켓을 통해 여러 Unit(Station)이 연결 가능. 
+                            네트워크 리소스 절약 및 관리 효율화.
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-200 mb-3">2.3 논리적 구조도</h3>
+                    <div class="bg-gray-900 border border-gray-600 rounded-lg p-5 font-mono text-sm">
+                        <pre class="text-green-300">
+[System (Type + Number)]
+    └── [Unit / Station (Number)] ← <span class="text-yellow-300">(3.7부터 단일 소켓 내 다수 Unit 가능)</span>
+            └── [Spindle (Number)]
+                    └── [Program (Number)]
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: PIM 핸드셰이크 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">3</span>
+                <h2 class="text-xl font-bold text-emerald-300">PIM(Protocol Interface Module) 핸드셰이크</h2>
+            </div>
+            <div class="ml-11 space-y-5 text-gray-300">
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-emerald-200 mb-3">3.1 PIM의 전략적 역할</h3>
+                    <p class="leading-relaxed mb-3">
+                        Port <code class="bg-gray-900 px-2 py-1 rounded text-emerald-300">6575</code>를 통한 PIM 핸드셰이크는 
+                        시스템 안정성을 위한 필수 관문입니다.
+                    </p>
+                    <div class="bg-gray-900 border border-emerald-700 rounded-lg p-4">
+                        <p class="text-sm mb-2 font-semibold text-emerald-300">PIM이 제공하는 정보</p>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start">
+                                <span class="text-emerald-400 mr-2">①</span>
+                                <span>실제 접속할 서버의 IP와 Port</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-emerald-400 mr-2">②</span>
+                                <span>마지막으로 성공적으로 저장된 결과 시퀀스 번호</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-emerald-200 mb-3">3.2 PIM 핸드셰이크 3단계</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border-collapse">
+                            <thead>
+                                <tr class="bg-gray-900">
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-emerald-300">단계</th>
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-emerald-300">전문 명칭</th>
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-emerald-300">MID</th>
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-emerald-300">역할</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-gray-800">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">1단계</td>
+                                    <td class="border border-gray-600 px-4 py-3">PIM Verification</td>
+                                    <td class="border border-gray-600 px-4 py-3"><code class="text-blue-300">12</code></td>
+                                    <td class="border border-gray-600 px-4 py-3">서버가 PIM 애플리케이션임을 확인</td>
+                                </tr>
+                                <tr class="bg-gray-750">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">2단계</td>
+                                    <td class="border border-gray-600 px-4 py-3">PIM Info Request</td>
+                                    <td class="border border-gray-600 px-4 py-3"><code class="text-blue-300">07</code></td>
+                                    <td class="border border-gray-600 px-4 py-3">컨트롤러 정보 전송</td>
+                                </tr>
+                                <tr class="bg-gray-800">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">3단계</td>
+                                    <td class="border border-gray-600 px-4 py-3">PIM Information</td>
+                                    <td class="border border-gray-600 px-4 py-3"><code class="text-blue-300">08</code></td>
+                                    <td class="border border-gray-600 px-4 py-3">TN IP/Port, 최신 시퀀스 번호 획득</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: 데이터 전송 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-rose-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">4</span>
+                <h2 class="text-xl font-bold text-rose-300">데이터 전송: 결과 전문(MID 04) 분석</h2>
+            </div>
+            <div class="ml-11 space-y-5 text-gray-300">
+                
+                <div class="bg-rose-900 bg-opacity-20 border border-rose-700 rounded-lg p-4">
+                    <p class="text-rose-200 text-sm leading-relaxed">
+                        <span class="font-semibold">중요:</span> 
+                        써드파티 컨트롤러(System Type 3: Generic)의 모든 전문은 
+                        <span class="text-yellow-300 font-semibold">4바이트의 ASCII 길이 정보</span>로 시작해야 합니다.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-rose-200 mb-3">4.1 MID 04 주요 필드</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border-collapse">
+                            <thead>
+                                <tr class="bg-gray-900">
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-rose-300">필드명</th>
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-rose-300">길이</th>
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-rose-300">포맷</th>
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-rose-300">설명</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-300">
+                                <tr class="bg-gray-800">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">Telegram Length</td>
+                                    <td class="border border-gray-600 px-4 py-3">4 Byte</td>
+                                    <td class="border border-gray-600 px-4 py-3"><code class="text-blue-300">숫자</code></td>
+                                    <td class="border border-gray-600 px-4 py-3">이후 데이터의 전체 길이 (0001-9999)</td>
+                                </tr>
+                                <tr class="bg-gray-750">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">Telegram ID</td>
+                                    <td class="border border-gray-600 px-4 py-3">2 Byte</td>
+                                    <td class="border border-gray-600 px-4 py-3"><code class="text-blue-300">'04'</code></td>
+                                    <td class="border border-gray-600 px-4 py-3">결과 전문 식별 번호</td>
+                                </tr>
+                                <tr class="bg-gray-800">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">Identifier</td>
+                                    <td class="border border-gray-600 px-4 py-3">5 Byte</td>
+                                    <td class="border border-gray-600 px-4 py-3"><code class="text-blue-300">숫자</code></td>
+                                    <td class="border border-gray-600 px-4 py-3">ACK 매칭을 위한 고유 ID</td>
+                                </tr>
+                                <tr class="bg-gray-750">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">System Type</td>
+                                    <td class="border border-gray-600 px-4 py-3">4 Byte</td>
+                                    <td class="border border-gray-600 px-4 py-3"><code class="text-blue-300">'0003'</code></td>
+                                    <td class="border border-gray-600 px-4 py-3">Open Protocol Generic 식별</td>
+                                </tr>
+                                <tr class="bg-gray-800">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">Rundown Seq No</td>
+                                    <td class="border border-gray-600 px-4 py-3">5 Byte</td>
+                                    <td class="border border-gray-600 px-4 py-3"><code class="text-blue-300">숫자</code></td>
+                                    <td class="border border-gray-600 px-4 py-3">유닛 내 고유하며 순차 증가</td>
+                                </tr>
+                                <tr class="bg-gray-750">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">VIN</td>
+                                    <td class="border border-gray-600 px-4 py-3">25 Byte</td>
+                                    <td class="border border-gray-600 px-4 py-3"><code class="text-blue-300">ASCII</code></td>
+                                    <td class="border border-gray-600 px-4 py-3">차량 식별 번호 또는 바코드</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-rose-200 mb-3">4.2 스핀들 상태 값 정의</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gray-900 border border-gray-600 rounded-lg p-4">
+                            <h4 class="font-semibold text-rose-300 mb-3">Overall Status (1 Byte)</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center">
+                                    <code class="bg-green-900 text-green-300 px-2 py-1 rounded mr-2">0</code>
+                                    <span>OK (정상)</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <code class="bg-red-900 text-red-300 px-2 py-1 rounded mr-2">1</code>
+                                    <span>NOK (불량)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-900 border border-gray-600 rounded-lg p-4">
+                            <h4 class="font-semibold text-rose-300 mb-3">Torque/Angle Status (1 Byte)</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center">
+                                    <code class="bg-green-900 text-green-300 px-2 py-1 rounded mr-2">0</code>
+                                    <span>OK</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <code class="bg-red-900 text-red-300 px-2 py-1 rounded mr-2">1</code>
+                                    <span>NOK</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <code class="bg-yellow-900 text-yellow-300 px-2 py-1 rounded mr-2">2</code>
+                                    <span>Low (하한 미달)</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <code class="bg-orange-900 text-orange-300 px-2 py-1 rounded mr-2">3</code>
+                                    <span>High (상한 초과)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: 세션 유지 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-cyan-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">5</span>
+                <h2 class="text-xl font-bold text-cyan-300">세션 유지 및 통신 안정성 전략</h2>
+            </div>
+            <div class="ml-11 space-y-5 text-gray-300">
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-cyan-200 mb-3">5.1 Keep-Alive 및 Ghost Sockets 방지</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gray-900 border border-cyan-700 rounded-lg p-4">
+                            <h4 class="font-semibold text-cyan-300 mb-2">MID 06 (Keep-Alive)</h4>
+                            <p class="text-sm text-gray-400">전송 데이터가 없어도 <span class="text-yellow-300 font-semibold">30초 주기</span>로 송신</p>
+                        </div>
+                        <div class="bg-gray-900 border border-cyan-700 rounded-lg p-4">
+                            <h4 class="font-semibold text-cyan-300 mb-2">서버 타임아웃</h4>
+                            <p class="text-sm text-gray-400"><span class="text-yellow-300 font-semibold">60초</span>간 응답 없는 유닛 연결 강제 종료</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-cyan-200 mb-3">5.2 재연결 로직 및 내부 버퍼링</h3>
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 border-l-4 border-cyan-500 p-4 rounded">
+                            <h4 class="font-semibold text-cyan-300 mb-2">① Transmission Timeout</h4>
+                            <p class="text-sm text-gray-400">전문 송신 후 5초 이내에 ACK(MID 05)가 없으면 2회 재전송</p>
+                        </div>
+                        <div class="bg-gray-900 border-l-4 border-cyan-500 p-4 rounded">
+                            <h4 class="font-semibold text-cyan-300 mb-2">② 내부 버퍼링</h4>
+                            <p class="text-sm text-gray-400">네트워크 단절 시 모든 체결 데이터를 내부 메모리에 저장. 복구 시 PIM을 통해 획득한 시퀀스 이후부터 순차 재전송</p>
+                        </div>
+                        <div class="bg-gray-900 border-l-4 border-cyan-500 p-4 rounded">
+                            <h4 class="font-semibold text-cyan-300 mb-2">③ Connection Timeout</h4>
+                            <p class="text-sm text-gray-400">접속 실패 시 서버 부하 방지를 위해 60초 대기 후 재시도</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-cyan-200 mb-3">5.3 시간 동기화</h3>
+                    <div class="bg-cyan-900 bg-opacity-20 border border-cyan-700 rounded-lg p-4">
+                        <p class="text-cyan-200 text-sm leading-relaxed">
+                            <span class="font-semibold">권장사항:</span> 
+                            Acknowledge 전문(MID 05) 내의 <span class="text-yellow-300 font-semibold">타임스탬프(14 Byte)</span>를 
+                            활용하여 컨트롤러의 내부 시계를 정기적으로 동기화할 것을 강력히 권장합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: 체크리스트 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-amber-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">6</span>
+                <h2 class="text-xl font-bold text-amber-300">구현 체크리스트</h2>
+            </div>
+            <div class="ml-11 space-y-4 text-gray-300">
+                <p class="leading-relaxed">
+                    성공적인 써드파티 컨트롤러 통합은 <span class="text-amber-300 font-semibold">System Type 3(Open Protocol generic)</span> 
+                    규격의 엄격한 준수와 장애 상황에 대비한 견고한 재시도 로직에 달려 있습니다.
+                </p>
+                
+                <div class="bg-gray-900 border border-amber-700 rounded-lg p-5">
+                    <h3 class="font-semibold text-amber-300 mb-4 text-lg">최종 검증 체크리스트</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <input type="checkbox" class="mt-1 mr-3 w-4 h-4 rounded border-gray-600 text-amber-500 focus:ring-amber-500 focus:ring-offset-gray-900">
+                            <span>모든 전문 시작 부분에 <span class="text-yellow-300 font-semibold">4바이트 ASCII 길이(Length Header)</span>가 포함되었는가?</span>
+                        </li>
+                        <li class="flex items-start">
+                            <input type="checkbox" class="mt-1 mr-3 w-4 h-4 rounded border-gray-600 text-amber-500 focus:ring-amber-500 focus:ring-offset-gray-900">
+                            <span><span class="text-yellow-300 font-semibold">PIM 핸드셰이크(MID 12, 07, 08)</span>를 통해 동적 포트와 최신 시퀀스 번호를 수신하는가?</span>
+                        </li>
+                        <li class="flex items-start">
+                            <input type="checkbox" class="mt-1 mr-3 w-4 h-4 rounded border-gray-600 text-amber-500 focus:ring-amber-500 focus:ring-offset-gray-900">
+                            <span>MID 04 전문 내 <span class="text-yellow-300 font-semibold">Identifier(5 Byte)</span>가 누락되지 않았는가?</span>
+                        </li>
+                        <li class="flex items-start">
+                            <input type="checkbox" class="mt-1 mr-3 w-4 h-4 rounded border-gray-600 text-amber-500 focus:ring-amber-500 focus:ring-offset-gray-900">
+                            <span>Rundown Sequence Number가 유닛별로 고유하며 누락 없이 증가하는가?</span>
+                        </li>
+                        <li class="flex items-start">
+                            <input type="checkbox" class="mt-1 mr-3 w-4 h-4 rounded border-gray-600 text-amber-500 focus:ring-amber-500 focus:ring-offset-gray-900">
+                            <span>데이터 부재 시 <span class="text-yellow-300 font-semibold">Keep-Alive(MID 06)</span>가 30초 주기로 발송되는가?</span>
+                        </li>
+                        <li class="flex items-start">
+                            <input type="checkbox" class="mt-1 mr-3 w-4 h-4 rounded border-gray-600 text-amber-500 focus:ring-amber-500 focus:ring-offset-gray-900">
+                            <span>네트워크 장애 시 데이터를 손실 없이 내부 버퍼링하고 재전송하는가?</span>
+                        </li>
+                        <li class="flex items-start">
+                            <input type="checkbox" class="mt-1 mr-3 w-4 h-4 rounded border-gray-600 text-amber-500 focus:ring-amber-500 focus:ring-offset-gray-900">
+                            <span>MID 05의 서버 타임스탬프를 통해 컨트롤러 시간 동기화를 수행하는가?</span>
+                        </li>
+                        <li class="flex items-start">
+                            <input type="checkbox" class="mt-1 mr-3 w-4 h-4 rounded border-gray-600 text-amber-500 focus:ring-amber-500 focus:ring-offset-gray-900">
+                            <span>(3.7 버전 사용 시) 단일 소켓 내 다수 Unit 운용 시 Unit별 PIM 요청이 개별 수행되는가?</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: UI Verification -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">7</span>
+                <h2 class="text-xl font-bold text-indigo-300">ToolsNet 8 UI에서 설정 확인하기</h2>
+            </div>
+            <div class="ml-11 space-y-5 text-gray-300">
+                
+                <p class="leading-relaxed">
+                    ToolsNet 8 UI 상에서 Open Protocol 3.7 사양서가 올바르게 적용되었는지 확인하려면, 
+                    주로 <span class="text-indigo-300 font-semibold">'도구 구조(Tool Structure)'</span>와 
+                    <span class="text-indigo-300 font-semibold">'네트워크 맵(Map)'</span> 화면을 확인해야 합니다.
+                </p>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-indigo-200 mb-3">7.1 도구 구조 및 명칭 확인 (Tool Structure)</h3>
+                    <p class="mb-4 leading-relaxed">
+                        사양서에 정의된 논리적 구조(Unit, Spindle, Program)가 UI에 어떻게 표시되는지 확인하십시오.
+                    </p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 border-l-4 border-indigo-500 p-4 rounded">
+                            <h4 class="font-semibold text-indigo-300 mb-2">스테이션 이름 (Station Name)</h4>
+                            <p class="text-sm text-gray-400">
+                                MID 02(Station description) 전문으로 보낸 이름이 UI 상의 해당 유닛 명칭으로 나타납니다.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-900 border-l-4 border-indigo-500 p-4 rounded">
+                            <h4 class="font-semibold text-indigo-300 mb-2">채널 번호 (Channel Number)</h4>
+                            <p class="text-sm text-gray-400">
+                                사양서의 <span class="text-yellow-300 font-semibold">'스핀들 번호(Spindle Number)'</span>는 
+                                ToolsNet 8 UI에서 <span class="text-yellow-300 font-semibold">'채널 번호'</span>라는 이름으로 표시됩니다.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-900 border-l-4 border-amber-500 p-4 rounded">
+                            <h4 class="font-semibold text-amber-300 mb-2">⚠️ 기본 이름 확인 (Default Names)</h4>
+                            <p class="text-sm text-gray-400">
+                                만약 UI에 "Station 4", "Spindle 2", "Program 5"와 같이 번호 기반의 이름이 뜬다면, 
+                                유닛에서 상세 명칭 전문(MID 01, 02)을 보내지 않고 기본 이름을 사용하고 있는 상태입니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-indigo-200 mb-3">7.2 장치 식별 정보 (Administration / Configuration)</h3>
+                    <p class="mb-4 leading-relaxed">
+                        관리자 메뉴나 시스템 설정 화면에서 해당 유닛의 등록 정보를 확인하십시오.
+                    </p>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 border-l-4 border-indigo-500 p-4 rounded">
+                            <h4 class="font-semibold text-indigo-300 mb-2">고유 조합 확인</h4>
+                            <p class="text-sm text-gray-400 mb-2">
+                                ToolsNet 8은 <span class="text-yellow-300 font-semibold">'시스템 타입 번호 + 시스템 번호 + 유닛 번호'</span>의 
+                                조합으로 각 장치를 식별합니다.
+                            </p>
+                            <p class="text-sm text-gray-400">
+                                이 조합이 사양서에 정의된 대로 고유하게 등록되어 있는지 확인이 필요합니다.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-900 border-l-4 border-indigo-500 p-4 rounded">
+                            <h4 class="font-semibold text-indigo-300 mb-2">시스템 타입 (System Type)</h4>
+                            <p class="text-sm text-gray-400">
+                                이 화면에서 해당 유닛이 
+                                <code class="bg-indigo-900 text-indigo-300 px-2 py-1 rounded mx-1">Estic(43번)</code>으로 분류되어 있는지, 
+                                아니면 <code class="bg-indigo-900 text-indigo-300 px-2 py-1 rounded mx-1">Generic(3번)</code>으로 
+                                되어 있는지 확인할 수 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-indigo-200 mb-3">7.3 데이터 동기화 및 시퀀스 관리</h3>
+                    <div class="space-y-3">
+                        <div class="bg-gray-900 border-l-4 border-green-500 p-4 rounded">
+                            <h4 class="font-semibold text-green-300 mb-2">보고 시작 지점</h4>
+                            <p class="text-sm text-gray-400">
+                                UI의 결과 리스트에서 체결 데이터가 유실 없이 들어오는지 확인하십시오. 
+                                PIM 서버는 UI(데이터베이스)에 저장된 마지막 시퀀스 번호를 기준으로 
+                                유닛에 데이터 전송 시작 지점을 알려줍니다.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-900 border-l-4 border-green-500 p-4 rounded">
+                            <h4 class="font-semibold text-green-300 mb-2">네트워크 맵 (Map View)</h4>
+                            <p class="text-sm text-gray-400">
+                                ToolsNet 8 UI의 맵 뷰에서는 현재 네트워크에 연결된 모든 유닛의 상태를 시각적으로 확인할 수 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-indigo-200 mb-3">UI 확인 포인트 요약</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border-collapse">
+                            <thead>
+                                <tr class="bg-gray-900">
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-indigo-300">UI 항목</th>
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-indigo-300">확인 내용</th>
+                                    <th class="border border-gray-600 px-4 py-3 text-left text-indigo-300">관련 사양서 내용</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-300">
+                                <tr class="bg-gray-800">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">Tool Structure</td>
+                                    <td class="border border-gray-600 px-4 py-3">유닛/스테이션/스핀들의 계층 구조와 이름</td>
+                                    <td class="border border-gray-600 px-4 py-3">섹션 2 (논리적 계층 구조)</td>
+                                </tr>
+                                <tr class="bg-gray-750">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">Channel Name</td>
+                                    <td class="border border-gray-600 px-4 py-3">스핀들 번호와 매칭되는 채널 번호 확인</td>
+                                    <td class="border border-gray-600 px-4 py-3">MID 02 (Station Description)</td>
+                                </tr>
+                                <tr class="bg-gray-800">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">System Type</td>
+                                    <td class="border border-gray-600 px-4 py-3">에스틱(43) 또는 제네릭(3) 등 분류 확인</td>
+                                    <td class="border border-gray-600 px-4 py-3">섹션 2 (계층적 식별자)</td>
+                                </tr>
+                                <tr class="bg-gray-750">
+                                    <td class="border border-gray-600 px-4 py-3 font-semibold">Map View</td>
+                                    <td class="border border-gray-600 px-4 py-3">유닛의 연결 상태 및 네트워크 위치</td>
+                                    <td class="border border-gray-600 px-4 py-3">섹션 2 (논리적 계층 구조)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-red-900 bg-opacity-20 border border-red-700 rounded-lg p-4">
+                    <h4 class="font-semibold text-red-300 mb-2">🔍 추가 확인 팁</h4>
+                    <p class="text-sm text-red-200 leading-relaxed">
+                        만약 UI 상에서 특정 유닛의 에러 메시지가 "Unknown Error" 등으로 뜬다면, 
+                        시스템 타입이 정확하게 일치하지 않아(예: 43번 대신 3번 사용) 발생한 문제일 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 border border-gray-700 rounded-lg p-6 text-center">
+            <div class="text-gray-400 mb-2">
+                <p class="text-sm">기술 지원 및 검증 관련 문의</p>
+            </div>
+            <div class="text-blue-400 font-semibold">
+                <a href="/cdn-cgi/l/email-protection#82f6ecedf2acf4e3eeebe6e3f6ebedecc2e3f6eee3f1e1edf2e1edace1edef" class="hover:text-blue-300 transition-colors">
+                    <span class="__cf_email__" data-cfemail="186c767768366e7974717c796c71777658796c74796b7b77687b77367b7775">[email&#160;protected]</span>
+                </a>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-700 text-xs text-gray-500">
+                ToolsNet Open Protocol v3.7 Documentation
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Scroll to top button -->
+    <button id="scrollTop" class="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all opacity-0 pointer-events-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                scrollTopBtn.classList.add('opacity-100');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-even
+
+                <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolsNet 8 운영 체크리스트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        .section-card {
+            transition: all 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Checkbox Styling */
+        input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #475569;
+            border-radius: 4px;
+            background-color: #1e293b;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        input[type="checkbox"]:hover {
+            border-color: #60a5fa;
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .checklist-item {
+            transition: all 0.2s ease;
+        }
+
+        .checklist-item:hover {
+            background-color: #1e293b;
+        }
+
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        T
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-blue-400">ToolsNet 8</h1>
+                        <p class="text-sm text-gray-400">운영 핵심 체크리스트</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-gray-400">진행률</div>
+                    <div class="text-2xl font-bold text-blue-400" id="progress-text">0%</div>
+                </div>
+            </div>
+            <!-- Progress Bar -->
+            <div class="mt-3 bg-gray-700 rounded-full h-2 overflow-hidden">
+                <div id="progress-bar" class="progress-bar bg-blue-500 h-full" style="width: 0%"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-8">
+
+        <!-- Section 1 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">1</span>
+                <h2 class="text-xl font-bold text-blue-300">시스템 타입(System Type) 확인</h2>
+            </div>
+            <div class="ml-11 space-y-3">
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">Command Center → Unit Monitoring 접속</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">System Type 컬럼 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300"><span class="text-red-400 font-semibold">Unknown</span> 표시 유닛 존재 여부 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">PF6000 → Data Collection Service 사용 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">PF4000 / PM4000 → Data Collection Classic 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">MicroTorque Focus 6000 → Common Data Collection 확인</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">2</span>
+                <h2 class="text-xl font-bold text-purple-300">구조(Structure) 등록 상태 확인</h2>
+            </div>
+            <div class="ml-11 space-y-3">
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">Administration → Manage Structures 접속</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">Site &gt; Area &gt; Line 구조 내 유닛 등록 여부 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">구조 내 System Type 값 실제 장비와 일치 여부 확인</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">3</span>
+                <h2 class="text-xl font-bold text-emerald-300">라이선스 상태 확인</h2>
+            </div>
+            <div class="ml-11 space-y-3">
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">Command Center → License Status 위젯 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">필요 기능에 초록색 점(Green Dot) 표시 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">Licensed Spindles (전체 허용 수) 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">Current Usage (현재 사용량) 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">라이선스 사용률 <span class="text-yellow-400 font-semibold">90% 이상</span> 여부 확인</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-rose-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">4</span>
+                <h2 class="text-xl font-bold text-rose-300">라이선스 트러블 사전 점검</h2>
+            </div>
+            <div class="ml-11 space-y-3">
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">서버 재시작 후 라이선스 정상 인식 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">HP 서버 + NIC Teaming 사용 여부 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">License Failure 발생 시 NIC Teaming 해제 검토</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-cyan-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">5</span>
+                <h2 class="text-xl font-bold text-cyan-300">타사 / 제네릭 기기(Open Protocol) 점검</h2>
+            </div>
+            <div class="ml-11 space-y-3">
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">방화벽 포트 개방 여부 확인 <code class="bg-gray-800 text-cyan-400 px-2 py-1 rounded ml-1">(9004 / 9005)</code></span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">방화벽 포트 개방 여부 확인 <code class="bg-gray-800 text-cyan-400 px-2 py-1 rounded ml-1">(6700)</code></span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">방화벽 포트 개방 여부 확인 <code class="bg-gray-800 text-cyan-400 px-2 py-1 rounded ml-1">(6575 / 6576)</code></span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">타사 기기 System Type 인식 여부 확인</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-amber-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">6</span>
+                <h2 class="text-xl font-bold text-amber-300">데이터 적체 및 통신 상태 점검</h2>
+            </div>
+            <div class="ml-11 space-y-3">
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">Atlas Copco bin 경로 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">pf.que / pm.que / op.que 파일 크기 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">MSMQ Private Queues 데이터 적체 여부 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">DB 연결 상태 정상 여부 확인</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">7</span>
+                <h2 class="text-xl font-bold text-indigo-300">버전 업그레이드 후 필수 작업</h2>
+            </div>
+            <div class="ml-11 space-y-3">
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">ToolsNet <span class="text-indigo-400 font-semibold">8.10 / 8.11</span> 업그레이드 여부 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">DB Migration Script <span class="text-yellow-400 font-semibold">70~78</span> 실행 여부 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">PF6000 사용 시 Script <span class="text-yellow-400 font-semibold">72, 76</span> 실행 확인</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Section 8 -->
+        <section class="section-card bg-gray-800 rounded-lg p-6 mb-6 border border-gray-700 fade-in">
+            <div class="flex items-start mb-4">
+                <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">8</span>
+                <h2 class="text-xl font-bold text-green-300">운영 권장 루틴</h2>
+            </div>
+            <div class="ml-11 space-y-3">
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300"><span class="text-green-400 font-semibold">주 1회</span> Unit Monitoring / License Status 교차 확인</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">미사용 라인 유닛 라이선스 회수 검토</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">라인 증설 전 스핀들 라이선스 사전 확보</span>
+                </label>
+                <label class="checklist-item flex items-start p-3 bg-gray-900 border border-gray-700 rounded-lg cursor-pointer">
+                    <input type="checkbox" class="mt-0.5 mr-3">
+                    <span class="text-gray-300">DB / 라이선스 이슈 발생 시 Atlas Copco 담당자 컨택</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Summary Card -->
+        <div class="bg-gradient-to-r from-blue-900 to-purple-900 rounded-lg p-6 border border-blue-700 fade-in">
+            <div class="flex items-start gap-4">
+                <div class="text-4xl">✅</div>
+                <div>
+                    <h3 class="text-xl font-bold text-blue-300 mb-2">체크리스트 완료 현황</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                        위의 모든 항목을 정기적으로 점검하여 ToolsNet 8 시스템의 안정적인 운영을 보장하십시오.
+                        특히 라이선스 관리와 데이터 통신 상태는 시스템 가동률에 직접적인 영향을 미칩니다.
+                    </p>
+                    <div class="flex gap-4 text-sm">
+                        <div class="bg-gray-800 rounded px-3 py-2">
+                            <span class="text-gray-400">완료:</span>
+                            <span class="text-blue-400 font-bold ml-1" id="checked-count">0</span>
+                        </div>
+                        <div class="bg-gray-800 rounded px-3 py-2">
+                            <span class="text-gray-400">전체:</span>
+                            <span class="text-gray-300 font-bold ml-1" id="total-count">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 border-t border-gray-700 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-gray-400 text-sm">ToolsNet 8 Operations Checklist</p>
+            <p class="text-gray-600 text-xs mt-2">정기 점검을 통한 시스템 안정성 확보</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" class="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all opacity-0 pointer-events-none z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // Update progress and counts
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const percentage = total > 0 ? Math.round((checked / total) * 100) : 0;
+
+            // Update progress bar and text
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '%';
+            
+            // Update counts
+            document.getElementById('checked-count').textContent = checked;
+            document.getElementById('total-count').textContent = total;
+
+            // Save state to localStorage
+            const checkboxStates = Array.from(checkboxes).map(cb => cb.checked);
+            localStorage.setItem('toolsnet-checklist', JSON.stringify(checkboxStates));
+        }
+
+        // Load saved state
+        function loadProgress() {
+            const saved = localStorage.getItem('toolsnet-checklist');
+            if (saved) {
+                const checkboxStates = JSON.parse(saved);
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxStates.forEach((state, index) => {
+                    if (checkboxes[index]) {
+                        checkboxes[index].checked = state;
+                    }
+                });
+            }
+            updateProgress();
+        }
+
+        // Reset checklist
+        function resetChecklist() {
+            if (confirm('체크리스트를 초기화하시겠습니까?')) {
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(cb => cb.checked = false);
+                updateProgress();
+            }
+        }
+
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            
+            // Add event listeners to all checkboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+
+            // Add keyboard shortcut (Ctrl+R) to reset
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'r') {
+                    e.preventDefault();
+                    resetChecklist();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
