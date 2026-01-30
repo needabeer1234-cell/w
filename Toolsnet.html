@@ -1,328 +1,516 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HT50 ToolsNet 접속 가이드</title>
+    <title>ToolsNet 8 통합 운영 가이드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #e0e0e0;
-            line-height: 1.8;
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        }
-
-        h1 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 2.2em;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        .language-selector {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 15px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border-radius: 10px;
-        }
-
-        .lang-info {
-            color: #b0b0b0;
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
-
-        .lang-btn {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-            border: 2px solid rgba(102, 126, 234, 0.5);
-            color: #e0e0e0;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .lang-btn:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        h2 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 40px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
-            font-size: 1.6em;
-        }
-
-        h3 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 25px 0 15px 0;
-            font-size: 1.3em;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-            color: #e0e0e0;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        tr:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-        }
-
-        code {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
-            color: #e0e0e0;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95em;
-        }
-
-        strong {
-            color: #f0f0f0;
-            font-weight: 600;
-        }
-
-        .warning {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border-left: 4px solid #667eea;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        ul {
-            margin: 15px 0;
-            padding-left: 25px;
-        }
-
-        li {
-            margin: 10px 0;
-        }
-
-        small {
-            color: #b0b0b0;
-            display: block;
-            margin-top: 5px;
-        }
-
-        #google_translate_element {
-            text-align: center;
-        }
-
-        .goog-te-gadget {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-        }
-
-        .goog-te-gadget-simple {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%) !important;
-            border: 2px solid rgba(102, 126, 234, 0.5) !important;
-            padding: 10px 15px !important;
-            border-radius: 8px !important;
-            font-size: 14px !important;
-        }
-
-        .goog-te-gadget-simple:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%) !important;
-        }
-
-        .goog-te-menu-value span {
-            color: #e0e0e0 !important;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border-radius: 10px;
-            color: #b0b0b0;
-            font-size: 0.9em;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
-            }
-            
-            h1 {
-                font-size: 1.6em;
-            }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Noto Sans KR', sans-serif; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>HT50으로 ToolsNet/Open Protocol 접속법</h1>
-        
-        <div class="language-selector">
-            <div class="lang-info">💡 Language Change(言語変換) </div>
-            <div id="google_translate_element"></div>
+<body class="bg-gray-900 text-gray-200 min-h-screen">
+    
+    <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <h1 class="text-2xl font-bold text-blue-400">ToolsNet 8 통합 운영 가이드</h1>
+            <p class="text-sm text-gray-400 mt-1">써드파티 연동 · HT50 접속 · 시스템 타입 식별 · 라이선스 관리</p>
+        </div>
+    </header>
+
+    <!-- Google Translate Styles -->
+    <style>
+        .goog-te-banner-frame { display: none !important; }
+        body { top: 0 !important; }
+        #google_translate_element {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        .goog-te-gadget { font-family: 'Noto Sans KR', sans-serif !important; color: #e5e7eb !important; }
+        .goog-te-gadget-simple { background-color: transparent !important; border: none !important; padding: 4px !important; font-size: 14px !important; }
+        .goog-te-menu-value span { color: #e5e7eb !important; }
+        .goog-te-gadget-icon { display: none !important; }
+    </style>
+
+    <main class="max-w-6xl mx-auto px-6 py-8 space-y-6">
+
+        <!-- Language Selector -->
+        <div class="bg-gray-800 rounded-lg p-6 border border-blue-700">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">🌐</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-blue-300">언어 선택 / Language / 言語選択</h3>
+                        <p class="text-sm text-gray-400">Google 번역으로 다른 언어로 보기</p>
+                    </div>
+                </div>
+                <div id="google_translate_element"></div>
+            </div>
         </div>
 
-        <h2>1. 포트 설정</h2>
-        <table>
-            <tr>
-                <th>항목</th>
-                <th>설정값</th>
-                <th>이유</th>
-            </tr>
-            <tr>
-                <td><strong>PIM PORT</strong></td>
-                <td><code>6575</code></td>
-                <td>PIM/Openprotocol용</td>
-            </tr>
-            <tr>
-                <td><strong>EH2 PORT</strong></td>
-                <td><code>6575</code></td>
-                <td>경험상 PIM포트와 동일하게</td>
-            </tr>
-        </table>
-        <div class="warning">
-            ⚠️ <strong>비표준 포트(6570, 9014) 사용 금지</strong> - 헤더 파싱 오류 및 통신 실패 위험
+        <!-- Section HT50 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-sky-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">H</span>
+                <h2 class="text-xl font-bold text-sky-300">HT50 전용 접속 설정</h2>
+            </div>
+            <div class="ml-11 space-y-4">
+                
+                <div class="bg-gray-900 rounded-lg p-4 border border-sky-700">
+                    <h3 class="font-semibold text-sky-300 mb-3 text-base">1. 포트 설정</h3>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <div class="flex justify-between items-center bg-gray-800 p-2 rounded">
+                            <span>PIM PORT</span>
+                            <code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">6575</code>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-800 p-2 rounded">
+                            <span>EH2 PORT</span>
+                            <code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">6575</code>
+                        </div>
+                        <div class="bg-red-900 bg-opacity-20 border border-red-700 rounded p-2 mt-2">
+                            <span class="text-red-300 font-semibold">⚠️</span> 비표준 포트(6570, 9014) 사용 금지 - 헤더 파싱 오류 위험
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 rounded-lg p-4 border border-sky-700">
+                    <h3 class="font-semibold text-sky-300 mb-3 text-base">2. 기기 식별 설정</h3>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <div class="bg-gray-800 p-3 rounded">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="font-semibold">System Type</span>
+                                <span><code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">42</code> 또는 <code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">43</code></span>
+                            </div>
+                            <p class="text-xs text-gray-500">42는 Focus61용이지만 경험상 성공확률 높음. 42 실패 시 43 시도</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="font-semibold">System Number</span>
+                                <span><code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">90</code> (고유값)</span>
+                            </div>
+                            <p class="text-xs text-gray-500">데이터 충돌 방지를 위해 큰 값 입력. System Type 내에서 기기를 고유하게 식별하는 4자리 번호</p>
+                        </div>
+                        <div class="bg-gray-800 p-3 rounded">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="font-semibold">Station Number</span>
+                                <span><code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">90</code></span>
+                            </div>
+                            <p class="text-xs text-gray-500">특정 작업 위치(스테이션)를 고유하게 식별하는 번호</p>
+                        </div>
+                        <div class="bg-amber-900 bg-opacity-20 border border-amber-700 rounded p-2 mt-2">
+                            <span class="text-amber-300 font-semibold">⚠️</span> System / Station Number 중복 시 데이터 덮어쓰기 및 리포트 병합 오류 발생
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 rounded-lg p-4 border border-sky-700">
+                    <h3 class="font-semibold text-sky-300 mb-3 text-base">3. MID 통신 순서</h3>
+                    <div class="space-y-3 text-sm text-gray-300">
+                        <div>
+                            <p class="font-semibold text-gray-400 mb-2">연결 수립 절차</p>
+                            <ul class="space-y-1">
+                                <li>• <code class="bg-emerald-900 text-emerald-300 px-2 py-1 rounded">MID 0001</code> Communication Start (통신 시작점)</li>
+                                <li>• <code class="bg-emerald-900 text-emerald-300 px-2 py-1 rounded">MID 0012</code> Application Data Upload Request (설정 동기화)</li>
+                                <li>• <code class="bg-emerald-900 text-emerald-300 px-2 py-1 rounded">MID 0008</code> Data Subscription (데이터 구독)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-400 mb-2">세션 유지</p>
+                            <ul class="space-y-1">
+                                <li>• <code class="bg-cyan-900 text-cyan-300 px-2 py-1 rounded">MID 9999</code> Keep-alive (고스트 세션 방지, Error 96 예방)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-400 mb-2">주요 에러 코드</p>
+                            <ul class="space-y-1">
+                                <li>• <span class="text-red-300">Error 16</span> - Protocol Busy (컨트롤러 부하, 재전송 최적화 필요)</li>
+                                <li>• <span class="text-red-300">Error 75</span> - MID Unsupported (소프트웨어 버전 확인 필요)</li>
+                                <li>• <span class="text-red-300">Error 96</span> - Client Already Connected (Keep-alive로 예방)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 rounded-lg p-4 border border-sky-700">
+                    <h3 class="font-semibold text-sky-300 mb-3 text-base">4. 접속상태 체크리스트</h3>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <div class="flex justify-between items-center bg-gray-800 p-2 rounded">
+                            <span>통신 포트</span>
+                            <code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">6575</code>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-800 p-2 rounded">
+                            <span>System Type</span>
+                            <span><code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">42</code> (실패 시 <code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">43</code> 시도)</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-800 p-2 rounded">
+                            <span>System / Station Number</span>
+                            <span>고유값 (예: <code class="bg-sky-900 text-sky-300 px-2 py-1 rounded">90</code>)</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-800 p-2 rounded">
+                            <span>Keep-alive</span>
+                            <span>MID 9999 활성화</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-800 p-2 rounded">
+                            <span>Error 모니터링</span>
+                            <span>MID 0004 주기적 확인</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 1 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">1</span>
+                <h2 class="text-xl font-bold text-blue-300">통신 아키텍처</h2>
+            </div>
+            <div class="ml-11 space-y-3 text-gray-300">
+                <div class="bg-gray-900 border border-gray-600 rounded-lg p-4">
+                    <h3 class="font-semibold text-blue-200 mb-2">계층 구조</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li>• <code class="bg-gray-800 px-2 py-1 rounded text-blue-300">System Type + Number</code> → 기기 유형 식별</li>
+                        <li>• <code class="bg-gray-800 px-2 py-1 rounded text-blue-300">Unit (Station) Number</code> → 물리적 장치</li>
+                        <li>• <code class="bg-gray-800 px-2 py-1 rounded text-blue-300">Spindle Number</code> → 체결 축</li>
+                        <li>• <code class="bg-gray-800 px-2 py-1 rounded text-blue-300">Program Number</code> → 파라미터 세트</li>
+                    </ul>
+                </div>
+                <div class="bg-amber-900 bg-opacity-20 border border-amber-700 rounded-lg p-3 text-sm">
+                    <span class="text-amber-300 font-semibold">v3.7 신규:</span> 단일 소켓 내 다수 Unit 연결 가능
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">2</span>
+                <h2 class="text-xl font-bold text-purple-300">PIM 핸드셰이크</h2>
+            </div>
+            <div class="ml-11 space-y-3 text-gray-300 text-sm">
+                <div class="bg-gray-900 rounded-lg p-3 border border-purple-700">
+                    <p class="mb-2"><span class="text-purple-300 font-semibold">Port:</span> <code class="bg-purple-900 px-2 py-1 rounded">6575</code></p>
+                    <p><span class="text-purple-300 font-semibold">역할:</span> 서버 IP/Port, 최신 시퀀스 번호 제공</p>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <code class="bg-emerald-900 text-emerald-300 px-2 py-1 rounded">MID 12</code>
+                        <span>PIM Verification</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <code class="bg-emerald-900 text-emerald-300 px-2 py-1 rounded">MID 07</code>
+                        <span>PIM Info Request</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <code class="bg-emerald-900 text-emerald-300 px-2 py-1 rounded">MID 08</code>
+                        <span>PIM Information (IP/Port/Sequence 획득)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">3</span>
+                <h2 class="text-xl font-bold text-emerald-300">MID 04 결과 전문</h2>
+            </div>
+            <div class="ml-11 space-y-3 text-gray-300 text-sm">
+                <div class="bg-rose-900 bg-opacity-20 border border-rose-700 rounded-lg p-3">
+                    <span class="text-rose-300 font-semibold">필수:</span> 모든 전문은 <span class="text-yellow-300 font-semibold">4바이트 ASCII 길이</span>로 시작
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="bg-gray-900 p-2 rounded">• Telegram Length: 4 Byte</div>
+                    <div class="bg-gray-900 p-2 rounded">• Telegram ID: '04'</div>
+                    <div class="bg-gray-900 p-2 rounded">• Identifier: 5 Byte (ACK 매칭용)</div>
+                    <div class="bg-gray-900 p-2 rounded">• System Type: '0003' (Generic)</div>
+                    <div class="bg-gray-900 p-2 rounded">• Rundown Seq No: 순차 증가</div>
+                    <div class="bg-gray-900 p-2 rounded">• VIN: 25 Byte (차량/바코드)</div>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-3 border border-gray-600">
+                    <p class="font-semibold text-emerald-300 mb-2">스핀들 상태값</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div>
+                            <span class="text-gray-400">Overall Status:</span>
+                            <code class="bg-green-900 text-green-300 px-1 rounded ml-1">0=OK</code>
+                            <code class="bg-red-900 text-red-300 px-1 rounded ml-1">1=NOK</code>
+                        </div>
+                        <div>
+                            <span class="text-gray-400">Torque/Angle:</span>
+                            <code class="bg-green-900 text-green-300 px-1 rounded ml-1">0=OK</code>
+                            <code class="bg-red-900 text-red-300 px-1 rounded ml-1">1=NOK</code>
+                            <code class="bg-yellow-900 text-yellow-300 px-1 rounded ml-1">2=Low</code>
+                            <code class="bg-orange-900 text-orange-300 px-1 rounded ml-1">3=High</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-cyan-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">4</span>
+                <h2 class="text-xl font-bold text-cyan-300">세션 유지 전략</h2>
+            </div>
+            <div class="ml-11 space-y-3 text-gray-300 text-sm">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-gray-900 border border-cyan-700 rounded p-3">
+                        <p class="font-semibold text-cyan-300 mb-1">Keep-Alive</p>
+                        <p>MID 06, 30초 주기 송신</p>
+                    </div>
+                    <div class="bg-gray-900 border border-cyan-700 rounded p-3">
+                        <p class="font-semibold text-cyan-300 mb-1">서버 타임아웃</p>
+                        <p>60초 무응답 시 강제 종료</p>
+                    </div>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-3 border border-gray-600">
+                    <p class="font-semibold text-cyan-300 mb-2">재연결 로직</p>
+                    <ul class="space-y-1">
+                        <li>• Transmission Timeout: 5초 내 ACK 없으면 2회 재전송</li>
+                        <li>• 내부 버퍼링: 단절 시 메모리 저장 → 복구 시 순차 재전송</li>
+                        <li>• Connection Timeout: 60초 대기 후 재시도</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-rose-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">5</span>
+                <h2 class="text-xl font-bold text-rose-300">시스템 타입 식별</h2>
+            </div>
+            <div class="ml-11 space-y-3 text-gray-300 text-sm">
+                <div class="bg-gray-900 rounded-lg p-3 border border-rose-700">
+                    <p class="font-semibold text-rose-300 mb-2">확인 경로</p>
+                    <ul class="space-y-1">
+                        <li>• <span class="text-blue-300">Command Center → Unit Monitoring</span> (실시간 상태)</li>
+                        <li>• <span class="text-blue-300">Administration → Manage Structures</span> (논리적 구조)</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-3 border border-gray-600">
+                    <p class="font-semibold text-rose-300 mb-2">데이터 수집 서비스 매칭</p>
+                    <ul class="space-y-1">
+                        <li>• PF6000 → <span class="text-green-400">Data Collection Service</span></li>
+                        <li>• PF4000/PM4000 → <span class="text-green-400">Data Collection Classic</span></li>
+                        <li>• MicroTorque Focus 6000 → <span class="text-green-400">Common Data Collection</span></li>
+                    </ul>
+                </div>
+                <div class="bg-red-900 bg-opacity-20 border border-red-700 rounded-lg p-3">
+                    <span class="text-red-300 font-semibold">⚠️ Unknown 표시:</span> 프로토콜 미인식, 데이터 수집 중단 상태
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-amber-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">6</span>
+                <h2 class="text-xl font-bold text-amber-300">라이선스 관리</h2>
+            </div>
+            <div class="ml-11 space-y-3 text-gray-300 text-sm">
+                <div class="bg-gray-900 rounded-lg p-3 border border-amber-700">
+                    <p class="font-semibold text-amber-300 mb-2">License Status 위젯</p>
+                    <ul class="space-y-1">
+                        <li>• <span class="text-green-400">초록 점</span>: 기능 활성화 (Administration, Statistics 등)</li>
+                        <li>• Licensed Spindles: 최대 허용 수량</li>
+                        <li>• Current Usage: 현재 점유 수량</li>
+                    </ul>
+                </div>
+                <div class="bg-amber-900 bg-opacity-20 border border-amber-700 rounded-lg p-3">
+                    <span class="text-amber-300 font-semibold">⚠️ 90% 이상:</span> 신규 기기 추가 차단, 선제적 확보 필요
+                </div>
+                <div class="bg-gray-900 rounded-lg p-3 border border-gray-600">
+                    <p class="font-semibold text-amber-300 mb-2">HP 서버 주의사항</p>
+                    <p>NIC Teaming 사용 시 MAC 주소 인식 불가 → License Failure 발생 가능</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">7</span>
+                <h2 class="text-xl font-bold text-indigo-300">타사 기기 통합 (Open Protocol)</h2>
+            </div>
+            <div class="ml-11 space-y-3 text-gray-300 text-sm">
+                <div class="bg-gray-900 rounded-lg p-3 border border-indigo-700">
+                    <p class="font-semibold text-indigo-300 mb-2">방화벽 포트 개방</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="bg-gray-800 p-2 rounded text-center">
+                            <code class="text-blue-300">9004/9005</code>
+                            <p class="text-xs text-gray-500 mt-1">Open Protocol</p>
+                        </div>
+                        <div class="bg-gray-800 p-2 rounded text-center">
+                            <code class="text-blue-300">6700</code>
+                            <p class="text-xs text-gray-500 mt-1">TNDCP</p>
+                        </div>
+                        <div class="bg-gray-800 p-2 rounded text-center">
+                            <code class="text-blue-300">6575/6576</code>
+                            <p class="text-xs text-gray-500 mt-1">PIM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-3 border border-gray-600">
+                    <p class="font-semibold text-indigo-300 mb-2">트러블슈팅 체크</p>
+                    <ul class="space-y-1">
+                        <li>• 포트 바인딩 상태 확인</li>
+                        <li>• <code class="bg-gray-800 px-2 py-1 rounded">pf.que/pm.que/op.que</code> 파일 크기 점검</li>
+                        <li>• MSMQ Private Queues 적체 여부</li>
+                        <li>• DB Migration Script 적용 확인</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">8</span>
+                <h2 class="text-xl font-bold text-green-300">UI 확인 포인트</h2>
+            </div>
+            <div class="ml-11 space-y-3 text-gray-300 text-sm">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-gray-900 rounded p-3 border border-green-700">
+                        <p class="font-semibold text-green-300 mb-1">Tool Structure</p>
+                        <p class="text-xs text-gray-400">계층 구조 및 명칭 확인</p>
+                    </div>
+                    <div class="bg-gray-900 rounded p-3 border border-green-700">
+                        <p class="font-semibold text-green-300 mb-1">Channel Name</p>
+                        <p class="text-xs text-gray-400">Spindle → 채널 번호 매칭</p>
+                    </div>
+                    <div class="bg-gray-900 rounded p-3 border border-green-700">
+                        <p class="font-semibold text-green-300 mb-1">System Type</p>
+                        <p class="text-xs text-gray-400">Estic(43) vs Generic(3)</p>
+                    </div>
+                    <div class="bg-gray-900 rounded p-3 border border-green-700">
+                        <p class="font-semibold text-green-300 mb-1">Map View</p>
+                        <p class="text-xs text-gray-400">연결 상태 시각화</p>
+                    </div>
+                </div>
+                <div class="bg-amber-900 bg-opacity-20 border border-amber-700 rounded-lg p-3">
+                    <span class="text-amber-300 font-semibold">Tip:</span> "Station 4", "Spindle 2" 등 번호 기반 이름 = MID 01/02 미전송
+                </div>
+            </div>
+</section>
+
+        <!-- Section 9 -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-violet-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">9</span>
+                <h2 class="text-xl font-bold text-violet-300">버전 업그레이드 후 필수 작업</h2>
+            </div>
+            <div class="ml-11 space-y-3 text-gray-300 text-sm">
+                <div class="bg-violet-900 bg-opacity-20 border border-violet-700 rounded-lg p-3">
+                    <p class="font-semibold text-violet-300 mb-2">DB Migration Scripts</p>
+                    <ul class="space-y-1">
+                        <li>• ToolsNet 8.10/8.11 업그레이드 시 <span class="text-yellow-300">Script 70~78</span> 실행</li>
+                        <li>• PF6000 사용 시 <span class="text-yellow-300">Script 72, 76</span> 필수</li>
+                        <li>• 미실행 시 기기 미인식 발생</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Checklist -->
+        <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+            <div class="flex items-start mb-4">
+                <span class="bg-sky-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">✓</span>
+                <h2 class="text-xl font-bold text-sky-300">운영 체크리스트</h2>
+            </div>
+            <div class="ml-11 text-gray-300 text-sm">
+                <div class="bg-gray-900 border border-sky-700 rounded-lg p-4">
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>4바이트 Length Header 포함 확인</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>PIM 핸드셰이크(MID 12/07/08) 정상 수행</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>MID 04 Identifier 누락 없음</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>Sequence Number 순차 증가 확인</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>Keep-Alive(MID 06) 30초 주기 발송</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>Unit Monitoring에서 Unknown 없음</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>License Status 90% 미만 유지</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>타사 기기 포트(9004/6700/6575) 개방</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>DB Migration Script 실행 완료</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">□</span>
+                            <span>주 1회 Unit/License 교차 확인</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 border-t border-gray-700 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-6 text-center text-gray-400 text-sm">
+            <p>ToolsNet 8 Integrated Operations Guide</p>
+            <p class="text-xs text-gray-600 mt-2">Open Protocol v3.7 · HT50 Connection · System Type Identification · License Management</p>
+            <p class="text-xs text-gray-500 mt-3">📄 <strong>라이선스:</strong> 대리점, 최종유저 배포가능</p>
         </div>
-
-        <h2>2. 기기 식별 설정</h2>
-        <table>
-            <tr>
-                <th>항목</th>
-                <th>설정값</th>
-                <th>목적</th>
-            </tr>
-            <tr>
-                <td><strong>System Type</strong></td>
-                <td><code>42</code> (또는 <code>43</code>)</td>
-                <td>42는 Focus61용이지만 경험상 성공확률 높음<small>42 실패 시 43 시도</small></td>
-            </tr>
-            <tr>
-                <td><strong>System Number</strong></td>
-                <td><code>90</code> (고유값)</td>
-                <td>다른 컨트롤러와 데이터 충돌 방지를 위해 큰값입력<small>System Number는 ToolsNet 시스템 내에서 동일한 System Type(장치 유형)에 속한 컨트롤러들 중 해당 기기를 고유하게 식별하기 위해 부여하는 4자리 고유 번호입니다</small></td>
-            </tr>
-            <tr>
-                <td><strong>Station Number</strong></td>
-                <td><code>90</code></td>
-                <td>다른 컨트롤러와 데이터 충돌 방지를 위해 큰값입력<small>ToolsNet 및 오픈 프로토콜 시스템의 논리적 계층 구조에서 특정 작업 위치(스테이션)를 고유하게 식별하기 위해 사용하는 번호입니다</small></td>
-            </tr>
-        </table>
-        <div class="warning">
-            ⚠️ <strong>System / Station Number 중복 시</strong> 데이터 덮어쓰기 및 리포트 병합 오류 발생
-        </div>
-
-        <h2>3. MID 통신 순서</h2>
-        <h3>연결 수립 절차</h3>
-        <ul>
-            <li><strong>MID 0001</strong> - Communication Start (통신 시작점)</li>
-            <li><strong>MID 0012</strong> - Application Data Upload Request (설정 동기화)</li>
-            <li><strong>MID 0008</strong> - Data Subscription (데이터 구독)</li>
-        </ul>
-
-        <h3>세션 유지</h3>
-        <ul>
-            <li><strong>MID 9999</strong> - Keep-alive (고스트 세션 방지, Error 96 예방)</li>
-        </ul>
-
-        <h3>주요 에러 코드</h3>
-        <ul>
-            <li><strong>Error 16</strong> - Protocol Busy (컨트롤러 부하, 재전송 최적화 필요)</li>
-            <li><strong>Error 75</strong> - MID Unsupported (소프트웨어 버전 확인 필요)</li>
-            <li><strong>Error 96</strong> - Client Already Connected (Keep-alive로 예방)</li>
-        </ul>
-
-        <h2>4. 접속상태 체크리스트</h2>
-        <table>
-            <tr>
-                <th>점검 항목</th>
-                <th>설정값</th>
-            </tr>
-            <tr>
-                <td>통신 포트</td>
-                <td><code>6575</code></td>
-            </tr>
-            <tr>
-                <td>System Type</td>
-                <td><code>42</code> (실패 시 <code>43</code> 시도)</td>
-            </tr>
-            <tr>
-                <td>System / Station Number</td>
-                <td>고유값 (예: <code>90</code>)</td>
-            </tr>
-            <tr>
-                <td>Keep-alive</td>
-                <td>MID 9999 활성화</td>
-            </tr>
-            <tr>
-                <td>Error 모니터링</td>
-                <td>MID 0004 주기적 확인</td>
-            </tr>
-        </table>
-    </div>
-
-    <footer>
-        <p>📄 <strong>라이선스:</strong> 대리점, 최종유저 배포가능</p>
     </footer>
 
-    <script type="text/javascript">
+    <button id="scrollTop" class="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all opacity-0 pointer-events-none z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script>
+        // Scroll to top
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Google Translate
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'ko',
-                includedLanguages: 'ko,en,ja',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                includedLanguages: 'ko,en,ja,zh-CN,zh-TW,vi,th',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=en"></script></body>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
 </html>
