@@ -16,44 +16,10 @@
         <div class="max-w-6xl mx-auto px-6 py-4">
             <h1 class="text-2xl font-bold text-blue-400">ToolsNet 8 통합 운영 가이드</h1>
             <p class="text-sm text-gray-400 mt-1">써드파티 연동법 · HT50 접속법 · 시스템 타입 식별법 · 라이선스 관리</p>
-        </div>
-    </header>
-    <!-- Google Translate Styles -->
-    <style>
-         .goog-te-banner-frame { display: none !important; }
-         .goog-te-banner-frame.skiptranslate { display: none !important; }
-         body { top: 0 !important; }
-         body.translated { top: 0 !important; }
-         iframe.goog-te-banner-frame { display: none !important; }
-        #google_translate_element {
-                background: rgba(227, 219, 219, 0.1);
-                    padding: 0px;
-                        border-radius: 1px;
-                            border: 1px solid rgba(203, 209, 219, 0.3);
-        .goog-te-gadget { font-family: 'Noto Sans KR', sans-serif !important; color: #e5e7eb !important; }
-    </style>
-
-    <main class="max-w-6xl mx-auto px-6 py-8 space-y-6">
-            
-
-        Language Selector
-         <div class="language-selector">
-            <!-- <div class="lang-info">💡 Language Change(言語変換) </div> -->
-            <div style="position:fixed; top:10px; right:10px; z-index:9999;">
-             <select id="langSelect"
-            class="bg-gray-800 text-gray-200 border border-gray-600 rounded px-3 py-2 text-sm">
-            <option value="ko">한국어</option>
-            <option value="ja">日本語</option>
-            <option value="en">English</option>
-            </select>
-        </div>
-
-<div id="google_translate_element" style="display:none;"></div>
-
-            <div id="google_translate_element" style="display:none;"></div>
-            <!-- <div id="google_translate_element"><div class="skiptranslate goog-te-gadget" dir="ltr" style=""><div id=":0.targetLanguage" class="goog-te-gadget-simple" style="white-space: nowrap;"><img src="./HT50 ToolsNet 접속 가이드_files/cleardot.gif" class="goog-te-gadget-icon" alt="" style="background-image: url(&quot;https://translate.googleapis.com/translate_static/img/te_ctrl3.gif&quot;); background-position: -65px 0px;"><span style="vertical-align: middle;"><a aria-haspopup="true" class="VIpgJd-ZVi9od-xl07Ob-lTBxed" href="https://needabeer1234-cell.github.io/w/Toolsnet.html#"><span>Select Language</span><img src="./HT50 ToolsNet 접속 가이드_files/cleardot.gif" alt="" width="1" height="1"><span style="border-left: 1px solid rgb(187, 187, 187);">​</span><img src="./HT50 ToolsNet 접속 가이드_files/cleardot.gif" alt="" width="1" height="1"><span aria-hidden="true" style="color: rgb(118, 118, 118);">▼</span></a></span></div></div></div> -->
-        </div>
-
+                </div>
+                <div class="max-w-6xl mx-auto px-6 py-2 flex justify-end">
+                <div id="google_translate_element"></div>
+    </header>        
         <!-- Section HT50 -->
         <section class="bg-gray-800 rounded-lg p-6 border border-gray-700">
             <div class="flex items-start mb-4">
@@ -306,10 +272,10 @@
                     <p>NIC Teaming 사용 시 MAC 주소 인식 불가 → License Failure 발생 가능</p>
                 </div>
             </div>
-        <h2 class="text-xl font-bold text-amber-300 mt-4">Unit Monitoring    
+        <h2 class="text-xl font-bold text-amber-300 mt-4">Unit Monitoring</h2>
         <img src="image/toolsnet unit monitoring.jpg" alt="">
-        <h2 class="text-xl font-bold text-amber-300 mt-4">Command center / Data Collection Classic / Connected Cotrollers
-        <img src="image/data collection classic.jpg" alt=""></h2>
+        <h2 class="text-xl font-bold text-amber-300 mt-4">Command center / Data Collection Classic / Connected Cotrollers</h2>
+        <img src="image/data collection classic.jpg" alt="">
 
         </section>
 
@@ -452,7 +418,6 @@
             </div>
         </section>
 
-    </main>
 
     <footer class="bg-gray-800 border-t border-gray-700 py-6 mt-12">
         <div class="max-w-6xl mx-auto px-6 text-center text-gray-400 text-sm">
@@ -468,51 +433,37 @@
         </svg>
     </button>
 
-    <script>
-        // Scroll to top
-        const scrollTopBtn = document.getElementById('scrollTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
-            }
-        });
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
 
-        // Google Translate
-        <script>
-function googleTranslateElementInit() {
+<script>
+  // Scroll to top
+  const scrollTopBtn = document.getElementById('scrollTop');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+    } else {
+      scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+    }
+  });
+
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+<!-- Google Translate -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
     new google.translate.TranslateElement(
-        {
-            pageLanguage: 'ko',
-            includedLanguages: 'ko,ja,en',
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false
-        },
-        'google_translate_element'
+      {
+        pageLanguage: 'ko',
+        includedLanguages: 'ko,en,ja',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      },
+      'google_translate_element'
     );
-}
-
-// 드롭다운 → 구글 번역 연결
-document.getElementById('langSelect').addEventListener('change', function () {
-    const lang = this.value;
-
-    const timer = setInterval(() => {
-        const select = document.querySelector('.goog-te-combo');
-        if (!select) return;
-
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-        clearInterval(timer);
-    }, 200);
-});
+  }
 </script>
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-</script>
-   
 </body>
-</html>
