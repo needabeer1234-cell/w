@@ -38,11 +38,17 @@
 
         Language Selector
          <div class="language-selector">
-            <div class="lang-info">💡 Language Change(言語変換) </div>
-            <button id="langBtn"
-                    style="position:fixed; top:10px; right:10px; z-index:9999;">
-            🌐 Language
-            </button>
+            <!-- <div class="lang-info">💡 Language Change(言語変換) </div> -->
+            <div style="position:fixed; top:10px; right:10px; z-index:9999;">
+             <select id="langSelect"
+            class="bg-gray-800 text-gray-200 border border-gray-600 rounded px-3 py-2 text-sm">
+            <option value="ko">한국어</option>
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+            </select>
+        </div>
+
+<div id="google_translate_element" style="display:none;"></div>
 
             <div id="google_translate_element" style="display:none;"></div>
             <!-- <div id="google_translate_element"><div class="skiptranslate goog-te-gadget" dir="ltr" style=""><div id=":0.targetLanguage" class="goog-te-gadget-simple" style="white-space: nowrap;"><img src="./HT50 ToolsNet 접속 가이드_files/cleardot.gif" class="goog-te-gadget-icon" alt="" style="background-image: url(&quot;https://translate.googleapis.com/translate_static/img/te_ctrl3.gif&quot;); background-position: -65px 0px;"><span style="vertical-align: middle;"><a aria-haspopup="true" class="VIpgJd-ZVi9od-xl07Ob-lTBxed" href="https://needabeer1234-cell.github.io/w/Toolsnet.html#"><span>Select Language</span><img src="./HT50 ToolsNet 접속 가이드_files/cleardot.gif" alt="" width="1" height="1"><span style="border-left: 1px solid rgb(187, 187, 187);">​</span><img src="./HT50 ToolsNet 접속 가이드_files/cleardot.gif" alt="" width="1" height="1"><span aria-hidden="true" style="color: rgb(118, 118, 118);">▼</span></a></span></div></div></div> -->
@@ -477,21 +483,36 @@
         });
 
         // Google Translate
-        <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement(
-                {
-                    pageLanguage: 'ko',
-                    includedLanguages: 'ko,en,ja',
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                    autoDisplay: false
-                },
-                'google_translate_element'
-            );
-        }
-          </script>
+        <script>
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+        {
+            pageLanguage: 'ko',
+            includedLanguages: 'ko,ja,en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        },
+        'google_translate_element'
+    );
+}
+
+// 드롭다운 → 구글 번역 연결
+document.getElementById('langSelect').addEventListener('change', function () {
+    const lang = this.value;
+
+    const timer = setInterval(() => {
+        const select = document.querySelector('.goog-te-combo');
+        if (!select) return;
+
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+        clearInterval(timer);
+    }, 200);
+});
+</script>
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</script>
    
 </body>
 </html>
