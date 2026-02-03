@@ -204,18 +204,101 @@
 
 
             <!-- BOOST기능 -->
-            <div class="info-card">
-                <h3 class="text-xl font-semibold mb-4 text-gray-200">부스트기능</h3>
-                                            <img src="image/boost.png" 
+           <div class="info-card">
+            <h3 class="text-xl font-semibold mb-4 text-gray-200">부스트기능</h3>
+            <img src="image/boost.png" class="w-full mb-4 rounded-lg" alt="부스트 기능">
+            
+            <ul class="detail-list space-y-3 text-sm sm:text-base">
+                <li>
+                    <span class="font-bold text-sky-300">사용법:</span> 신규설정치 작성만으로는 설정불가. 
+                    컨트롤러에서 설정치를 한번 다운로드 받은 후에 "MP(AP)0247 고속 회전속도 부스트기능"을 설정 가능.
+                    <br>부스트 기능 사용 시 "MP(AP)0223 고속 회전속도"의 왼쪽에 ()안의 숫자가 부스트기능을 사용시의 rpm.
+                </li>
+                <li>
+                    <span class="font-bold text-sky-300">배속 원리:</span> 파라미터 AP247 (HI SPEED BOOST) 설정을 '유효'로 하면, 
+                    고속 회전 시 설정된 속도(AP223)의 <span class="text-yellow-300 font-semibold">1.4배 속도</span>로 동작.
+                </li>
+                <li>
+                    <span class="font-bold text-red-400">⚠️ 설정 금지 모델:</span> 
+                    <span class="text-red-300">ENRZ-TU060R 및 ENRZ-TU080R의 폴딩(벤트) 타입 모델</span>에는 
+                    'HI SPEED BOOST'를 설정해서는 안 됩니다.
+                </li>
+                <li>
+                    <span class="font-bold text-red-400">⚠️ 위험 경고:</span> 
+                    고속 회전(High Speed) 중 체결이 이루어지면 큰 오버슈트가 발생하거나 
+                    툴 유닛 및 워크가 파손될 위험이 있으므로 설정 시 주의가 필요합니다.
+                </li>
+            </ul>
 
-                <ul class="detail-list space-y-3 text-sm sm:text-base">
-                    <li>
-                        <span class="font-bold text-sky-300">사용법:</span> 신규설정치 작성만으로는 설정불가. 
-                        컨트롤러에서 설정치를 한번 다운로드 받은 후에 "MP(AP)0247 고속 회전속도 부스트기능"을 설정 가능.
-                        <br>부스트 기능 사용 시 "MP(AP)0223 고속 회전속도"의 왼쪽에 ()안의 숫자가 부스트기능을 사용시의 rpm.
-                    </li>
-                </ul>
+            <!-- 부스트 모드 RPM 테이블 -->
+            <div class="mt-6">
+                <h4 class="text-lg font-semibold mb-3 text-gray-200">부스트 모드 시 최고 회전수 (RPM)</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="border border-gray-600 px-3 py-2 text-left text-gray-200">툴 유닛 모델명</th>
+                                <th class="border border-gray-600 px-3 py-2 text-center text-gray-200">표준 최고 회전수<br>(rpm)</th>
+                                <th class="border border-gray-600 px-3 py-2 text-center text-yellow-300">부스트 모드 시<br>(rpm)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU0R5R-S</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">2814</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">3940</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU001R-*</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">1224</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">1714</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU003R-*</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">468</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">656</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU004R-S</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">1464</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">2050</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU008R-*</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">714</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">1000</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU013R-*</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">500</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">700</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU020R-*</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">291</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">408</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU040R-*</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">148</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">208</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU060R-S</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">113</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">159</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="border border-gray-600 px-3 py-2">ENRZ-TU080R-S</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center">83</td>
+                                <td class="border border-gray-600 px-3 py-2 text-center text-yellow-300 font-semibold">117</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">* 표시는 해당 모델의 모든 하위타입을 포함합니다.</p>
             </div>
+        </div>
 
 
         </section>
@@ -226,4 +309,4 @@
 
     </div>
 </body>
-</html>ㄴ
+</html>
