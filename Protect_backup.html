@@ -5,8 +5,7 @@
 <title>대리점 전용 페이지</title>
 
 <style>
-html, body {
-  height: 100%;
+body {
   background:#0f1115;
   color:#e0e0e0;
   font-family:Malgun Gothic,Arial;
@@ -105,13 +104,8 @@ button {
   color: #444;
 }
 
-/* ✅ 핵심 변경: 뷰포트 전체를 flex 컬럼으로 */
 #content {
-  padding: 20px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  padding:20px;
 }
 
 #top-bar {
@@ -123,12 +117,7 @@ button {
 
 #sheet-name { font-size:2em; font-weight:bold; }
 
-/* ✅ 핵심 변경: 남은 공간을 꽉 채우고 그 안에서 스크롤 */
-.table-wrap {
-  overflow: auto;
-  flex: 1;
-  min-height: 0; /* flex 자식의 overflow가 작동하려면 필수 */
-}
+.table-wrap { overflow-x:auto; }
 
 table {
   border-collapse:collapse;
@@ -195,7 +184,7 @@ td:hover {
     </div>
   </div> <hr class="divider">
   
-  <div id="table-container" style="flex:1; min-height:0; display:flex; flex-direction:column;"></div>
+  <div id="table-container"></div>
 
 </div>
 
