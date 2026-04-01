@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>에스틱 너트러너 제안서</title>
+<style>
+  :root {
+    --bg: #f5f5f7; 
+    --surface: #ffffff; 
+    --border: #d2d2d7; 
+    --accent: #0071e3; 
+    --text-primary: #1d1d1f; 
+    --text-secondary: #6e6e73; 
+    --ok: #28a745; 
+    --ng-hi: #dc3545; 
+    --ng-lo: #ffc107;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: -apple-system, 'Pretendard', sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    padding: 80px 40px;
+    background: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .header-tag { font-size: 30px; font-weight: 700; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 16px; }
+  h1 { font-size: 48px; font-weight: 800; margin-bottom: 12px; letter-spacing: -1px; color: #000; }
+  h1 span { color: var(--accent); }
+  .header-sub { font-size: 22px; color: var(--text-secondary); max-width: 999px; margin: 0 auto; }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+  section { margin-bottom: 80px; }
+  .section-label { font-size: 11px; color: var(--accent); letter-spacing: 2px; margin-bottom: 8px; font-weight: 700; }
+
+  h2 { font-size: 26px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; color: #000; }
+  h2::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+  .intro-box {
+    background: var(--surface);
+    border-left: 4px solid var(--accent);
+    padding: 24px 30px;
+    border-radius: 4px 12px 12px 4px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+  .card-title { font-size: 17px; font-weight: 700; margin-bottom: 12px; color: #000; display: flex; align-items: center; gap: 8px; }
+  .card-desc { font-size: 14px; color: var(--text-secondary); }
+
+  .table-wrap { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface); margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #fbfbfd; padding: 14px 20px; text-align: left; font-size: 12px; color: var(--accent); border-bottom: 1px solid var(--border); }
+  td { padding: 16px 20px; border-top: 1px solid var(--border); font-size: 14px; }
+
+  .tag-mono { display: inline-block; padding: 2px 8px; background: #f5f5f7; border: 1px solid var(--border); border-radius: 4px; font-family: monospace; font-size: 11px; color: var(--accent); margin: 2px; }
+
+  /* ─── PARAMETERS ─── */
+  .param-group { margin-bottom: 24px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface); }
+  .param-header { background: #fbfbfd; padding: 12px 20px; font-size: 13px; font-weight: 700; color: var(--accent); border-bottom: 1px solid var(--border); }
+  .param-row { display: grid; grid-template-columns: 180px 180px 1fr; border-top: 1px solid var(--border); }
+  .param-row:first-child { border-top: none; }
+  .p-cell { padding: 14px 20px; font-size: 13.5px; }
+  .p-name { font-family: monospace; color: var(--accent); font-weight: 600; }
+
+  /* ─── HIGHLIGHTS ─── */
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 30px; }
+  .highlight-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: flex-start; }
+  .highlight-item:last-child { margin-bottom: 0; }
+  .check-icon { color: var(--ok); font-weight: bold; font-size: 18px; line-height: 1; }
+
+  /* ─── CONCLUSION ─── */
+  .conclusion-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 60px 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    margin: 40px 0;
+  }
+  .conclusion-card h2 { justify-content: center; margin-bottom: 20px; }
+  .conclusion-card h2::after { display: none; }
+  .conclusion-text { font-size: 17px; color: var(--text-primary); max-width: 800px; margin: 0 auto; word-break: keep-all; }
+
+  footer { padding: 40px; text-align: center; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--border); background: #fbfbfd; }
+
+  @media (max-width: 768px) { h1 { font-size: 32px; } .param-row { grid-template-columns: 1fr; } .p-cell { padding: 10px 20px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">갈아타기 제안드립니다</div>
+  <h1>ESTIC NutRunner</h1>
+  <p class="header-sub">A사 대비 합리적인 비용으로 등등한 체결 정밀도와 데이터 추적성을 제공하는 스마트 너트러너 솔루션</p>
+</header>
+
+<main>
+  <section>
+    <div class="section-label">01 · Overview</div>
+    <h2>에스틱?(거품을 뺀 제품을 소개합니다)</h2>
+    <div class="intro-box">
+      <p>현재 사용 중이신, <strong>A사</strong>의 고급진 유럽감성의 너트러너를 일제 에스틱으로 바꿔보시는건 어떨까요? <br>
+        즉, 벤츠, BMW, 아우디 도 좋지만 토요타(렉서스)도 좋습니다. <br>
+        <strong>합리적인 비용</strong>으로도 A사 수준의 고정밀 체결 제어와 <strong>데이터 추적성(Traceability)</strong>을 완벽하게 제공합니다. <strong>전용 데이터 로거</strong>를 마련하고 있어 추가의 소프트웨어를 고객사에서 제작하지 않고도, 강력한 통계 분석과 품질 관리가 가능합니다.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">📊 강력한 데이터 분석</div>
+        <div class="card-desc">Data Logger만으로도 다른 소프트웨어 없이도 통계적 공정 관리, 공정능력지수(Cp/Cpk), 커브 분석을 현장에서 즉시 수행 가능</div>
+      </div>
+      <div class="card">
+        <div class="card-title">⚙️ 고정밀 체결 제어</div>
+        <div class="card-desc">업계 최고 클라스의 반복정밀도, ±0.1°의 각도 분해능으로 체결 공정을 정밀하게 제어하며 강력한 MCU, 메모리를 이용하여 완벽한 이력 추적성 보장</div>
+      </div>
+      <div class="card">
+        <div class="card-title">💡 합리적 도입 비용</div>
+        <div class="card-desc">복잡한 옵션, 라이선스 구조는 없습니다. 설치와 동시에 하이엔드 기능을 즉시 사용할 수 있는 가장 심플하고 정직하고 강력한 솔루션을 만나보십시오.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">02 · Data Collection</div>
+    <h2>에스틱으로 수집 가능한 데이터 항목(없는거 빼고 다있습니다)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>분류</th><th>상세 수집 항목</th><th>관리 목적 및 데이터의 가치</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>기본 결과</td>
+            <td><span class="tag-mono">최종 토크</span> <span class="tag-mono">최종 각도</span> <span class="tag-mono">판정 OK/NG</span></td>
+            <td>기본적인 조립 품질 및 생산 리드타임 확인</td>
+          </tr>
+          <tr>
+            <td>품질 심화</td>
+            <td><span class="tag-mono">런다운 각도</span> <span class="tag-mono">시트 토크</span></td>
+            <td>볼트 착좌 상태 확인, 나사산 뭉개짐(Cross Thread) 감지</td>
+          </tr>
+          <tr>
+            <td>보전/분석</td>
+            <td><span class="tag-mono">토크 레이트</span> <span class="tag-mono">전자 서멀</span> <span class="tag-mono">오버로드</span></td>
+            <td>툴의 과부하 상태 및 수명 관리, 생산 이력 추적</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">03 · Parameters</div>
+    <h2>사용하실 파라미터(이런 기능을 사용하실수 있습니다)</h2>
+    <div class="param-group">
+      <div class="param-header">토크 상/하한 관리</div>
+      <div class="param-row">
+        <div class="p-cell p-name">FINAL MAX TRQ</div>
+        <div class="p-cell">최종 토크 상한</div>
+        <div class="p-cell">체결 완료 시 토크가 설정된 최대치를 초과하면 NG 판정 → 부품 손상 방지</div>
+      </div>
+      <div class="param-row">
+        <div class="p-cell p-name">FINAL MIN TRQ</div>
+        <div class="p-cell">최종 토크 하한</div>
+        <div class="p-cell">체결 토크가 최소 기준 미달 시 NG 판정 → 풀림 사고 예방</div>
+      </div>
+    </div>
+    <div class="param-group">
+      <div class="param-header">런다운 각도 (Rundown Angle)</div>
+      <div class="param-row">
+        <div class="p-cell p-name">RUNDOWN ANG</div>
+        <div class="p-cell">런다운 각도 모니터</div>
+        <div class="p-cell">체결 시작부터 시트 시점까지의 회전 각도 감시</div>
+      </div>
+      <div class="param-row">
+        <div class="p-cell p-name">RUNDOWN MAX/MIN</div>
+        <div class="p-cell">런다운 상/하한 각도</div>
+        <div class="p-cell">볼트 길이 상이 또는 부품 누락 시 각도 이탈 → NG 발생</div>
+      </div>
+    </div>
+    <div class="param-group">
+      <div class="param-header">재체결 방지 (중복체결 차단)</div>
+      <div class="param-row">
+        <div class="p-cell p-name">PRE SEAT TIME</div>
+        <div class="p-cell">가체결 하한 시간</div>
+        <div class="p-cell">설정 시간보다 빨리 조여지면 재체결로 판단 → 작업 차단</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section>
+    <div class="section-label">04 · Highlights</div>
+    <h2>한눈에 보는 특장점</h2>
+    <div class="highlight-box">
+      <div class="highlight-item">
+        <span class="check-icon">✓</span>
+        <div><strong>직관적인 판정:</strong> 툴 유닛의 LED 색상만으로 재체결이나 토크 이상 여부를 즉시 인지할 수 있어 생산성이 높습니다.</div>
+      </div>
+      <div class="highlight-item">
+        <span class="check-icon">✓</span>
+        <div><strong>간편한 설정:</strong> 별도의 복잡한 프로그래밍 없이 파라미터 입력만으로 모든 기능을 즉시 적용 가능합니다.</div>
+      </div>
+    </div>
+  </section> -->
+
+  <section>
+    <!-- <div class="conclusion-card"> -->
+      <!-- <div class="section-label" style="margin-bottom:12px">Conclusion</div> -->
+      <h2>결론</h2>
+      <p class="conclusion-text">
+        에스틱 너트러너는 A사 대비 도입 비용을 획기적으로 절감하면서도, 데이터 정밀도와 분석 성능은 동급 이상을 보장하는 가장 정직한 솔루션입니다. <br>
+        별도의 소프트웨어 라이선스 구매 없이 타사에서 유료로 판매하는 기능을 제공하여, 전용 데이터로거 소프트웨어를 사용하면 소프트웨어에 대한 추가 발주 없이 즉각적인 공정 품질 고도화를 실현할 수 있습니다.
+      </p>
+    <!-- </div> -->
+  </section>
+</main>
+
+<footer>
+  ESTIC  © 2025
+</footer>
+
+</body>
+</html>
