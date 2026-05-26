@@ -15,7 +15,7 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const modelSrc = params.get('model');
-    document.write(`<model-viewer src="${modelSrc}" auto-rotate camera-controls tone-mapping="neutral" shadow-intensity="1"></model-viewer>`);
+    document.write(`<model-viewer src="${modelSrc}" auto-rotate camera-controls tone-mapping="neutral" shadow-intensity="1" exposure="0.5"></model-viewer>`);
   </script>
 </body>
 </html>
