@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body { margin: 0; background: #f1f5f9; }
+    model-viewer { width: 100vw; height: 100vh; }
+  </style>
+</head>
+<body>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const modelSrc = params.get('model');
+    document.write(`<model-viewer src="${modelSrc}" auto-rotate camera-controls></model-viewer>`);
+  </script>
+</body>
+</html>
