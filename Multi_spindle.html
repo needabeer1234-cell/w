@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>단축 vs 다축 플랜지 체결 비교</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+    body { font-family: 'Noto Sans KR', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <div class="bg-blue-950 text-blue-50 py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <p class="text-blue-300 text-sm tracking-widest uppercase mb-3">Technical Analysis Report</p>
+      <h1 class="text-3xl md:text-4xl font-bold leading-snug mb-4">
+        단축 체결 vs 다축 체결
+      </h1>
+      <p class="text-blue-200 text-lg">너트러너 1축 vs. 4축 Multi-Spindle</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <div class="max-w-4xl mx-auto px-6 py-12 space-y-16">
+            
+        <iframe width="500" height="900" src="https://www.youtube.com/embed/ztG48szgCfo" title="【ESTIC Custom Product】 Multi-spindle with swivel mechanism  #shots" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <!-- 01 서론 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded">01</span>
+        <h2 class="text-xl font-bold text-blue-950">서론</h2>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+        <p class="leading-relaxed text-slate-600 mb-4">
+          플랜지 체결은 단순한 조립이 아닙니다. 플랜지 조인트의 기밀성 / 무결성을 보증하는 
+          <span class="font-semibold text-blue-900">중요 공정</span>입니다.
+        </p>
+        <p class="leading-relaxed text-slate-600 mb-6">
+          현장에서 가장 흔히 사용되는 단축(Single-Spindle) 체결 방식은 물리 법칙에 의한 근본적 한계를 안고 있습니다. <br /> 
+          보고서는 복잡한 패턴 비교를 배제하고, 현장에서 실질적으로 발생하는 두 가지 상황만을
+          비교합니다.
+        </p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+              <span class="font-semibold text-red-700 text-sm">단축체결</span>
+            </div>
+            <p class="text-slate-600 text-sm">너트러너 1대로 나사를 하나씩 순차적으로 조이는 방식</p>
+          </div>
+          <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+              <span class="font-semibold text-emerald-700 text-sm">다축체결</span>
+            </div>
+            <p class="text-slate-600 text-sm">2축 또는 4축의 Multi-Spindle너트러너로 동시에 체결하는 방식</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 핵심 문제 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded">02</span>
+        <h2 class="text-xl font-bold text-blue-950">워크의 문제점: 탄성 상호작용 (Elastic Interaction)</h2>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-2xl p-8 shadow-sm">
+        <p class="text-slate-700 leading-relaxed mb-6">단축 순차 체결의 모든 문제의 원인</p>
+
+        <div class="space-y-4 mb-8">
+          <div class="flex gap-4 items-start">
+            <div class="mt-1 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center flex-shrink-0 text-white text-xs font-bold">1</div>
+            <p class="text-slate-700 leading-relaxed">나사 1개를 조이면, 플랜지와 가스켓이 미세하게 변형됩니다.</p>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="mt-1 w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center flex-shrink-0 text-white text-xs font-bold">2</div>
+            <p class="text-slate-700 leading-relaxed">이 변형이 이미 조여진 인접 나사와 반대편 나사의 체결력을 변화시킵니다.</p>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="mt-1 w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0 text-white text-xs font-bold">3</div>
+            <p class="text-slate-700 leading-relaxed">
+              결과적으로 처음에 목표 토크 100%로 조인 나사는 마지막 나사를 조일 즈음
+              이미 <strong class="text-amber-700">20~40%의 체결력을 잃은 상태</strong>가 됩니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-5 border border-amber-200">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <div>
+              <p class="font-semibold text-blue-950 mb-1">ASME PCC-1 인용 연구 기준</p>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                순차 체결 시 나사 체결력 산포(Bolt Load Scatter)는 <strong class="text-red-600">30% 이상</strong> 발생합니다.<br>
+                이것은 작업자의 실수가 아닙니다. <strong>물리적 현상이며, 숙련도로 해결되지 않습니다.</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 단축 순차 체결 현실 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded">03</span>
+        <h2 class="text-xl font-bold text-blue-950">단축 순차 체결: 현재 대부분의 업체가 채용</h2>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-8">
+
+        <!-- 나사 터치 횟수 -->
+        <div>
+          <h3 class="font-semibold text-blue-950 mb-4">나사 터치 횟수 (12나사 플랜지 기준)</h3>
+          <div class="space-y-3" id="touch-count-table">
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-slate-500 w-36 flex-shrink-0">1단계 (20~30%)</span>
+              <span id="step1-dots" class="flex gap-1 flex-wrap"></span>
+              <span class="text-xs font-semibold text-slate-600">12회</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-slate-500 w-36 flex-shrink-0">2단계 (50~70%)</span>
+              <span id="step2-dots" class="flex gap-1 flex-wrap"></span>
+              <span class="text-xs font-semibold text-slate-600">12회</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-slate-500 w-36 flex-shrink-0">3단계 (100%)</span>
+              <span id="step3-dots" class="flex gap-1 flex-wrap"></span>
+              <span class="text-xs font-semibold text-slate-600">12회</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-slate-500 w-36 flex-shrink-0">원형 패스 체결 <br>(×2회+, 확인용)</span>
+              <span id="step4-dots" class="flex gap-1 flex-wrap"></span>
+              <span class="text-xs font-semibold text-red-500">24회+</span>
+            </div>
+            <div class="border-t border-slate-100 pt-3 flex items-center gap-3">
+              <span class="text-sm font-bold text-blue-950 w-36 flex-shrink-0">총 나사 터치</span>
+              <span class="text-xl font-bold text-red-500">60회 이상</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 구조적 문제점 -->
+        <div>
+          <h3 class="font-semibold text-blue-950 mb-4">구조적 문제점</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-red-50 rounded-xl p-5 border border-red-100">
+              <p class="font-semibold text-red-700 text-sm mb-2">① 탄성 상호작용 누적</p>
+              <p class="text-slate-600 text-sm leading-relaxed">나사를 하나씩 조일수록 앞서 조인 나사의 체결력이 변동됩니다. 패스를 반복해도 이는 완전히 제거되지 않습니다.</p>
+            </div>
+            <div class="bg-red-50 rounded-xl p-5 border border-red-100">
+              <p class="font-semibold text-red-700 text-sm mb-2">② 가스켓 편체결력</p>
+              <p class="text-slate-600 text-sm leading-relaxed">플랜지 한쪽부터 순차적으로 체결력이 가해져 가스켓이 균일하게 압착되지 않습니다. 국부적 변형과 가스켓 손상 위험이 존재합니다.</p>
+            </div>
+            <div class="bg-red-50 rounded-xl p-5 border border-red-100">
+              <p class="font-semibold text-red-700 text-sm mb-2">③ 작업자 의존성</p>
+              <p class="text-slate-600 text-sm leading-relaxed">순서 오류, 토크값 오적용, 나사 누락의 작업자의 휴먼에러가 발생합니다. 야간·피로 상황에서 리스크가 증가합니다.</p>
+            </div>
+            <div class="bg-red-50 rounded-xl p-5 border border-red-100">
+              <p class="font-semibold text-red-700 text-sm mb-2">④ 작업시간</p>
+              <p class="text-slate-600 text-sm leading-relaxed">나사 수가 많아질수록 작업 시간은 선형이 아닌 기하급수적으로 증가합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 표준 체결 절차 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded">04</span>
+        <h2 class="text-xl font-bold text-blue-950">표준 체결 절차와 현장 적용 방식</h2>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-8">
+        <p class="text-slate-600 leading-relaxed">
+          플랜지 체결와 같은 가스켓을 포함한 체결작업에서는 나사 체결력 산포와 가스켓 편압을 줄이기 위해 여러 단계의 체결 절차가 사용됩니다.
+          아래 방식들은 단축 순차 체결 현장에서 일반적으로 적용되는 체결 보정 방법입니다.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-blue-700 text-white text-xs font-bold px-2 py-0.5 rounded">1</span>
+              <h3 class="font-semibold text-blue-950">지그재그 체결</h3>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+              서로 마주보는 위치의 나사를 대각선 순서로 조여 플랜지 전체에 체결력을 분산시키는 방식입니다.
+            </p>
+            <div class="bg-white rounded-lg p-3 border border-blue-100 text-sm text-slate-600">
+              <p><strong class="text-blue-900">1회차:</strong> 규정 토크의 50%</p>
+              <p><strong class="text-blue-900">2회차:</strong> 규정 토크의 75%</p>
+              <p><strong class="text-blue-900">3회차:</strong> 규정 토크의 100%</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-slate-700 text-white text-xs font-bold px-2 py-0.5 rounded">2</span>
+              <h3 class="font-semibold text-blue-950">2단 체결</h3>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+              자동기계 등에서 복잡한 순서 제어가 어려운 경우, 전체 나사를 예비 체결 후 본 체결하는 방식입니다.
+            </p>
+            <div class="bg-white rounded-lg p-3 border border-slate-200 text-sm text-slate-600">
+              <p><strong class="text-blue-900">1단계:</strong> 가조임</p>
+              <p><strong class="text-blue-900">2단계:</strong> 규정 토크 100% 본조임</p>
+            </div>
+          </div>
+
+          <div class="bg-amber-50 rounded-xl p-5 border border-amber-100">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-amber-500 text-white text-xs font-bold px-2 py-0.5 rounded">3</span>
+              <h3 class="font-semibold text-blue-950">2회 체결</h3>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+              패킹, 고무 등 유연한 부재가 포함된 경우 축력 전달이 지연될 수 있어 동일 토크로 한 번 더 체결합니다.
+            </p>
+            <div class="bg-white rounded-lg p-3 border border-amber-100 text-sm text-slate-600">
+              <p><strong class="text-blue-900">1회:</strong> 규정 토크 100%</p>
+              <p><strong class="text-blue-900">2회:</strong> 다시 규정 토크 100%</p>
+            </div>
+          </div>
+
+          <div class="bg-emerald-50 rounded-xl p-5 border border-emerald-100">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="bg-emerald-600 text-white text-xs font-bold px-2 py-0.5 rounded">4</span>
+              <h3 class="font-semibold text-blue-950">안정화 체결</h3>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+              좌면의 버, 표면 거칠기, 미세 변형 등으로 인한 초기 불안정성을 줄이기 위해 체결 후 풀고 다시 체결하는 방식입니다.
+            </p>
+            <div class="bg-white rounded-lg p-3 border border-emerald-100 text-sm text-slate-600">
+              <p><strong class="text-blue-900">1단계:</strong> 규정 토크 100% 체결</p>
+              <p><strong class="text-blue-900">2단계:</strong> 풀림</p>
+              <p><strong class="text-blue-900">3단계:</strong> 다시 규정 토크 100% 체결</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-950 rounded-xl p-5 text-blue-50">
+          <p class="font-semibold mb-2">Point</p>
+          <p class="text-blue-100 text-sm leading-relaxed">
+            위 절차들은 단축 체결에서 발생하는 체결력의 불균형과 축력 안정성 문제를 줄이기 위한 체결법입니다.<br/>
+            그러나 나사를 하나씩 조이는 기본 컨셉은 유지되므로, 탄성 상호작용을 완전히 제거하기는 어렵습니다.<br/>
+            따라서 2축·4축이상의 다축체결의 필요성이 부각됩니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 2축 Multi-Spindle -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded">05</span>
+        <h2 class="text-xl font-bold text-blue-950">2축을 이용한 체결</h2>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-8">
+        <p class="text-slate-600 leading-relaxed">
+          서로 <strong class="text-blue-950">180도 반대편</strong>에 위치한 나사 2개를 동시에 체결합니다.
+          한 번의 작동으로 대칭된 두 나사에 동일한 토크가 동시에 적용됩니다.
+        </p>
+
+        <div>
+          <h3 class="font-semibold text-blue-950 mb-4">12나사 플랜지 작업 구조</h3>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3 bg-slate-50 rounded-lg p-3">
+              <span class="text-xs font-bold text-slate-400 w-14">1회 작동</span>
+              <div class="flex gap-1">
+                <span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded font-bold">1번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded font-bold">7번</span>
+              </div>
+              <span class="text-xs text-slate-500">동시 체결</span>
+            </div>
+            <div class="flex items-center gap-3 bg-slate-50 rounded-lg p-3">
+              <span class="text-xs font-bold text-slate-400 w-14">2회 작동</span>
+              <div class="flex gap-1">
+                <span class="bg-blue-500 text-white text-xs px-2 py-0.5 rounded font-bold">2번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-blue-500 text-white text-xs px-2 py-0.5 rounded font-bold">8번</span>
+              </div>
+              <span class="text-xs text-slate-500">동시 체결</span>
+            </div>
+            <div class="flex items-center gap-3 bg-slate-50 rounded-lg p-3">
+              <span class="text-xs font-bold text-slate-400 w-14">3회 작동</span>
+              <div class="flex gap-1">
+                <span class="bg-blue-400 text-white text-xs px-2 py-0.5 rounded font-bold">3번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-blue-400 text-white text-xs px-2 py-0.5 rounded font-bold">9번</span>
+              </div>
+              <span class="text-xs text-slate-500">동시 체결</span>
+            </div>
+            <div class="text-center text-slate-400 text-xs py-1">···</div>
+            <div class="flex items-center gap-3 bg-blue-50 rounded-lg p-3 border border-blue-100">
+              <span class="text-xs font-bold text-blue-700 w-14">총 6회</span>
+              <span class="text-xs text-blue-800 font-semibold">12나사 1패스 완료</span>
+              <span class="ml-auto text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full">단축 대비 50% ↓</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-emerald-50 rounded-xl p-5 border border-emerald-100">
+            <p class="font-semibold text-emerald-700 text-sm mb-2">✓ 핵심 효과</p>
+            <p class="text-slate-600 text-sm leading-relaxed">대칭 동시 체결로 플랜지 양쪽에 동시에 체결력이 가해져 편체결력 문제가 구조적으로 완화됩니다.</p>
+          </div>
+          <div class="bg-amber-50 rounded-xl p-5 border border-amber-100">
+            <p class="font-semibold text-amber-700 text-sm mb-2">△ 한계</p>
+            <p class="text-slate-600 text-sm leading-relaxed">두개의 나사만 체결 하기 대문에 나사에서 가장 먼 부분의 탄성 상호작용이 완전히 제거되지는 않습니다. <br/>단축 대비 현저히 개선되나 4축 대비 축력의 산포는 큽니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 4축 Multi-Spindle -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded">06</span>
+        <h2 class="text-xl font-bold text-blue-950">4축을 이용한 체결</h2>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-8">
+        <p class="text-slate-600 leading-relaxed">
+          <strong class="text-blue-950">90도 간격</strong>으로 배치된 나사 4개를 동시에 체결합니다.
+          플랜지의 상하좌우 4개 지점에 동시에 동일한 토크가 적용됩니다.
+        </p>
+
+        <div>
+          <h3 class="font-semibold text-blue-950 mb-4">12나사 플랜지 작업 구조</h3>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3 bg-slate-50 rounded-lg p-3">
+              <span class="text-xs font-bold text-slate-400 w-14">1회 작동</span>
+              <div class="flex gap-1 flex-wrap">
+                <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-bold">1번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-bold">4번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-bold">7번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-emerald-500 text-white text-xs px-2 py-0.5 rounded font-bold">10번</span>
+              </div>
+              <span class="text-xs text-slate-500">동시 체결</span>
+            </div>
+            <div class="flex items-center gap-3 bg-slate-50 rounded-lg p-3">
+              <span class="text-xs font-bold text-slate-400 w-14">2회 작동</span>
+              <div class="flex gap-1 flex-wrap">
+                <span class="bg-emerald-400 text-white text-xs px-2 py-0.5 rounded font-bold">2번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-emerald-400 text-white text-xs px-2 py-0.5 rounded font-bold">5번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-emerald-400 text-white text-xs px-2 py-0.5 rounded font-bold">8번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-emerald-400 text-white text-xs px-2 py-0.5 rounded font-bold">11번</span>
+              </div>
+              <span class="text-xs text-slate-500">동시 체결</span>
+            </div>
+            <div class="flex items-center gap-3 bg-slate-50 rounded-lg p-3">
+              <span class="text-xs font-bold text-slate-400 w-14">3회 작동</span>
+              <div class="flex gap-1 flex-wrap">
+                <span class="bg-emerald-300 text-white text-xs px-2 py-0.5 rounded font-bold">3번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-emerald-300 text-white text-xs px-2 py-0.5 rounded font-bold">6번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-emerald-300 text-white text-xs px-2 py-0.5 rounded font-bold">9번</span>
+                <span class="text-slate-400 text-xs self-center">+</span>
+                <span class="bg-emerald-300 text-white text-xs px-2 py-0.5 rounded font-bold">12번</span>
+              </div>
+              <span class="text-xs text-slate-500">동시 체결</span>
+            </div>
+            <div class="flex items-center gap-3 bg-emerald-50 rounded-lg p-3 border border-emerald-200">
+              <span class="text-xs font-bold text-emerald-700 w-14">총 3회</span>
+              <span class="text-xs text-emerald-700 font-semibold">12나사 1패스 완료</span>
+              <span class="ml-auto text-xs bg-emerald-500 text-white px-2 py-0.5 rounded-full">단축 대비 75% ↓</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-emerald-50 rounded-xl p-5 border border-emerald-100">
+            <p class="font-semibold text-emerald-700 text-sm mb-2">✓ 핵심 효과</p>
+            <p class="text-slate-600 text-sm leading-relaxed">플랜지를 4방향에서 동시에 균등하게 압착합니다. 탄성 상호작용이 사실상 제거되며 가스켓 전체 면에 균일한 체결력이 적용됩니다.</p>
+          </div>
+          <div class="bg-emerald-50 rounded-xl p-5 border border-emerald-100">
+            <p class="font-semibold text-emerald-700 text-sm mb-2">✓ 공정 압축</p>
+            <p class="text-slate-600 text-sm leading-relaxed">3회 작동으로 12개 나사가 체결 되어 1패스가 완료됩니다. RTJ가스켓 (Ring Type Joint Gasket) 기준 1축대비 공정 시간 70~80% 단축됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 정량 비교 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded">07</span>
+        <h2 class="text-xl font-bold text-blue-950">정량 비교</h2>
+      </div>
+      <div class="space-y-6">
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+          <h3 class="font-semibold text-blue-950 mb-6">1 패스당 너트러너 작동 횟수 — 12나사 플랜지 기준</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-600">단축 1대</span>
+                <span class="font-bold text-red-500">12회</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-3">
+                <div class="bg-red-400 h-3 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-600">2축 Multi-Spindle</span>
+                <span class="font-bold text-blue-600">6회 (50% 감소)</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-3">
+                <div class="bg-blue-500 h-3 rounded-full" style="width: 50%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-600">4축 Multi-Spindle</span>
+                <span class="font-bold text-emerald-500">3회 (75% 감소)</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-3">
+                <div class="bg-emerald-400 h-3 rounded-full" style="width: 25%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+          <h3 class="font-semibold text-blue-950 mb-6">체결 품질 비교</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-slate-200">
+                  <th class="text-left py-3 pr-4 text-slate-500 font-medium">항목</th>
+                  <th class="text-center py-3 px-4 text-red-500 font-semibold">단축 순차</th>
+                  <th class="text-center py-3 px-4 text-blue-600 font-semibold">2축 동시</th>
+                  <th class="text-center py-3 px-4 text-emerald-500 font-semibold">4축 동시</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="py-3 pr-4 text-slate-700">탄성 상호작용</td>
+                  <td class="py-3 px-4 text-center"><span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">최대 발생</span></td>
+                  <td class="py-3 px-4 text-center"><span class="bg-amber-100 text-amber-600 text-xs px-2 py-1 rounded-full">부분 완화</span></td>
+                  <td class="py-3 px-4 text-center"><span class="bg-emerald-100 text-emerald-600 text-xs px-2 py-1 rounded-full">대폭 최소화</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 text-slate-700">나사 체결력 산포</td>
+                  <td class="py-3 px-4 text-center text-red-500 font-semibold">30% 이상</td>
+                  <td class="py-3 px-4 text-center text-amber-500 font-semibold">15% 내외</td>
+                  <td class="py-3 px-4 text-center text-emerald-500 font-semibold">5% 이내</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 text-slate-700">가스켓 압착 균일성</td>
+                  <td class="py-3 px-4 text-center"><span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">낮음</span></td>
+                  <td class="py-3 px-4 text-center"><span class="bg-amber-100 text-amber-600 text-xs px-2 py-1 rounded-full">중간</span></td>
+                  <td class="py-3 px-4 text-center"><span class="bg-emerald-100 text-emerald-600 text-xs px-2 py-1 rounded-full">높음</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 text-slate-700">누설 리스크</td>
+                  <td class="py-3 px-4 text-center"><span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">높음</span></td>
+                  <td class="py-3 px-4 text-center"><span class="bg-amber-100 text-amber-600 text-xs px-2 py-1 rounded-full">중간</span></td>
+                  <td class="py-3 px-4 text-center"><span class="bg-emerald-100 text-emerald-600 text-xs px-2 py-1 rounded-full">낮음</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 text-slate-700">작업자 숙련 의존</td>
+                  <td class="py-3 px-4 text-center"><span class="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full">높음</span></td>
+                  <td class="py-3 px-4 text-center"><span class="bg-amber-100 text-amber-600 text-xs px-2 py-1 rounded-full">중간</span></td>
+                  <td class="py-3 px-4 text-center"><span class="bg-emerald-100 text-emerald-600 text-xs px-2 py-1 rounded-full">낮음</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 비용 관점 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded">08</span>
+        <h2 class="text-xl font-bold text-blue-950">비용 관점</h2>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 space-y-6">
+        <div class="bg-slate-50 rounded-xl p-5 border-l-4 border-slate-400">
+          <p class="font-semibold text-blue-950 mb-2">단축 너트러너로 설비를 구성하면 저렴하다는 인식의 함정</p>
+          <p class="text-slate-600 text-sm leading-relaxed">단축구성의 도입단가 낮은 것은 사실입니다. 그러나 이 비교는 운영 비용 전체를 반영하지 않습니다.</p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-blue-950 mb-4">단축 방식의 숨겨진 비용 항목</h3>
+          <div class="space-y-3">
+            <div class="flex gap-4 items-start p-4 bg-red-50 rounded-xl border border-red-100">
+              <div class="w-8 h-8 bg-red-400 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-blue-950 text-sm">사이클타임 증가</p>
+                <p class="text-slate-500 text-xs mt-1">나사 터치 횟수가 많을수록 작업 시간이 늘어납니다.</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start p-4 bg-red-50 rounded-xl border border-red-100">
+              <div class="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-blue-950 text-sm">누설 사고 대응</p>
+                <p class="text-slate-500 text-xs mt-1">긴급 정비 + 생산 손실 + 환경 대응 + 규제 페널티 합산 등의 손실</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start p-4 bg-red-50 rounded-xl border border-red-100">
+              <div class="w-8 h-8 bg-red-300 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-blue-950 text-sm">재작업 및 작업자 교육</p>
+                <p class="text-slate-500 text-xs mt-1">나사 체결력 불안정으로 인한 불량 재체결 작업 + 작업자 숙련도 유지를 위한 지속적 교육 비용</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-emerald-50 rounded-xl p-6 border border-emerald-200">
+          <!-- <p class="font-bold text-emerald-800 mb-2">손익분기점</p> -->
+          <p class="text-slate-600 text-sm leading-relaxed">
+            누설 사고 <span class="text-emerald-700">1건을 방지 하는 것만으로도 단축 대비 다축 장비의 가격 차이를 회수할 수 있습니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 결론 -->
+    <section>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-900 text-white text-xs font-bold px-3 py-1 rounded">09</span>
+        <h2 class="text-xl font-bold text-blue-950">결론</h2>
+      </div>
+      <div class="bg-blue-950 rounded-2xl p-8 text-blue-50 space-y-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-blue-900 rounded-xl p-5">
+            <p class="text-blue-300 text-xs mb-2 uppercase tracking-wider">단축 너트러너 구매 =</p>
+            <p class="text-xl font-bold text-white">수동공구의 속도를 증가시키는 개념</p>
+          </div>
+          <div class="bg-emerald-800 rounded-xl p-5">
+            <p class="text-emerald-300 text-xs mb-2 uppercase tracking-wider">다축 너트러너(Multi-Spindle) 구매 =</p>
+            <p class="text-xl font-bold text-white">공정 품질과 리스크 관리를 구매하는 것</p>
+          </div>
+        </div>
+        <div class="border-t border-blue-800 pt-6 space-y-3">
+          <p class="text-blue-100 leading-relaxed text-sm">
+            탄성 상호작용은 물리현상. 작업자가 아무리 숙련되어도, 어떤 패턴을 사용해도 단축으로 체결하는 한 완전히 제거되지 않습니다.
+          </p>
+          <p class="text-blue-100 leading-relaxed text-sm">
+            <span class="text-blue-300 font-semibold">2축</span>은 이 문제를 절반으로 줄이고,
+            <span class="text-emerald-300 font-semibold">4축</span>은 2축 구성의 절반으로 제거합니다.
+          </p>
+          <p class="text-blue-100 leading-relaxed text-sm">
+            나사 수가 많은 대형 플랜지, 고압 공정, RTJ 가스켓 적용처에서 단축 1대를 선택하는 것은
+            <strong class="text-red-300">단기 비용을 아끼고 장기 리스크를 구매하는 결정</strong>입니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 pt-8 text-slate-400 text-xs space-y-1">
+      <p class="font-semibold text-slate-500 mb-3">참고 표준 및 자료</p>
+      <p>· ASME PCC-1: 나사 플랜지 조인트 조립 가이드라인, 2010년 개정판, Appendix F</p>
+      <p>· ASME B16.5: 배관 플랜지 및 플랜지 피팅</p>
+      <p>· ASME B16.47: 대형 강재 플랜지, NPS 26~NPS 60</p>
+      <p>· Hex Technology: Bolt Tightening Sequence Recommendations and Restrictions, Scott Hamilton, 2021</p>
+      <p class="pt-4 text-slate-300">라이선스: 본 문서는 당사 내부 검토 및 고객사 제안 목적으로 작성되었습니다.</p>
+    </footer>
+
+  </div><!-- /max-w-4xl -->
+
+  <!-- ============================================================
+       SCRIPTS — moved to end of body
+  ============================================================ -->
+  <script>
+    function renderDots(id, count, colorClass) {
+      const container = document.getElementById(id);
+      if (!container) return;
+      let html = '';
+      for (let i = 0; i < count; i++) {
+        html += `<span class="inline-block w-4 h-4 rounded-full ${colorClass}"></span>`;
+      }
+      container.innerHTML = html;
+    }
+
+    renderDots('step1-dots', 12, 'bg-slate-300');
+    renderDots('step2-dots', 12, 'bg-slate-400');
+    renderDots('step3-dots', 12, 'bg-slate-600');
+    renderDots('step4-dots', 24, 'bg-red-300');
+  </script>
+
+</body>
+</html>
