@@ -92,6 +92,18 @@ button {
   color: #0f1115; 
 }
 
+.norm-btn {
+  margin-top: 10px;
+  background: #0f1115;
+  border: 2px solid #5255ff;
+  color: #1908b7;
+  font-weight: bold;
+}
+.norm-btn:hover { 
+  background: #270462; 
+  color: #0f1115; 
+}
+
 /* 검색창 전용 설정 (노란 배경 유지) */
 #searchInput {
   background: #ffeb3b;
@@ -165,14 +177,27 @@ td:hover {
     <h2>에스틱 대리점 전용 페이지</h2>
     <input type="password" id="pass" placeholder="비밀번호 입력"
            onkeypress="if(event.key==='Enter') login()">
-    <button class="login-btn" onclick="login()">접속하기</button>
+    <button class="login-btn" onclick="login()">대리점 전용 데이터베이스 접속하기</button>
 
     <button id="protectBtn" class="protect-btn"
       onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform'">
       보호요청은 이곳을 클릭
     </button>
+    
+    <button id="protectBtn" class="protect-btn"
+      onclick="location.href='https://forms.gle/m71X5mr71kjhVpQT6'">
+      특주품 견적의뢰는 이곳을 클릭
+    </button>
+   
+    <button id="protectBtn" class="protect-btn"
+      onclick="location.href='https://forms.gle/4nvTLNJ7w8WKnw6r7'">
+      표준납기확인은 이곳을 클릭
+    </button>
+    
   </div>
 </div>
+
+
 
 <!-- 메인 -->
 <div id="content" class="hidden">
