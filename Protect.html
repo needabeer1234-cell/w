@@ -96,12 +96,12 @@ button {
   margin-top: 10px;
   background: #0f1115;
   border: 2px solid #5255ff;
-  color: #1908b7;
+  color: #c5c4ca;
   font-weight: bold;
 }
 .norm-btn:hover { 
   background: #270462; 
-  color: #0f1115; 
+  color: #ffffff; 
 }
 
 /* 검색창 전용 설정 (노란 배경 유지) */
@@ -174,24 +174,27 @@ td:hover {
 <!-- 로그인 -->
   <div id="login-section">
   <div class="login-box">
-    <h2>에스틱 대리점 전용 페이지</h2>
+    <h2>대리점 전용 데이터베이스</h2>
     <input type="password" id="pass" placeholder="비밀번호 입력"
            onkeypress="if(event.key==='Enter') login()">
     <button class="login-btn" onclick="login()">대리점 전용 데이터베이스 접속하기</button>
 
+    <h2>구글 폼 링크</h2>
+
+
     <button id="protectBtn" class="protect-btn"
       onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform'">
-      보호요청은 링크
+      영업보호요청 링크
     </button>
     
     <button id="protectBtn" class="norm-btn"
       onclick="location.href='https://forms.gle/m71X5mr71kjhVpQT6'">
-      특주품 견적의뢰는 링크
+      특주품 견적의뢰 링크
     </button>
    
     <button id="protectBtn" class="norm-btn"
       onclick="location.href='https://forms.gle/4nvTLNJ7w8WKnw6r7'">
-      표준납기확인은 링크
+      표준품 납기확인 링크
     </button>
     
   </div>
