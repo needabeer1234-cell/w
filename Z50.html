@@ -78,7 +78,7 @@
 
                 <ul class="detail-list space-y-3 text-sm sm:text-base">
                     <li>
-                        <span class="font-bold text-sky-300">MAS/LOC 국 전환 (DIP스위치 1):</span> 다축 시스템 사용 시 설정. 단독 사용 시 <span class="highlight-value">ON (MAS 국)</span>으로 설정. (공장 출하: <span class="highlight-value">OFF (LOC 국)</span>)
+                        <span class="font-bold text-sky-300">MAS/LOC 국 전환 (DIP스위치 1):</span> 다축 시스템 사용 시 설정. 단독 사용 시 <span class="highlight-value">ON (MAS 국)</span>으로 설정. (공장 출하: <span class="highlight-value">OFF (LOC 국)</span>) 
                     </li>
                     <li>
                         <span class="font-bold text-sky-300">설정값 보호 기능 (DIP스위치 2):</span> <span class="highlight-value">ON</span> 설정 시 MU50 패널에서의 주요 설정 및 초기화 실행 불가. (공장 출하: <span class="highlight-value">OFF (무효)</span>)
@@ -147,6 +147,17 @@
                 <ul class="detail-list space-y-3 text-sm sm:text-base">
                     <li>
                         <span class="font-bold text-sky-300">CC-Link 리셋 설정 (SW1):</span> (공장 출하: <span class="highlight-value">OFF</span>)
+                        
+                            <div style="padding-left: 20px;">
+                            대상 장비: AnyBus-CC CC-Link 유닛이 장착된 MU50 ENRZ-MU50-Cxx<br>
+                            발생 조건: MU50 전원 ON 후 10초 이상 지연되어 CC-Link 마스터국 전원이 ON되는 경우<br>
+                            발생 가능 현상: CC-Link 통신이 정상적으로 이루어지지 않을 수 있음<br>
+                            대응 기능: 패널 딥스위치 1번이 ON인 경우, 정상 통신이 1초간 이루어지지 않으면 CC-Link 유닛을 리셋<br>
+                            사용 목적: CC-Link 유닛 리셋을 통해 통신 재접속 수행<br>
+                            지원 버전: 시스템 소프트웨어 MA1190 이후<br>
+                            기본 설정: OFF / 기능 무효<br>
+                            주의 사항: 딥스위치 조작은 반드시 컨트롤러 전원을 끈 상태에서 실시
+                            </div>
                     </li>
                     <li>
                         <span class="font-bold text-sky-300">FROM 설정 값 우선(CF카드보다 우선) 설정 (SW2):</span> (공장 출하: <span class="highlight-value">OFF</span>)
@@ -158,7 +169,7 @@
                         <span class="font-bold text-sky-300">설정 보호기능 (SW8):</span> <span class="highlight-value">ON</span> 설정 시 MU50 패널에서 주요 설정 및 초기화 실행 불가. PC50/DP50을 통한 설정 변경은 보호되지 않음 (Ver.MA1380 이상).
                     </li>
                     <li>
-                        <span class="font-bold text-sky-300">FIELDBUS 1BYTE 출력 설정 (SW6):</span> 데이터 출력시 글자 깨짐 발생 시 <span class="highlight-value">ON</span>하여 시도할 것. <br>(공장 출하: <span class="highlight-value">OFF</span>)
+                        <span class="font-bold text-sky-300">FIELDBUS 1BYTE 출력 설정 (SW6):</span> 필드버스 출력된 데이터가 깨질때 <span class="highlight-value">ON</span>하여 시도할 것.Fieldbus 워드 디바이스 출력 배열 방식 선택 기능 임<br>(공장 출하: <span class="highlight-value">OFF(무효)</span>)
                     </li>
                 </ul>
             </div>
