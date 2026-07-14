@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AU MASTER 다축 시스템 SEAT 동기화 제어 및 배선 가이드</title>
+<style>
+  /* 기술 매뉴얼 전용 변수 선언 및 색상 정의 (오프화이트, 짙은 남색, 파란색 강조) */
+  :root {
+    --bg-main: #f8fafc;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --accent: #2563eb;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --code-bg: #0f172a;
+  }
+  
+  /* 기본 여백 초기화 및 박스 모델 설정 */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  /* 메인 타이틀 헤더 스타일 */
+  header {
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    /* letter-spacing: -0.03em; */
+  }
+  
+  header p {
+    color: #93c5fd;
+    font-size: 0.95rem;
+  }
+  
+  /* 카드 형태의 섹션 배치 */
+  section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  section h2 {
+    font-size: 1.35rem;
+    color: var(--primary);
+    border-left: 4px solid var(--accent);
+    padding-left: 0.75rem;
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+  }
+  
+  section h3 {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* 중요 하드웨어 신호 매핑 배지 */
+  .badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    background-color: #dbeafe;
+    color: #1e40af;
+    margin: 0 0.25rem;
+    font-family: monospace;
+  }
+  
+  .badge-pin {
+    background-color: #eff6ff;
+    color: var(--accent);
+    border: 1px solid #bfdbfe;
+  }
+
+  /* 반응형 데이터 테이블 스타일 (Flex/Grid 금지 지침 준수) */
+  .table-responsive {
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--border-color);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+  
+  th {
+    background-color: #f8fafc;
+    color: var(--primary);
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+  }
+  
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-main);
+  }
+  
+  tr:nth-child(even) {
+    background-color: #fdfdfd;
+  }
+  
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* 엔지니어링 코드 블록 스타일 */
+  pre {
+    background-color: var(--code-bg);
+    color: #e2e8f0;
+    padding: 1rem 1.25rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+    border-left: 4px solid var(--primary-light);
+  }
+  
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background-color: #f1f5f9;
+    color: #0f172a;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  /* 인터록 주의사항 및 위험 알림 박스 */
+  .callout {
+    background-color: #fffbeb;
+    border: 1px solid #fef3c7;
+    border-left: 4px solid #d97706;
+    padding: 1.25rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .callout-title {
+    font-weight: 600;
+    color: #92400e;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .callout ul {
+    list-style-type: disc;
+    padding-left: 1.25rem;
+    color: #78350f;
+    font-size: 0.9rem;
+  }
+  
+  .callout li {
+    margin-bottom: 0.25rem;
+  }
+
+  /* 순서 유지를 위한 범용 불릿 리스트 */
+  .list-bullet {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--text-muted);
+    font-size: 0.925rem;
+  }
+  
+  .list-bullet li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* 시퀀스 흐름도 카드식 배치 (Block 레이아웃 기반) */
+  .flow-container {
+    display: block;
+  }
+  
+  .flow-step {
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 0.375rem;
+    font-weight: 500;
+    font-size: 0.925rem;
+    color: var(--text-main);
+    border-left: 4px solid var(--primary-light);
+  }
+  
+  .flow-arrow {
+    text-align: center;
+    color: var(--primary-light);
+    font-size: 1rem;
+    margin-bottom: 0.375rem;
+    font-weight: bold;
+  }
+  /* 하드웨어/소프트웨어 검증 체크리스트 */
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  width: 100%;
+  margin-bottom: 0.75rem;
+  font-size: 0.925rem;
+  line-height: 1.55;
+}
+
+.checklist-cb {
+  flex: 0 0 18px;
+  width: 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.18rem;
+}
+
+.checklist-text {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-main);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.checklist-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+  /* 가이드라인 핵심 요약 종합 박스 */
+  .summary-box {
+    background-color: #f0fdf4;
+    border: 1px solid #dcfce7;
+    border-left: 4px solid #16a34a;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+  }
+  
+  .summary-box ul {
+    list-style-type: none;
+  }
+  
+  .summary-box li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.925rem;
+    color: #14532d;
+  }
+  
+  .summary-box li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #16a34a;
+    font-weight: bold;
+  }
+  
+  .summary-box li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 반응형 모바일 처리를 위한 미디어 쿼리 */
+  @media (max-width: 768px) {
+    body {
+      padding: 1rem 0.5rem;
+    }
+    section {
+      padding: 1.25rem;
+    }
+    .table-cell-mobile-block {
+      display: block !important;
+      width: 100% !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-bottom: 1rem;
+    }
+  }
+
+  /* 인쇄 최적화 규격 */
+  @media print {
+    body {
+      background-color: #ffffff;
+      padding: 0;
+    }
+    header {
+      border: 1px solid #000000;
+      background: none;
+      color: #000000;
+      box-shadow: none;
+    }
+    header p {
+      color: #000000;
+    }
+    section {
+      page-break-inside: avoid;
+      box-shadow: none;
+      border: 1px solid #cbd5e1;
+    }
+    th {
+      background-color: #f1f5f9 !important;
+      color: #000000 !important;
+      border-bottom: 2px solid #000000;
+    }
+    pre {
+      border: 1px solid #cbd5e1;
+      background-color: #f8fafc;
+      color: #000000;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  
+  <header>
+    <h1>AU MASTER 다축 시스템 동기화, 제어, 배선 가이드</h1>
+    <p>다축 운용시의 동기화 제어를 위한 I/O 매핑, 하드웨어 결선 지침서</p>
+  </header>
+
+  <section>
+    <h2>1. 목적</h2>
+    <p>다축 너트러너 시스템 프로그램 기동 시, 축별로 다른 타이밍에 가체결이 완료(SEATING)될 경우 다음 스텝까지 대기(동기)한다.<br>
+    모든 축의 나사가 가체결 완료되었음을 소프트웨어적으로 확인 후 본체결로 전축이 동시에 진입하도록 한다 .</p>
+    <p>시스템 동기화를 위한 IO번호 배선 번호는 다음 표에서 확인 가능하다.</p>
+  </section>
+
+  <section>
+    <h2>2. 필요한 I/O할당</h2>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 15%;">구분</th>
+            <th style="width: 15%;">No.</th>
+            <th style="width: 30%;">할당 신호</th>
+            <th style="width: 40%;">내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>입력</strong></td>
+            <td><span class="badge badge-pin">12</span></td>
+            <td>동기 대기용 신호(임의 할당)</td>
+            <td>타 축 가체결 완료 수신 (본체결 진입 트리거용용)</td>
+          </tr>
+          <tr>
+            <td><strong>출력</strong></td>
+            <td><span class="badge badge-pin">32</span></td>
+            <td>가체결완료 신호(임의 할당)</td>
+            <td>자기 축의 가체결 완료 판정 완료 시 컨트롤러에서 ON</td>
+          </tr>
+          <tr>
+            <td><strong>전원</strong></td>
+            <td><span class="badge badge-pin">13</span></td>
+            <td>COM+</td>
+            <td>DC +24V 전원 입력 전용 내부 단자</td>
+          </tr>
+          <tr>
+            <td><strong>전원</strong></td>
+            <td><span class="badge badge-pin">36</span></td>
+            <td>COM-</td>
+            <td>0V 전원 입력 전용 내부 단자</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="callout">
+      <div class="callout-title">⚠️ 핵심 I/O 취급 주의사항</div>
+      <ul>
+        <li><strong>12번 입력 신호</strong>는 시퀀스 흐름상 본체결 단계를 기동하기 필요합니다. 본 문서에서는 임의로 할당 함.</li>
+        <li><strong>32번 출력 신호</strong>는 해당축의 컨트롤러에서 가체결 완료시  출력됩니다. 본 문서에서는 임의로 할당 함.</li>
+        <li>현장의 PLC의 사양에 맞춰 NPN(Sink) 또는 PNP(Source) 결선 및 COM을 일치시키십시오.</li>
+        <li><strong>13번(COM+)</strong> 및 <strong>36번(COM-)</strong> 은 고정 입니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. PLC없이 동기만을 위한 2축 IO배선의 예</h2>
+    <p>AU 2축간을 IO 결선만으로 1:1로 교차 연결하여 동기화를 구성하는 방식입니다.</p>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 45%;">연결 항목</th>
+            <th style="width: 55%;">하드웨어 배선 처리 상세</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>축 A 가체결완료 → 축 B 동기 입력</strong></td>
+            <td>축 A의 AU컨트롤러의 <span class="badge badge-pin">32</span>번 단자 ───&gt; 축 B의 AU컨트롤러의 <span class="badge badge-pin">12</span>번 단자 연결</td>
+          </tr>
+          <tr>
+            <td><strong>축 B 가체결완료 → 축 A 동기 입력</strong></td>
+            <td>축 B의 AU컨트롤러의 <span class="badge badge-pin">32</span>번 단자 ───&gt; 축 A의 AU컨트롤러의 <span class="badge badge-pin">12</span>번 단자 연결</td>
+          </tr>
+          <tr>
+            <td><strong>제어 전원 공통 공유</strong></td>
+            <td>각 AU 컨트롤러의 <span class="badge badge-pin">13</span>번 및 <span class="badge badge-pin">36</span>번 단자는 동일 번호끼리 연결하며, 현장 I/O 전원 사양을 준수한다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <h3>물리 동작 성립 조건</h3>
+    <ul class="list-bullet">
+      <li>축 A 가체결 완료 시 → 축 A <span class="badge badge-pin">32</span>번 출력 IO ON</li>
+      <li>축 B 가체결 완료 시 → 축 B <span class="badge badge-pin">32</span>번 출력 IO ON</li>
+      <li>축 A의 AU컨트롤러는 축 B의 <span class="badge badge-pin">32</span>번 출력을 자신의 <span class="badge badge-pin">12</span>번 입력 단자로 수신</li>
+      <li>축 B의 AU컨트롤러는 축 A의 <span class="badge badge-pin">32</span>번 출력을 자신의 <span class="badge badge-pin">12</span>번 입력 단자로 수신</li>
+      <li><strong>-></strong> 양축의 <span class="badge badge-pin">12</span>번 입력이 동시에 ON되는 시점에 본체결로 진입</li>
+    </ul>
+  </section>
+
+  <section>
+
+    <h2>4. 3축 이상의 경우 동기체결 PLC사용시</h2>
+    <p>3축 이상에서는 모든 축의 SEAT 완료 신호를 취합해야 하므로, PLC 등을 이용해 동기를 구성하는 것이 일반적이다.</p>
+    
+    <div style="display: table; width: 100%; table-layout: fixed; margin-bottom: 1rem;">
+      <div class="table-cell-mobile-block" style="display: table-cell; padding-right: 0.5rem; vertical-align: top;">
+        <h3>[입력: AU I/O → PLC I/O]</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>AU 출력</th>
+                <th>PLC 입력의 예</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AU1 <span class="badge badge-pin">32</span>번 (SEAT DONE)</td>
+                <td>PLC 입력 (AU1_SEAT)</td>
+              </tr>
+              <tr>
+                <td>AU2 <span class="badge badge-pin">32</span>번 (SEAT DONE)</td>
+                <td>PLC 입력 (AU2_SEAT)</td>
+              </tr>
+              <tr>
+                <td>AU3 <span class="badge badge-pin">32</span>번 (SEAT DONE)</td>
+                <td>PLC 입력 (AU3_SEAT)</td>
+              </tr>
+              <tr>
+                <td>AUn <span class="badge badge-pin">32</span>번 (SEAT DONE)</td>
+                <td>PLC 입력 (AUn_SEAT)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="table-cell-mobile-block" style="display: table-cell; padding-left: 0.5rem; vertical-align: top;">
+        <h3>[출력: PLC I/O → AU I/O 입력]</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>PLC 출력의 예</th>
+                <th>AU입력</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PLC 동기 허가 (SYNC_PERMIT)</td>
+                <td>AU1 <span class="badge badge-pin">12</span>번 입력 단자</td>
+              </tr>
+              <tr>
+                <td>PLC 동기 허가 (SYNC_PERMIT)</td>
+                <td>AU2 <span class="badge badge-pin">12</span>번 입력 단자</td>
+              </tr>
+              <tr>
+                <td>PLC 동기 허가 (SYNC_PERMIT)</td>
+                <td>AU3 <span class="badge badge-pin">12</span>번 입력 단자</td>
+              </tr>
+              <tr>
+                <td>PLC 동기 허가 (SYNC_PERMIT)</td>
+                <td>AUn <span class="badge badge-pin">12</span>번 입력 단자</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+<!-- 
+    <h3>PLC 내부 조건 처리 블록</h3>
+    <pre><code>IF AU1_32 = ON
+AND AU2_32 = ON
+AND AU3_32 = ON
+AND ... AUn_32 = ON
+THEN
+    SYNC_PERMIT = ON
+ELSE
+    SYNC_PERMIT = OFF
+END_IF</code></pre> -->
+  </section>
+
+  <section>
+    <h2>5. 제어 시퀀스</h2>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 15%;">Step</th>
+            <th style="width: 40%;">실행항목</th>
+            <th style="width: 45%;">사용 I/O 및 신호 제어 메커니즘</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>이전 스텝의 출력 클리어 (초기화)</td>
+            <td><span class="badge badge-pin">32</span>번 출력 IOOFF (신호 제거)</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>가체결 및 SEAT 검출</td>
+            <td>각 AU 내부 연산 및 토크 조건 모니터링</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>가체결완료 출력 발신</td>
+            <td>조건 만족 시 <span class="badge badge-pin">32</span>번 하드웨어 출력 ON</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>타 축 완료 대기</td>
+            <td>자체 구동 일시 정지 후 <span class="badge badge-pin">12</span>번 입력 대기</td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td>동기 본체결 실행</td>
+            <td><span class="badge badge-pin">12</span>번 입력을 받아 전축 본체결 구동</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Step별 제어 내용</h2>
+    
+    <h3>Step 2. 출력 클리어</h3>
+        <p><strong>목적:</strong> 이전 체결 공정 사이클에서 잔존하는 가체결 완료 신호를 리셋한다. 비정상 공정 종료 후 시스템 재기동 시 발생할 수 있는 인터록 오작동을 차단하고, 정상 검증 없이 Step 5의 대기 시퀀스를 무시해 버리는 사고를 방지한다.</p>
+    
+    <h3>Step 3. 가체결 검출</h3>  
+    <p><strong>목적:</strong> 너트러너 컨트롤러 (드라이버)상의 설정대로 가체결을 완료시킨다.</p>
+
+    <h3>Step 4. 가체결 완료 출력</h3>
+    <p><strong>목적:</strong> 자기 축이 가체결 완료 되었음을 IO출력한다.</p>
+
+    <h3>Step 5. 동기 입력 대기</h3>
+    <p><strong>방식별 동작 방식:</strong></p>
+    <ul class="list-bullet">
+      <li><strong>2축 직접 배선 방식:</strong> 다른축 가체결 완료 신호(<span class="badge">32</span>번 ON)가 IO로 자축의 <span class="badge">12</span>번 IO로 직접 도달 시 대기 해제.</li>
+      <li><strong>3축 이상 PLC 방식:</strong> 가동 중인 전체 AU의 <span class="badge">32</span>번 신호가 취합되어 PLC 논리곱(AND) 회로가 성립되면, PLC 하드웨어 출력을 거쳐 전체 AU의 <span class="badge">12</span>번 입력 IO로 24V 신호가 동시 인가되어 대기 해제.</li>
+    </ul>
+
+    <h3>Step 6. 본체결</h3>
+     <p><strong>목적:</strong> 모든 축의 가체결이 끝나고 <span class="badge">12</span>번 단자를 통해 신호가 들어오면 본체결을 실행한다.</p>
+  </section>
+
+  <section>
+    <h2>7. Timeout 처리</h2>
+    <p>특정 축의 NG상황으로 인한 가체결 실패 시 시스템이 Step 5 단계에서 영구 대기하는 현상을 차단하기 위해 PLC쪽에서 타이머를 사용한 감시 회로를 반드시 구성해야 한다.</p>
+  
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 45%;">예외 발생 조건</th>
+            <th style="width: 55%;">시스템 처리 및 인터록 제어 내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>일부 축 32번 미출력 상태 지속</strong></td>
+            <td>설정 시간(SET_TIME) 경과 시 즉시 동기 Timeout 알람 판정 및 사이클 강제 종료</td>
+          </tr>
+          <tr>
+            <td><strong>임의의 축 AU SYSTEM ERROR 발생</strong></td>
+            <td>상위 안전 회로 즉각 연동, 즉시 전체 축 비상 정지(ALL_AU_STOP) 가동</td>
+          </tr>
+          <tr>
+            <td><strong>외부 비상 정지(STOP) 입력 감지</strong></td>
+            <td>제어 시퀀스 즉시 파괴 및 모터 구동 모듈 하드웨어 셧다운 처리</td>
+          </tr>
+          <tr>
+            <td><strong>PLC 통신 불량 또는 I/O 링크 단선</strong></td>
+            <td>데이터 불일치로 인한 오작동 방지를 위해 하드웨어 연동 전체 축 가동 정지</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>8. 사용신호의 예</h2>
+    <p>AU마스터로 다축 동기를 할경우 사용하는 필수 내부신호 리스트입니다.</p>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 15%;">No.</th>
+            <th style="width: 35%;">할당 신호명</th>
+            <th style="width: 50%;">신호 용도 및 목적</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge">14</span></td>
+            <td>READY</td>
+            <td>너트러너 컨트롤러가 가동 명령 수신이 가능한 유휴 상태</td>
+          </tr>
+          <tr>
+            <td><span class="badge">15</span></td>
+            <td>BUSY</td>
+            <td>가동 명령을 수신하여 현재 너트러너를 구동 중인 상태</td>
+          </tr>
+          <tr>
+            <td><span class="badge">16</span></td>
+            <td>SYSTEM ERROR</td>
+            <td>하드웨어 장해 및 기기 치명적 파손 시 발신되는 비상 에러 상태</td>
+          </tr>
+          <tr>
+            <td><span class="badge">19</span></td>
+            <td>체결 OK</td>
+            <td>최종 토크 및 각도 연산 결과가 설정치 내에 있음</td>
+          </tr>
+          <tr>
+            <td><span class="badge">32</span></td>
+            <td>가체결완료(임의로 설정함)</td>
+            <td>다축 가체결 동기화를 위한 가체결 판정용 신호</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>9. 전체 제어 흐름</h2>
+    <div class="flow-container">
+      <div class="flow-step">START : 체결 사이클 구동 명령 수신</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-step">Step 2: <span class="badge badge-pin">32</span>번 출력 리셋 (OFF) ── 이전 공정 신호 완전 제거</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-step">Step 3: 가체결 구동 개시 및 기기 내부 알고리즘 기반 SEAT 실시간 감시</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-step">Step 4: 각 개별 가체결 검출 즉시 해당 축 <span class="badge badge-pin">32</span>번 하드웨어 출력 ON 전환</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-step">Step 5: 다음 단계 이행 정지 후 외부 <span class="badge badge-pin">12</span>번 동기 신호 입력 대기</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-step">[2축 직접 교차 배선] 또는 [3축 이상 PLC의 AND 논리 회로]를 통해 전체 가체결 완료 판정</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-step">모든 축의 <span class="badge badge-pin">12</span>번 동기 대기 IO 입력을 트리거로 일제히 ON 전환</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-step">Step 6: 전 축 대기 해제 및 본체결 개시</div>
+      <div class="flow-arrow">▼</div>
+      <div class="flow-step">본체결(프로그램) 완료</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>10. 결선 체크리스트</h2>
+    <div class="checklist-item">
+      <div class="checklist-cb"><input type="checkbox" id="c1"></div>
+      <div class="checklist-text"><label for="c1">특정 입력 IO번호를 너트러너 설정치상 '동기 대기용 신호(임의 할당)'로 할당되었는가</label></div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-cb"><input type="checkbox" id="c2"></div>
+      <div class="checklist-text"><label for="c2">동일하게 특정 출력 IO번호를 너트러너 설정치상 '가체결완료'신호로 할당되었는가</label></div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-cb"><input type="checkbox" id="c4"></div>
+      <div class="checklist-text"><label for="c4">각 축의 가체결 완료 출력이 다른 축의 가체결 완료 입력 조건으로 반영되도록 구성되었는가</label></div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-cb"><input type="checkbox" id="c5"></div>
+      <div class="checklist-text"><label for="c5">13번 단자가 제어 전원 COM+(DC+24V)로 결선되었는가</label></div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-cb"><input type="checkbox" id="c6"></div>
+      <div class="checklist-text"><label for="c6">36번 단자가 제어 전원 COM-(0V)로 결선되었는가</label></div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-cb"><input type="checkbox" id="c8"></div>
+      <div class="checklist-text"><label for="c8">시퀀스 시작 시점인 Step 2 단계에서 32번 출력 포트가 잔류 신호 없이 확실히 OFF 처리되는가</label></div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-cb"><input type="checkbox" id="c9"></div>
+      <div class="checklist-text"><label for="c9">가체결완료 판정이 통과되는 Step 4 단계에서 32번 출력 정확히 ON 동작하는가</label></div>
+    </div>
+    <div class="checklist-item">
+      <div class="checkbox-cb"><input type="checkbox" id="c10"></div>
+      <div class="checklist-text"><label for="c10"> Step 5 단계 진입 후 타 축의 동기 완료 입력(12번 ON) 전까지 본체결 스텝으로 이행하지 않고 대기하는가</label></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>11. 핵심 요약</h2>
+    <div class="summary-box">
+      <ul>
+        <li><strong>32번 출력:</strong> 개별 축의 가체결완료 판정(SEAT) 으로 ON하는 신호.</li>
+        <li><strong>12번 입력:</strong> 시스템 내 전체 축의 가체결 완료를 받아 본체결 구동을 개시시키는 트리거 신호.</li>
+        <li><strong>2축 연동 운전:</strong> 하드웨어 직접 교차 교환 배선(<span class="badge">32번</span> ↔ <span class="badge">12번</span>) 방식으로 PLC 없이 동기 제어 구현 가능.</li>
+        <li><strong>3축 이상 운전:</strong> PLC 하드웨어 입력 모듈로 모든 <span class="badge">32번</span> 신호를 모아서 내부 <strong>AND</strong> 회로를 통과시켜 결론 신호를 전체 <span class="badge">12번</span> 출력.</li>
+        <li><strong>Step 2 초기화 리셋:</strong> 체결 프로그램 개시 전 잔존 신호로 인한 비동기 현상을 원천 차단하기 위해 <span class="badge">32번</span>의 강제 클리어 처리가 필수.</li>
+        <li><strong>Step 5 대기 인터록:</strong> 개별축의 가체결이 달성되더라도 다른 축의 가체결 완료가 입증될 때까지 <span class="badge">12번</span> 신호 레벨을 지속 감시 대기함.</li>
+        <li><strong>통합 비상 인터록:</strong> 가체결 감시 타이머 초과(Timeout) 및 단일 축의 에러(16번 SYSTEM ERROR) ON시에는 설비 손상 방지를 위해 전체 축 즉시 정지 회로를 연동해야 함.</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
