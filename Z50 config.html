@@ -117,7 +117,6 @@
   <section>
     <div class="head">
       <span class="n">3</span>필요 아이템
-      <button class="ghost" id="exportCsv" style="margin-left:auto;">CSV로 내보내기</button>
     </div>
     <div id="warnBox"></div>
     <div class="body">
@@ -128,10 +127,32 @@
     </div>
   </section>
 
-    <section>
-      <div class="head"><span class="n">4</span>레이아웃의 예</div>  
-      <img src="image/layout.jpg" style="width:100%;margin-top:10px;">
-    </section>     
+  <section>
+    <div class="head">
+      <span class="n">4</span>중계케이블
+      <span style="margin-left:auto;display:flex;align-items:center;gap:6px;">
+        <label for="relayLen" style="font-size:11.5px;color:#5b6b7a;margin:0;">길이</label>
+        <select id="relayLen" style="width:84px;padding:5px 6px;font-size:12.5px;">
+          <option value="03m">03m</option>
+          <option value="06m">06m</option>
+          <option value="10m" selected>10m</option>
+          <option value="15m">15m</option>
+        </select>
+      </span>
+    </div>
+    <div id="relayWarnBox"></div>
+    <div class="body">
+      <table class="bom">
+        <thead><tr><th style="width:38%">모델</th><th style="width:42%">사양</th><th style="width:20%;text-align:center">수량</th></tr></thead>
+        <tbody id="relayBomBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div style="text-align:right;margin:-4px 2px 18px;">
+    <button class="ghost" id="exportCsv">CSV로 내보내기</button>
+  </div>
+
 </div>
 
 <script>
@@ -260,12 +281,79 @@ const MU_DB = [
   ["P I/O","없음","ENRZ-MU50-NEN"],["","없음","ENRZ-MU50-NNN"]
 ];
 
+// 일반케이블(모터/리졸버/토크센서) → 중계케이블 형번 매핑표
+const RELAY_CABLE_DB = [
+  {generalPrefix:"ENRZ-CVMN2-", label:"03m", relay:"ENRZ-CVMP-0030", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN2-", label:"06m", relay:"ENRZ-CVMP-0060", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN2-", label:"10m", relay:"ENRZ-CVMP-100",  category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN2-", label:"15m", relay:"ENRZ-CVMP-150",  category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN7-", label:"03m", relay:"ENRZ-CVMP7-030", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN7-", label:"06m", relay:"ENRZ-CVMP7-060", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN7-", label:"10m", relay:"ENRZ-CVMP7-100", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN7-", label:"15m", relay:"ENRZ-CVMP7-150", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN9-", label:"03m", relay:"ENRZ-CVMP7-030", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN9-", label:"06m", relay:"ENRZ-CVMP7-060", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN9-", label:"10m", relay:"ENRZ-CVMP7-100", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVMN9-", label:"15m", relay:"ENRZ-CVMP7-150", category:"모터케이블"},
+  {generalPrefix:"ENRZ-CVRN-",  label:"03m", relay:"ENRZ-CVRP-0030", category:"리졸버케이블"},
+  {generalPrefix:"ENRZ-CVRN-",  label:"06m", relay:"ENRZ-CVRP-0060", category:"리졸버케이블"},
+  {generalPrefix:"ENRZ-CVRN-",  label:"10m", relay:"ENRZ-CVRP-100",  category:"리졸버케이블"},
+  {generalPrefix:"ENRZ-CVRN-",  label:"15m", relay:"ENRZ-CVRP-150",  category:"리졸버케이블"},
+  {generalPrefix:"ENRZ-CVTN2-", label:"03m", relay:"ENRZ-CVTN-0030", category:"토크센서케이블"},
+  {generalPrefix:"ENRZ-CVTN2-", label:"06m", relay:"ENRZ-CVTN-0060", category:"토크센서케이블"},
+  {generalPrefix:"ENRZ-CVTN2-", label:"10m", relay:"ENRZ-CVTN-100",  category:"토크센서케이블"},
+  {generalPrefix:"ENRZ-CVTN2-", label:"15m", relay:"ENRZ-CVTN-150",  category:"토크센서케이블"},
+];
+const RELAY_LEN_OPTIONS = ["03m","06m","10m","15m"];
+
+function findRelayCable(prefix, label){
+  return RELAY_CABLE_DB.find(r => r.generalPrefix === prefix && r.label === label);
+}
+
+// generalItems: [{category, prefix, qty}, ...] — 필요 아이템(섹션3)에서 이미 계산된 일반케이블 정보를 그대로 읽어서 사용
+// 반환: [{model, spec, qty}, ...] (중계케이블만, 화면에는 모델/사양/수량으로 표시)
+function renderRelayCables(generalItems){
+  const len = document.getElementById("relayLen").value;
+  const tbody = document.getElementById("relayBomBody");
+  tbody.innerHTML = "";
+  const relayBom = [];
+  const unmapped = [];
+
+  generalItems.forEach(item=>{
+    const hit = findRelayCable(item.prefix, len);
+    if(hit){
+      relayBom.push({model:hit.relay, spec:item.category+" 중계케이블, "+len, qty:item.qty});
+    } else {
+      unmapped.push(item.category);
+    }
+  });
+
+  relayBom.forEach(r=>{
+    const tr = document.createElement("tr");
+    if(!r.qty) tr.className = "zero";
+    tr.innerHTML = `<td class="model">${r.model}</td><td>${r.spec||""}</td><td class="num">${r.qty}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  const warnBox = document.getElementById("relayWarnBox");
+  warnBox.innerHTML = "";
+  if(unmapped.length>0){
+    const d = document.createElement("div");
+    d.className="warn crit";
+    d.textContent = `다음 종류는 중계케이블 매핑 데이터가 없습니다: ${unmapped.join(", ")} — 수동으로 확인해 주세요.`;
+    warnBox.appendChild(d);
+  }
+
+  return relayBom;
+}
+
 let rowSeq = 0;
 let lastBom = [];
+let lastRelayBom = [];
 
 function exportCsv(){
   const rows = [["모델","사양","수량"]];
-  lastBom.forEach(r => rows.push([r.model, r.spec||"", r.qty]));
+  lastBom.concat(lastRelayBom).forEach(r => rows.push([r.model, r.spec||"", r.qty]));
   const csv = "\uFEFF" + rows.map(row =>
     row.map(v => {
       const s = String(v ?? "");
@@ -405,12 +493,16 @@ function recompute(){
     bom.push({model:"ENRZ-BATT", spec:"AU 배터리",   qty: totalToolQty>0?1:0});
   }
 
+  const generalCableItems = [];
   if(totalToolQty>0){
     Object.entries(motorCableCount).forEach(([prefix, qty])=>{
       bom.push({model: prefix+lenCode, spec:"모터 케이블, "+cableLen, qty});
+      generalCableItems.push({category:"모터케이블", prefix, qty});
     });
     bom.push({model:"ENRZ-CVRN-"+lenCode,  spec:"리졸버 케이블, "+cableLen,   qty: totalToolQty});
     bom.push({model:"ENRZ-CVTN2-"+lenCode, spec:"토크센서 케이블, "+cableLen, qty: totalToolQty});
+    generalCableItems.push({category:"리졸버케이블", prefix:"ENRZ-CVRN-", qty: totalToolQty});
+    generalCableItems.push({category:"토크센서케이블", prefix:"ENRZ-CVTN2-", qty: totalToolQty});
   }
 
   if(masterType === "MU MASTER" && totalAxisUnits>0){
@@ -432,6 +524,7 @@ function recompute(){
 
   renderBom(bom);
   lastBom = bom;
+  lastRelayBom = renderRelayCables(generalCableItems);
 
   const warnBox = document.getElementById("warnBox");
   warnBox.innerHTML = "";
@@ -468,7 +561,7 @@ function updateMasterDependentFields(){
   document.getElementById("fieldbusGroup").classList.toggle("disabled-group", isAu);
 }
 
-["masterType","ioType","fieldbus","cableLen"].forEach(id=>{
+["masterType","ioType","fieldbus","cableLen","relayLen"].forEach(id=>{
   document.getElementById(id).addEventListener("input", recompute);
 });
 document.getElementById("masterType").addEventListener("input", updateMasterDependentFields);
