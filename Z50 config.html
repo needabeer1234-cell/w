@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>에스틱 너트러너 Z50시리즈 아이템 선정 툴</title>
+<style>
+  :root{
+    --ink:#1c2430; --steel:#3a5a78; --steel-dark:#25455f; --line:#c9d2da;
+    --bg:#eef1f4; --panel:#ffffff; --amber:#c07a1e;
+    --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+    --sans:'IBM Plex Sans','Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;padding:28px 20px 60px;}
+  .wrap{max-width:1080px;margin:0 auto;}
+  header{border-bottom:3px solid var(--steel-dark);padding-bottom:14px;margin-bottom:22px;}
+  header h1{font-size:22px;margin:0;color:var(--steel-dark);font-weight:700;}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:3px;margin-bottom:18px;}
+  section > .head{padding:10px 16px;border-bottom:1px solid var(--line);font-weight:600;font-size:13px;color:var(--steel-dark);display:flex;align-items:center;gap:8px;}
+  section > .head .n{width:20px;height:20px;border-radius:2px;background:var(--steel);color:#fff;font-family:var(--mono);font-size:11px;display:flex;align-items:center;justify-content:center;}
+  .body{padding:16px;}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  @media (max-width:820px){ .grid4{grid-template-columns:repeat(2,1fr);} }
+  label{display:block;font-size:11.5px;color:#5b6b7a;margin-bottom:5px;}
+  select, input[type=number]{width:100%;padding:8px 9px;border:1px solid var(--line);border-radius:2px;font-family:var(--sans);font-size:13.5px;background:#fbfcfd;color:var(--ink);}
+  select:focus, input:focus{outline:2px solid var(--steel);outline-offset:1px;}
+  select:disabled{background:#eef0f2;color:#a8b2bb;cursor:not-allowed;}
+  .disabled-group{opacity:.45;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;font-size:11px;color:#5b6b7a;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line);}
+  td{padding:6px 8px;border-bottom:1px solid #eceff2;vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  td.num{font-family:var(--mono);text-align:center;}
+  td.model{font-family:var(--mono);font-weight:600;}
+  .rowbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  button{font-family:var(--sans);font-size:12.5px;font-weight:600;cursor:pointer;border-radius:2px;border:1px solid var(--steel-dark);background:var(--steel-dark);color:#fff;padding:7px 12px;}
+  button.ghost{background:#fff;color:var(--steel-dark);}
+  button.del{background:#fff;color:#a13c2f;border:1px solid #d8beb8;padding:3px 8px;font-size:11px;}
+  .qtybox{width:60px;padding:5px 6px;text-align:center;}
+  .bom td, .bom th{padding:7px 8px;}
+  .bom tr.zero{color:#a8b2bb;}
+  .badge{display:inline-block;font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:2px;background:#eef3f7;color:var(--steel-dark);border:1px solid var(--line);}
+  .spec{display:block;font-family:var(--sans);font-size:10.5px;color:#8592a0;margin-top:2px;}
+  .note{font-size:11.5px;color:#8592a0;padding:12px 16px;border-top:1px dashed var(--line);}
+  .warn{margin:0 16px 14px;padding:9px 12px;font-size:12.5px;background:#fbf3e6;border:1px solid #e6cfa0;color:#7a5416;border-radius:2px;}
+  .warn.crit{background:#fbe9e6;border-color:#e0a89c;color:#7a2416;}
+  .no-model{color:#a13c2f;font-family:var(--mono);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>에스틱 너트러너 Z50시리즈 아이템 선정 툴</h1>
+  </header>
+
+  <section>
+    <div class="head"><span class="n">1</span>컨트롤러, 케이블 사양</div>
+    <div class="body">
+      <div class="grid4" style="grid-template-columns:repeat(3,1fr);">
+        <div>
+          <label for="masterType">MU컨트롤러(통신유닛) 포함 여부?</label>
+          <select id="masterType">
+            <option value="AU MASTER">아니요</option>
+            <option value="MU MASTER">예</option>
+          </select>
+        </div>
+        <div id="ioGroup">
+          <label for="ioType">확장IO 사용여부</label>
+          <select id="ioType">
+            <option value="">없음</option>
+            <option value="P I/O">필요</option>
+          </select>
+        </div>
+        <div id="fieldbusGroup">
+          <label for="fieldbus">필드버스종류</label>
+          <select id="fieldbus">
+            <option value="Ether CAT">EtherCAT</option>
+            <option value="CC-Link">CC-Link</option>
+            <option value="DeviceNet">DeviceNet</option>
+            <option value="EtherNet IP">EtherNet/IP</option>
+            <option value="CC-Link IE">CC-Link IE</option>
+            <option value="Profibus-DP">Profibus-DP</option>
+            <option value="PROFINET High Speed">PROFINET High Speed</option>
+            <option value="Profinet">Profinet</option>
+            <option value="없음">없음</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid4" style="grid-template-columns:repeat(3,1fr); margin-top:14px;">
+        <div>
+          <label for="cableLen">툴 케이블 길이 선택</label>
+          <select id="cableLen">
+            <option value="05m">05m</option>
+            <option value="10m" selected>10m</option>
+            <option value="15m">15m</option>
+            <option value="20m">20m</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><span class="n">2</span>툴 선택</div>
+    <div class="body">
+      <table>
+        <thead>
+          <tr><th style="width:20%">타입</th><th style="width:32%">형상</th><th style="width:30%">정격토크</th><th style="width:18%;text-align:center">수량</th></tr>
+        </thead>
+        <tbody id="toolRows"></tbody>
+      </table>
+    </div>
+    <div class="note">※TC타입툴은 소형모델입니다.</div>
+  </section>
+
+  <section>
+    <div class="head">
+      <span class="n">3</span>필요 아이템
+      <button class="ghost" id="exportCsv" style="margin-left:auto;">CSV로 내보내기</button>
+    </div>
+    <div id="warnBox"></div>
+    <div class="body">
+      <table class="bom">
+        <thead><tr><th style="width:38%">모델</th><th style="width:42%">사양</th><th style="width:20%;text-align:center">수량</th></tr></thead>
+        <tbody id="bomBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const TOOL_DB = [
+  ["TU","Straight","5Nm","ENRZ-TU0R5R-S","ENRZ-AU50M-10","5Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Straight","10Nm","ENRZ-TU001R-S","ENRZ-AU50M-10","10Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Offset","10Nm","ENRZ-TU001R-O","ENRZ-AU50M-10","10Nm, 오프셋, 툴 유닛"],
+  ["TU","Straight","30Nm","ENRZ-TU003R-S","ENRZ-AU50M-10","30Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Offset","30Nm","ENRZ-TU003R-O","ENRZ-AU50M-10","30Nm, 오프셋, 툴 유닛"],
+  ["TC","Straight","20Nm","ENRZ-TC002R-S","ENRZ-AU50M-20","20Nm, 스트레이트형, 툴 유닛"],
+  ["TC","Offset","20Nm","ENRZ-TC002R-O","ENRZ-AU50M-20","20Nm, 오프셋, 툴 유닛"],
+  ["TC","Straight","40Nm","ENRZ-TC004R-S","ENRZ-AU50M-20","40Nm, 스트레이트형, 툴 유닛"],
+  ["TC","Offset","40Nm","ENRZ-TC004R-O","ENRZ-AU50M-20","40Nm, 오프셋, 툴 유닛"],
+  ["TU","Straight","40Nm","ENRZ-TU004R-S","ENRZ-AU50M-20","40Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Straight","80Nm","ENRZ-TU008R-S","ENRZ-AU50M-20","80Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Offset","80Nm","ENRZ-TU008R-O","ENRZ-AU50M-20","80Nm, 오프셋, 툴 유닛"],
+  ["TU","Straight","130Nm","ENRZ-TU013R-S","ENRZ-AU50M-20","130Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Offset","130Nm","ENRZ-TU013R-O","ENRZ-AU50M-20","130Nm, 오프셋, 툴 유닛"],
+  ["TU","Straight","200Nm","ENRZ-TU020R-S","ENRZ-AU50M-20","200Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Offset","200Nm","ENRZ-TU020R-O","ENRZ-AU50M-20","200Nm, 오프셋, 툴 유닛"],
+  ["TU","Straight","400Nm","ENRZ-TU040R-S","ENRZ-AU50M-20","400Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Offset","400Nm","ENRZ-TU040R-O","ENRZ-AU50M-20","400Nm, 오프셋, 툴 유닛"],
+  ["TU","Straight","600Nm","ENRZ-TU060R-S","ENRZ-AU50M-40","600Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Straight","800Nm","ENRZ-TU080R-S","ENRZ-AU50M-40","800Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Straight","500Nm","ENRZ-TU050R-S","ENRZ-AU50M-5K2","500Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Straight","1200Nm","ENRZ-TU120R-S","ENRZ-AU50M-5K2","1200Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Straight","3000Nm","ENRZ-TU300R-S","ENRZ-AU50M-5K2","3000Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Straight with Flange","3000Nm","ENRZ-TU300R-S-F","ENRZ-AU50M-5K2","3000Nm, 스트레이트형, 툴 유닛, 플랜지"],
+  ["TU","Straight","1500Nm","ENRZ-TU150R-S","ENRZ-AU50M-5K2","1500Nm, 스트레이트형, 툴 유닛"],
+  ["TU","Bent Straight","10Nm","ENRZ-TU001R-ST(A/B/C)","ENRZ-AU50M-10","10Nm, 스트레이트+벤트타입, 툴 유닛"],
+  ["TU","Bent Offset","10Nm","ENRZ-TU001R-OP(A/B)","ENRZ-AU50M-10","10Nm, 오프셋+벤트타입, 툴 유닛"],
+  ["TU","Bent Straight","30Nm","ENRZ-TU003R-ST(A/B/C)","ENRZ-AU50M-10","30Nm, 스트레이트+벤트타입, 툴 유닛"],
+  ["TU","Bent Offset","30Nm","ENRZ-TU003R-OP(A/B)","ENRZ-AU50M-10","30Nm, 오프셋+벤트타입, 툴 유닛"],
+  ["TU","Bent Straight","80Nm","ENRZ-TU008R-ST(A/B)","ENRZ-AU50M-20","80Nm, 스트레이트+벤트타입, 툴 유닛"],
+  ["TU","Bent Offset","80Nm","ENRZ-TU008R-OP(A/B/C)","ENRZ-AU50M-20","80Nm, 오프셋+벤트타입, 툴 유닛"],
+  ["TU","Bent Straight","130Nm","ENRZ-TU013R-ST(A/B)","ENRZ-AU50M-20","130Nm, 스트레이트+벤트타입, 툴 유닛"],
+  ["TU","Bent Offset","130Nm","ENRZ-TU013R-OP(A/B/C)","ENRZ-AU50M-20","130Nm, 오프셋+벤트타입, 툴 유닛"],
+  ["TU","Bent Straight","200Nm","ENRZ-TU020R-ST(A/B)","ENRZ-AU50M-20","200Nm, 스트레이트+벤트타입, 툴 유닛"],
+  ["TU","Bent Offset","200Nm","ENRZ-TU020R-OP(A/B/C)","ENRZ-AU50M-20","200Nm, 오프셋+벤트타입, 툴 유닛"],
+  ["TU","Bent Straight","400Nm","ENRZ-TU040R-ST(A/B)","ENRZ-AU50M-20","400Nm, 스트레이트+벤트타입, 툴 유닛"],
+  ["TU","Bent Straight","1200Nm","ENRZ-TU120R-ST(A/B/C)","ENRZ-AU50M-5K2","1200Nm, 스트레이트+벤트타입, 툴 유닛"],
+];
+
+const MOTOR_CABLE_DB = {
+  "ENRZ-TU0R5R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU001R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU001R-O"        : "ENRZ-CVMN2-",
+  "ENRZ-TU003R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU003R-O"        : "ENRZ-CVMN2-",
+  "ENRZ-TC002R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TC002R-O"        : "ENRZ-CVMN2-",
+  "ENRZ-TC004R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TC004R-O"        : "ENRZ-CVMN2-",
+  "ENRZ-TU004R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU008R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU008R-O"        : "ENRZ-CVMN2-",
+  "ENRZ-TU013R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU013R-O"        : "ENRZ-CVMN2-",
+  "ENRZ-TU020R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU020R-O"        : "ENRZ-CVMN2-",
+  "ENRZ-TU040R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU040R-O"        : "ENRZ-CVMN2-",
+  "ENRZ-TU060R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU080R-S"        : "ENRZ-CVMN2-",
+  "ENRZ-TU050R-S"        : "ENRZ-CVMN7-",
+  "ENRZ-TU120R-S"        : "ENRZ-CVMN7-",
+  "ENRZ-TU300R-S"        : "ENRZ-CVMN7-",
+  "ENRZ-TU300R-S-F"      : "ENRZ-CVMN7-",
+  "ENRZ-TU150R-S"        : "ENRZ-CVMN9-",
+  "ENRZ-TU001R-ST(A/B/C)": "ENRZ-CVMN2-",
+  "ENRZ-TU001R-OP(A/B)"  : "ENRZ-CVMN2-",
+  "ENRZ-TU003R-ST(A/B/C)": "ENRZ-CVMN2-",
+  "ENRZ-TU003R-OP(A/B)"  : "ENRZ-CVMN2-",
+  "ENRZ-TU008R-ST(A/B)"  : "ENRZ-CVMN2-",
+  "ENRZ-TU008R-OP(A/B/C)": "ENRZ-CVMN2-",
+  "ENRZ-TU013R-ST(A/B)"  : "ENRZ-CVMN2-",
+  "ENRZ-TU013R-OP(A/B/C)": "ENRZ-CVMN2-",
+  "ENRZ-TU020R-ST(A/B)"  : "ENRZ-CVMN2-",
+  "ENRZ-TU020R-OP(A/B/C)": "ENRZ-CVMN2-",
+  "ENRZ-TU040R-ST(A/B)"  : "ENRZ-CVMN2-",
+  "ENRZ-TU120R-ST(A/B/C)": "ENRZ-CVMN7-",
+};
+
+const SHAPE_LABEL = {
+  "Straight": "스트레이트",
+  "Offset": "오프셋",
+  "Straight with Flange": "플랜지형",
+  "Bent Straight": "벤트 스트레이트",
+  "Bent Offset": "벤트 오프셋"
+};
+
+const SOCKET_DB = {
+  "ENRZ-TU0R5R-S":["TNA1-SA02-30","TNA1-AD01-01"],
+  "ENRZ-TU001R-S":["TNA1-SA02-30","TNA1-AD01-01"],
+  "ENRZ-TU001R-O":["TNA1-SA02-30","TNA1-AD01-01"],
+  "ENRZ-TU003R-S":["TNA1-SA02-30","TNA1-AD01-01"],
+  "ENRZ-TU003R-O":["TNA1-SA02-30","TNA1-AD01-01"],
+  "ENRZ-TC002R-S":["TNA1-SA02-30","TNA1-AD01-01"],
+  "ENRZ-TC002R-O":["TNA1-SA02-30","TNA1-AD01-01"],
+  "ENRZ-TC004R-S":["TNA1-SA02-30","TNA1-AD01-01"],
+  "ENRZ-TC004R-O":["TNA1-SA02-30","TNA1-AD01-01"],
+  "ENRZ-TU004R-S":["TNA1-SA05-35","TNA1-AD05-01"],
+  "ENRZ-TU008R-S":["TNA1-SA05-35","TNA1-AD05-01"],
+  "ENRZ-TU008R-O":["TNA1-SA05-35","TNA1-AD05-01"],
+  "ENRZ-TU013R-S":["TNA1-SA20-45C","TNA1-AD20-01"],
+  "ENRZ-TU013R-O":["TNA1-SA20-45C","TNA1-AD20-01"],
+  "ENRZ-TU020R-S":["TNA1-SA20-45Z","TNA1-AD20-01"],
+  "ENRZ-TU020R-O":["TNA1-SA20-45Z","TNA1-AD20-01"],
+  "ENRZ-TU040R-S":["TNA1-SA40-70","TNA1-AD40-01"],
+  "ENRZ-TU040R-O":["TNA1-SA40-70","TNA1-AD40-01"],
+  "ENRZ-TU060R-S":["TNA1-SA40-70","TNA1-AD40-01"],
+  "ENRZ-TU080R-S":["TNA1-SA80-80","TNA1-AD80-01"],
+  "ENRZ-TU050R-S":["ENRZ-SA150-120","ENRZ-AD150-01"],
+  "ENRZ-TU120R-ST(A/B/C)":["TNA1-SA80-80","TNA1-AD80-01"],
+};
+
+const MU_DB = [
+  ["P I/O","Ether CAT","ENRZ-MU50-BEN"], ["","Ether CAT","ENRZ-MU50-BNN"],
+  ["P I/O","CC-Link","ENRZ-MU50-CEN"],   ["","CC-Link","ENRZ-MU50-CNN"],
+  ["P I/O","DeviceNet","ENRZ-MU50-DEN"],["","DeviceNet","ENRZ-MU50-DNN"],
+  ["P I/O","EtherNet IP","ENRZ-MU50-EEN"],["","EtherNet IP","ENRZ-MU50-ENN"],
+  ["P I/O","CC-Link IE","ENRZ-MU50-IEN"],["","CC-Link IE","ENRZ-MU50-INN"],
+  ["P I/O","Profibus-DP","ENRZ-MU50-PEN"],["","Profibus-DP","ENRZ-MU50-PNN"],
+  ["P I/O","PROFINET High Speed","ENRZ-MU50-SEN"],["","PROFINET High Speed","ENRZ-MU50-SNN"],
+  ["P I/O","Profinet","ENRZ-MU50-TEN"],["","Profinet","ENRZ-MU50-TNN"],
+  ["P I/O","없음","ENRZ-MU50-NEN"],["","없음","ENRZ-MU50-NNN"]
+];
+
+let rowSeq = 0;
+let lastBom = [];
+
+function exportCsv(){
+  const rows = [["모델","사양","수량"]];
+  lastBom.forEach(r => rows.push([r.model, r.spec||"", r.qty]));
+  const csv = "\uFEFF" + rows.map(row =>
+    row.map(v => {
+      const s = String(v ?? "");
+      return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+    }).join(",")
+  ).join("\r\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const ts = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `z50_bom_${ts}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+document.getElementById("exportCsv").addEventListener("click", exportCsv);
+
+function refreshShapeOptions(tr){
+  const type = tr.querySelector(".f-type").value;
+  const shapeSel = tr.querySelector(".f-shape");
+  const prevShape = shapeSel.value;
+  const validShapes = [...new Set(TOOL_DB.filter(r=>r[0]===type).map(r=>r[1]))];
+  shapeSel.innerHTML = validShapes.map(s=>`<option value="${s}">${SHAPE_LABEL[s]||s}</option>`).join("");
+  // 이전 값이 유효하면 유지, 아니면 첫 번째 옵션
+  if(validShapes.includes(prevShape)) shapeSel.value = prevShape;
+}
+
+function refreshTorqueOptions(tr){
+  const type = tr.querySelector(".f-type").value;
+  const shape = tr.querySelector(".f-shape").value;
+  const torqueSel = tr.querySelector(".f-torque");
+  const prevTorque = torqueSel.value;
+  const validTorques = [...new Set(TOOL_DB.filter(r=>r[0]===type && r[1]===shape).map(r=>r[2]))];
+  torqueSel.innerHTML = validTorques.map(t=>`<option value="${t}">${t}</option>`).join("");
+  if(validTorques.includes(prevTorque)) torqueSel.value = prevTorque;
+}
+
+function addToolRow(vals){
+  vals = vals || {type:"TU", shape:"Straight", torque:"40Nm", qty:1};
+  const id = "r" + (rowSeq++);
+  const tr = document.createElement("tr");
+  tr.id = id;
+  tr.innerHTML = `
+  <td><select class="f-type">
+    <option value="TC">TC</option><option value="TU">TU</option>
+  </select></td>
+  <td><select class="f-shape"></select></td>
+  <td><select class="f-torque"></select></td>
+  <td><input class="f-qty qtybox" type="number" min="0" value="${vals.qty}"></td>
+`;
+  document.getElementById("toolRows").appendChild(tr);
+
+  // ✅ 수정: type 먼저 세팅 → shape 옵션 채움 → shape 세팅 → torque 옵션 채움 → torque 세팅
+  const typeSel = tr.querySelector(".f-type");
+  typeSel.value = vals.type;
+
+  refreshShapeOptions(tr);
+  tr.querySelector(".f-shape").value = vals.shape;
+
+  refreshTorqueOptions(tr);
+  tr.querySelector(".f-torque").value = vals.torque;
+
+  typeSel.addEventListener("input", ()=>{
+    refreshShapeOptions(tr); refreshTorqueOptions(tr); recompute();
+  });
+  tr.querySelector(".f-shape").addEventListener("input", ()=>{
+    refreshTorqueOptions(tr); recompute();
+  });
+  tr.querySelector(".f-torque").addEventListener("input", recompute);
+  tr.querySelector(".f-qty").addEventListener("input", recompute);
+  recompute();
+}
+
+function matchTool(type, shape, torque){
+  return TOOL_DB.find(r => r[0]===type && r[1]===shape && r[2]===torque) || null;
+}
+function matchMU(io, fb){
+  return MU_DB.find(r => r[0]===io && r[1]===fb) || null;
+}
+
+function recompute(){
+  const masterType = document.getElementById("masterType").value;
+  const io = document.getElementById("ioType").value;
+  const fb = document.getElementById("fieldbus").value;
+  const cableLen = document.getElementById("cableLen").value;
+  const lenCode = {"05m":"050","10m":"100","15m":"150","20m":"200"}[cableLen];
+
+  const rows = [...document.querySelectorAll("#toolRows tr")];
+  const bom = [];
+  const axisUnitCount = {};
+  const socketCount = {};
+  const motorCableCount = {};
+  let totalToolQty = 0;
+  let unmatched = 0;
+  const socketMissing = [];
+
+  rows.forEach((tr)=>{
+    const type   = tr.querySelector(".f-type").value;
+    const shape  = tr.querySelector(".f-shape").value;
+    const torque = tr.querySelector(".f-torque").value;
+    const qty    = Math.max(0, parseInt(tr.querySelector(".f-qty").value)||0);
+    const hit    = matchTool(type, shape, torque);
+
+    if(!hit){ if(qty>0) unmatched++; return; }
+    if(qty<=0) return;
+
+    totalToolQty += qty;
+    bom.push({model:hit[3], spec:hit[5], qty});
+    axisUnitCount[hit[4]] = (axisUnitCount[hit[4]]||0) + qty;
+
+    const cPrefix = MOTOR_CABLE_DB[hit[3]] || "ENRZ-CVMN2-";
+    motorCableCount[cPrefix] = (motorCableCount[cPrefix]||0) + qty;
+
+    const sock = SOCKET_DB[hit[3]];
+    if(sock){
+      const key = sock[0];
+      if(!socketCount[key]) socketCount[key] = {qty:0, adapter:sock[1]};
+      socketCount[key].qty += qty;
+    } else {
+      socketMissing.push(hit[3]);
+    }
+  });
+
+  let totalAxisUnits = 0;
+  Object.entries(axisUnitCount).forEach(([model, qty])=>{
+    bom.push({model, spec:"모터 드라이버가 있는 컨트롤러", qty});
+    totalAxisUnits += qty;
+  });
+
+  if(masterType === "MU MASTER"){
+    const mu = matchMU(io, fb);
+    bom.push({model: mu ? mu[2] : "모델 없음", spec:"통신용 컨트롤러", qty: mu?1:0});
+  } else {
+    bom.push({model:"ENRZ-CNAU", spec:"제어 커넥터", qty: totalToolQty});
+    bom.push({model:"ENRZ-BATT", spec:"AU 배터리",   qty: totalToolQty>0?1:0});
+  }
+
+  if(totalToolQty>0){
+    Object.entries(motorCableCount).forEach(([prefix, qty])=>{
+      bom.push({model: prefix+lenCode, spec:"모터 케이블, "+cableLen, qty});
+    });
+    bom.push({model:"ENRZ-CVRN-"+lenCode,  spec:"리졸버 케이블, "+cableLen,   qty: totalToolQty});
+    bom.push({model:"ENRZ-CVTN2-"+lenCode, spec:"토크센서 케이블, "+cableLen, qty: totalToolQty});
+  }
+
+  if(masterType === "MU MASTER" && totalAxisUnits>0){
+    bom.push({model:"ENRZ-CVNK3M-010", spec:"NET 케이블, 1m, MU-AU 간", qty:1});
+  }
+  if(totalAxisUnits>1){
+    bom.push({model:"ENRZ-CVNK2A-010", spec:"NET 케이블, 1m, AU-AU 간", qty: totalAxisUnits-1});
+  }
+  if(masterType === "MU MASTER" && totalAxisUnits>0){
+    bom.push({model:"ENRZ-CVST3", spec:"너트러너 종단 저항, Z50", qty:1});
+  } else if(masterType === "AU MASTER" && totalAxisUnits>1){
+    bom.push({model:"ENRZ-CVST3", spec:"너트러너 종단 저항, Z50", qty:2});
+  }
+
+  Object.entries(socketCount).forEach(([model, info])=>{
+    bom.push({model, spec:"쿠션 소켓", qty: info.qty});
+    if(info.adapter) bom.push({model: info.adapter, spec:"소켓 어댑터", qty: info.qty});
+  });
+
+  renderBom(bom);
+  lastBom = bom;
+
+  const warnBox = document.getElementById("warnBox");
+  warnBox.innerHTML = "";
+  if(unmatched>0){
+    const d = document.createElement("div");
+    d.className="warn";
+    d.textContent = `${unmatched}개 행에서 Type/Shape/토크 조합에 해당하는 모델을 찾지 못했습니다.`;
+    warnBox.appendChild(d);
+  }
+  if(socketMissing.length>0){
+    const d = document.createElement("div");
+    d.className="warn crit";
+    d.textContent = `다음 모델은 소켓 어세이/어댑터 매핑 데이터가 없어 자동 산출되지 않았습니다: ${socketMissing.join(", ")} — 수동으로 확인해 주세요.`;
+    warnBox.appendChild(d);
+  }
+}
+
+function renderBom(bom){
+  const tbody = document.getElementById("bomBody");
+  tbody.innerHTML = "";
+  bom.forEach(r=>{
+    const tr = document.createElement("tr");
+    if(!r.qty) tr.className="zero";
+    tr.innerHTML = `<td class="model">${r.model}</td><td>${r.spec||""}</td><td class="num">${r.qty}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateMasterDependentFields(){
+  const isAu = document.getElementById("masterType").value === "AU MASTER";
+  document.getElementById("ioType").disabled = isAu;
+  document.getElementById("fieldbus").disabled = isAu;
+  document.getElementById("ioGroup").classList.toggle("disabled-group", isAu);
+  document.getElementById("fieldbusGroup").classList.toggle("disabled-group", isAu);
+}
+
+["masterType","ioType","fieldbus","cableLen"].forEach(id=>{
+  document.getElementById(id).addEventListener("input", recompute);
+});
+document.getElementById("masterType").addEventListener("input", updateMasterDependentFields);
+
+document.getElementById("masterType").value = "MU MASTER";
+document.getElementById("ioType").value = "P I/O";
+document.getElementById("fieldbus").value = "CC-Link";
+document.getElementById("cableLen").value = "05m";
+updateMasterDependentFields();
+addToolRow({type:"TU", shape:"Straight", torque:"30Nm", qty:1});
+</script>
+</body>
+</html>
