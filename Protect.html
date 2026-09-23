@@ -2,236 +2,384 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>대리점 전용 페이지</title>
 
 <style>
-body {
-  background:#0f1115;
-  color:#e0e0e0;
-  font-family:Malgun Gothic,Arial;
-  margin:0;
+:root {
+  --bg: #0b1220;
+  --surface: #111b2e;
+  --surface-2: #17243a;
+  --border: #263650;
+  --text: #e8eef9;
+  --muted: #9aa9bf;
+  --primary: #4f8cff;
+  --primary-hover: #3776eb;
+  --danger: #ff6978;
 }
 
-.hidden { display:none !important; }
+* { box-sizing: border-box; }
 
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.hidden { display: none !important; }
+
+/* 로그인 */
 #login-section {
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  background:#0f1115;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(79, 140, 255, .16), transparent 30%),
+    var(--bg);
 }
 
 .login-box {
-  background: #161a20;
-  padding: 30px;
-  border-radius: 10px;
-  width: 460px; 
-  box-shadow: 0 0 30px rgba(0,0,0,.8);
+  width: min(100%, 480px);
+  padding: 36px;
   text-align: center;
+  background: rgba(17, 27, 46, .96);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
+}
 
-  /* --- 세로 정렬 설정 --- */
+.login-box h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+
+.login-box h2:not(:first-child) {
+  margin-top: 32px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-box input,
+.login-box button {
+  width: 100%;
+  height: 46px;
+  border-radius: 9px;
+}
+
+.login-box input {
+  padding: 0 14px;
+  color: var(--text);
+  background: #0b1220;
+  border: 1px solid var(--border);
+  text-align: left;
+  outline: none;
+}
+
+.login-box input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 140, 255, .18);
+}
+
+.login-box button {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform .15s ease, background .15s ease, border .15s ease;
+}
+
+.login-box button:hover {
+  transform: translateY(-1px);
+}
+
+.login-btn {
+  border: 0;
+  color: #fff;
+  background: var(--primary);
+}
+
+.login-btn:hover {
+  background: var(--primary-hover);
+}
+
+.protect-btn,
+.norm-btn {
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+
+.protect-btn {
+  color: #ff9ca5;
+  border-color: rgba(255, 105, 120, .65);
+}
+
+.protect-btn:hover {
+  color: #fff;
+  background: rgba(255, 105, 120, .14);
+}
+
+.norm-btn:hover {
+  border-color: var(--primary);
+  background: rgba(79, 140, 255, .12);
+}
+
+/* 메인 */
+#content {
+  width: min(100%, 1600px);
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.control-section {
   display: flex;
-  flex-direction: column;
+  gap: 14px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+#top-bar {
+  display: flex;
   align-items: center;
   gap: 12px;
 }
 
-/* 공통 스타일: input과 button의 크기를 똑같이 맞춤 */
-input, button {
-  width: 300px;
-  height: 45px;
-  box-sizing: border-box;
-  border-radius: 6px;
-  font-size: 16px;
-  text-align: center;
+#sheet-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.4px;
 }
 
-input {
-  background: #0f1115;
-  border: 1px solid #2a2f3a;
-  color: #fff;
-  padding: 0 12px;
-}
-
-button {
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.2s;
-}
-
-/* 각 버튼별 색상만 따로 설정 */
-.login-btn { 
-  background: #2d6cdf; 
-  color: #fff; 
-}
-.login-btn:hover { background: #2458b8; }
-
-/* 메인 화면의 시트 전환 버튼 */
 .btn-swap {
-  width: auto;
-  min-width: 120px;
-  padding: 0 15px;
-  height: 45px;
-  font-size: 14px;
+  height: 38px;
+  padding: 0 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: .15s ease;
 }
 
-.protect-btn {
-  margin-top: 10px;
-  background: #0f1115;
-  border: 2px solid #ff5252;
-  color: #ff5252;
-  font-weight: bold;
-}
-.protect-btn:hover { 
-  background: #ff5252; 
-  color: #0f1115; 
+.btn-swap:hover {
+  border-color: var(--primary);
+  background: var(--surface-2);
 }
 
-.norm-btn {
-  margin-top: 10px;
-  background: #0f1115;
-  border: 2px solid #5255ff;
-  color: #c5c4ca;
-  font-weight: bold;
-}
-.norm-btn:hover { 
-  background: #270462; 
-  color: #ffffff; 
+#search-box {
+  width: min(100%, 360px);
 }
 
-/* 검색창 전용 설정 (노란 배경 유지) */
 #searchInput {
-  background: #ffeb3b;
-  color: #000;
-  border: 1px solid #fdd835;
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
 }
 
-/* 합쳐진 검색창 스타일 및 placeholder 색상 */
 #searchInput::placeholder {
-  color: #444;
+  color: var(--muted);
 }
 
-#content {
-  padding:20px;
+#searchInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 140, 255, .14);
 }
 
-#top-bar {
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
-  margin-bottom:10px;
+.divider {
+  margin: 0 0 16px;
+  border: 0;
+  border-top: 1px solid var(--border);
 }
 
-#sheet-name { font-size:2em; font-weight:bold; }
-
+/* 테이블 */
 .table-wrap {
-  overflow-x: auto;
-  overflow-y: auto;
-  max-height: 80vh;
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .16);
 }
 
 table {
-  border-collapse:collapse;
-  width:max-content;
-  min-width:100%;
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-th, td {
-  padding:8px 12px;
-  border-bottom:1px solid #333;
-  white-space:nowrap;
+th,
+td {
+  height: 50px;
+  max-width: 280px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(38, 54, 80, .8);
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 th {
-  background:#202b38;
-  position:sticky;
-  top:0;
-  z-index:10; /* 스티키 헤더가 테이블 셀 위에 나오도록 */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  color: #cbd8ec;
+  background: #1b2a43;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 1px 0 var(--border);
 }
 
+td {
+  color: #dce6f5;
+  font-size: 14px;
+}
+
+tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, .018);
+}
+
+tbody tr {
+  transition: background .12s ease;
+}
+
+tbody tr:hover td {
+  background: rgba(79, 140, 255, .10);
+  color: #fff;
+}
+
+/* 클릭 없이도 긴 내용을 확인할 수 있도록 툴팁 */
 td:hover {
-  white-space:normal;
-  background:#2a3a4a;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: clip;
 }
 
-/* 검색박스: display:flex으로 gap이 동작하도록 하고 너비 설정 추가 */
-#search-box {
-  display:flex;
-  width:30ch;
-  gap:10px;
-  margin:10px 0;
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.empty-message {
+  padding: 48px 20px;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  #content {
+    padding: 18px;
+  }
+
+  .login-box {
+    padding: 26px 20px;
+  }
+
+  .control-section {
+    align-items: stretch;
+  }
+
+  #top-bar {
+    justify-content: space-between;
+  }
+
+  #sheet-name {
+    max-width: 55vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+  }
+
+  #search-box {
+    width: 100%;
+  }
 }
 </style>
 </head>
 
 <body>
-
-<!-- 로그인 -->
-  <div id="login-section">
+<div id="login-section">
   <div class="login-box">
     <h2>대리점 전용 데이터베이스</h2>
-    <input type="password" id="pass" placeholder="비밀번호 입력"
-           onkeypress="if(event.key==='Enter') login()">
-    <button class="login-btn" onclick="login()">대리점 전용 데이터베이스 접속하기</button>
+
+    <input
+      type="password"
+      id="pass"
+      placeholder="비밀번호 입력"
+      onkeypress="if(event.key==='Enter') login()"
+    >
+
+    <button class="login-btn" onclick="login()">데이터베이스 접속하기</button>
 
     <h2>구글 폼 링크</h2>
 
-
-    <button id="protectBtn" class="protect-btn"
+    <button class="protect-btn"
       onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform'">
-      영업보호요청 링크
+      영업보호요청
     </button>
-    
-    <button id="protectBtn" class="norm-btn"
+
+    <button class="norm-btn"
       onclick="location.href='https://forms.gle/m71X5mr71kjhVpQT6'">
-      특주품 견적의뢰 링크
+      특주품 견적의뢰
     </button>
-   
-    <button id="protectBtn" class="norm-btn"
+
+    <button class="norm-btn"
       onclick="location.href='https://forms.gle/4nvTLNJ7w8WKnw6r7'">
-      표준품 납기확인 링크
+      표준품 납기확인
     </button>
-    
   </div>
 </div>
 
-
-
-<!-- 메인 -->
 <div id="content" class="hidden">
-  
   <div class="control-section">
     <div id="top-bar">
-      <button class="btn-swap" onclick="swapSheet()" enabled>🔁 시트 간 전환</button> 
       <span id="sheet-name"></span>
+      <button class="btn-swap" onclick="swapSheet()">시트 전환</button>
     </div>
 
     <div id="search-box">
-      <input type="text" id="searchInput" placeholder="검색어 입력" onkeyup="filterTable()">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="고객사, 담당자, 프로젝트 등 검색"
+        onkeyup="filterTable()"
+      >
     </div>
-  </div> <hr class="divider">
-  
-  <div id="table-container"></div>
+  </div>
 
+  <hr class="divider">
+  <div id="table-container"></div>
 </div>
 
 <script>
-// ⭐ Vercel Proxy URL로 변경
 const WEBAPP_URL = '/api/proxy';
-
 let currentSheet = 0;
 
-/** 안전한 응답 파서: JSON 컨텐츠면 JSON으로, 아니면 텍스트로 반환 */
 function parseMaybeJson(response) {
   const ct = response.headers.get('content-type') || '';
+
   if (ct.includes('application/json')) {
     return response.json();
   }
+
   return response.text().then(txt => {
     try {
       return JSON.parse(txt);
@@ -241,44 +389,40 @@ function parseMaybeJson(response) {
   });
 }
 
-/** 간단 HTML 이스케이프 (셀 내용에 HTML이 섞여있을 수 있어 기본 억제) */
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
+
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/'/g, '&#039;');
 }
 
 function login() {
   const pw = document.getElementById('pass').value.trim();
+
   if (!pw) {
     alert('비밀번호를 입력하세요.');
     return;
   }
 
-  // ⭐ action을 'login'으로 설정
-  const body = { 
-    action: 'login',
-    password: pw 
-  };
-
   fetch(WEBAPP_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
+    body: JSON.stringify({
+      action: 'login',
+      password: pw
+    })
   })
   .then(res => {
     if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
     return parseMaybeJson(res);
   })
   .then(res => {
-    // 서버가 평문("OK" 등)을 보낼 수도 있으므로 타입 체크
     if (typeof res === 'string') {
-      console.warn('서버가 JSON이 아닌 응답을 반환했습니다:', res);
-      alert('서버 응답이 예상과 다릅니다. (콘솔 확인)');
+      alert('서버 응답 형식을 확인해주세요.');
       return;
     }
 
@@ -287,98 +431,96 @@ function login() {
       return;
     }
 
-    // 로그인 성공 처리
     document.getElementById('login-section').classList.add('hidden');
     document.getElementById('content').classList.remove('hidden');
 
-    const pb = document.getElementById('protectBtn');
-    if (pb) pb.remove();
-
     if (res.name || res.data) {
-      document.getElementById('sheet-name').innerText = '📄 ' + (res.name || '');
+      document.getElementById('sheet-name').innerText = res.name || '데이터베이스';
       makeTable(res.data || []);
     } else {
       loadSheet(0);
     }
   })
   .catch(err => {
-    console.error('login fetch error:', err);
-    alert('통신 오류 또는 서버 오류가 발생했습니다. 콘솔을 확인하세요.');
+    console.error(err);
+    alert('통신 오류가 발생했습니다.');
   });
 }
 
-/* 시트 로드 (POST로 안전하게 요청) */
 function loadSheet(idx) {
   currentSheet = idx;
   document.getElementById('searchInput').value = '';
 
-  const body = { action: 'getSheetByIndex', index: String(idx) };
-
   fetch(WEBAPP_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
+    body: JSON.stringify({
+      action: 'getSheetByIndex',
+      index: String(idx)
+    })
   })
   .then(res => {
     if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
     return parseMaybeJson(res);
   })
   .then(res => {
-    if (typeof res === 'string') {
-      console.warn('서버가 JSON이 아닌 응답을 반환했습니다:', res);
-      alert('시트 로드 실패: 서버 응답이 예상과 다릅니다.');
+    if (typeof res === 'string' || !res || res.success === false) {
+      alert('시트 로드에 실패했습니다.');
       return;
     }
 
-    if (!res || res.success === false) {
-      alert('시트 로드 실패: ' + (res && res.msg ? res.msg : 'unknown'));
-      return;
-    }
-    document.getElementById('sheet-name').innerText = '📄 ' + (res.name || '');
+    document.getElementById('sheet-name').innerText = res.name || '데이터베이스';
     makeTable(res.data || []);
   })
   .catch(err => {
-    console.error('loadSheet fetch error:', err);
-    alert('통신 오류 또는 서버 오류가 발생했습니다. 콘솔을 확인하세요.');
+    console.error(err);
+    alert('통신 오류가 발생했습니다.');
   });
 }
 
-/* 스왑 */
 function swapSheet() {
   loadSheet(currentSheet === 0 ? 1 : 0);
 }
 
-/* 테이블 (간단한 이스케이프 처리 포함) */
 function makeTable(data) {
-  if (!Array.isArray(data)) {
-    document.getElementById('table-container').innerHTML = '<div>데이터 형식이 올바르지 않습니다.</div>';
+  const container = document.getElementById('table-container');
+
+  if (!Array.isArray(data) || data.length === 0) {
+    container.innerHTML = '<div class="table-wrap"><div class="empty-message">표시할 데이터가 없습니다.</div></div>';
     return;
   }
 
   let html = '<div class="table-wrap"><table>';
-  data.forEach((r, i) => {
-    if (i === 0) {
+
+  data.forEach((row, rowIndex) => {
+    if (rowIndex === 0) {
       html += '<thead><tr>';
-      r.forEach(c => html += `<th>${escapeHtml(c)}</th>`);
+      row.forEach(cell => {
+        html += `<th title="${escapeHtml(cell)}">${escapeHtml(cell)}</th>`;
+      });
       html += '</tr></thead><tbody>';
-    } else {
-      html += '<tr>';
-      r.forEach(c => html += `<td>${escapeHtml(c)}</td>`);
-      html += '</tr>';
+      return;
     }
+
+    html += '<tr>';
+    row.forEach(cell => {
+      const value = escapeHtml(cell);
+      html += `<td title="${value}">${value}</td>`;
+    });
+    html += '</tr>';
   });
+
   html += '</tbody></table></div>';
-  document.getElementById('table-container').innerHTML = html;
+  container.innerHTML = html;
 }
 
-/* 검색 */
 function filterTable() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
-  document.querySelectorAll('#table-container tr').forEach(tr=>{
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+
+  document.querySelectorAll('#table-container tbody tr').forEach(tr => {
     tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none';
   });
 }
 </script>
-
 </body>
 </html>

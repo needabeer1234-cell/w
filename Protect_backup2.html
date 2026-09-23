@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대리점 전용 페이지</title>
+
+<style>
+:root {
+  --bg: #0b1220;
+  --surface: #111b2e;
+  --surface-2: #17243a;
+  --border: #263650;
+  --text: #e8eef9;
+  --muted: #9aa9bf;
+  --primary: #4f8cff;
+  --primary-hover: #3776eb;
+  --danger: #ff6978;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.hidden { display: none !important; }
+
+/* 로그인 */
+#login-section {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(79, 140, 255, .16), transparent 30%),
+    var(--bg);
+}
+
+.login-box {
+  width: min(100%, 480px);
+  padding: 36px;
+  text-align: center;
+  background: rgba(17, 27, 46, .96);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
+}
+
+.login-box h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+
+.login-box h2:not(:first-child) {
+  margin-top: 32px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-box input,
+.login-box button {
+  width: 100%;
+  height: 46px;
+  border-radius: 9px;
+}
+
+.login-box input {
+  padding: 0 14px;
+  color: var(--text);
+  background: #0b1220;
+  border: 1px solid var(--border);
+  text-align: left;
+  outline: none;
+}
+
+.login-box input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 140, 255, .18);
+}
+
+.login-box button {
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform .15s ease, background .15s ease, border .15s ease;
+}
+
+.login-box button:hover {
+  transform: translateY(-1px);
+}
+
+.login-btn {
+  border: 0;
+  color: #fff;
+  background: var(--primary);
+}
+
+.login-btn:hover {
+  background: var(--primary-hover);
+}
+
+.protect-btn,
+.norm-btn {
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+
+.protect-btn {
+  color: #ff9ca5;
+  border-color: rgba(255, 105, 120, .65);
+}
+
+.protect-btn:hover {
+  color: #fff;
+  background: rgba(255, 105, 120, .14);
+}
+
+.norm-btn:hover {
+  border-color: var(--primary);
+  background: rgba(79, 140, 255, .12);
+}
+
+/* 메인 */
+#content {
+  width: min(100%, 1600px);
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.control-section {
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+#top-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#sheet-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.4px;
+}
+
+.btn-swap {
+  height: 38px;
+  padding: 0 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: .15s ease;
+}
+
+.btn-swap:hover {
+  border-color: var(--primary);
+  background: var(--surface-2);
+}
+
+#search-box {
+  width: min(100%, 360px);
+}
+
+#searchInput {
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+}
+
+#searchInput::placeholder {
+  color: var(--muted);
+}
+
+#searchInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 140, 255, .14);
+}
+
+.divider {
+  margin: 0 0 16px;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+/* 테이블 */
+.table-wrap {
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .16);
+}
+
+table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+th,
+td {
+  height: 50px;
+  max-width: 280px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(38, 54, 80, .8);
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  color: #cbd8ec;
+  background: #1b2a43;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 1px 0 var(--border);
+}
+
+td {
+  color: #dce6f5;
+  font-size: 14px;
+}
+
+tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, .018);
+}
+
+tbody tr {
+  transition: background .12s ease;
+}
+
+tbody tr:hover td {
+  background: rgba(79, 140, 255, .10);
+  color: #fff;
+}
+
+/* 클릭 없이도 긴 내용을 확인할 수 있도록 툴팁 */
+td:hover {
+  overflow: visible;
+  white-space: normal;
+  text-overflow: clip;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.empty-message {
+  padding: 48px 20px;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  #content {
+    padding: 18px;
+  }
+
+  .login-box {
+    padding: 26px 20px;
+  }
+
+  .control-section {
+    align-items: stretch;
+  }
+
+  #top-bar {
+    justify-content: space-between;
+  }
+
+  #sheet-name {
+    max-width: 55vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+  }
+
+  #search-box {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="login-section">
+  <div class="login-box">
+    <h2>대리점 전용 데이터베이스</h2>
+
+    <input
+      type="password"
+      id="pass"
+      placeholder="비밀번호 입력"
+      onkeypress="if(event.key==='Enter') login()"
+    >
+
+    <button class="login-btn" onclick="login()">데이터베이스 접속하기</button>
+
+    <h2>구글 폼 링크</h2>
+
+    <button class="protect-btn"
+      onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform'">
+      영업보호요청
+    </button>
+
+    <button class="norm-btn"
+      onclick="location.href='https://forms.gle/m71X5mr71kjhVpQT6'">
+      특주품 견적의뢰
+    </button>
+
+    <button class="norm-btn"
+      onclick="location.href='https://forms.gle/4nvTLNJ7w8WKnw6r7'">
+      표준품 납기확인
+    </button>
+  </div>
+</div>
+
+<div id="content" class="hidden">
+  <div class="control-section">
+    <div id="top-bar">
+      <span id="sheet-name"></span>
+      <button class="btn-swap" onclick="swapSheet()">시트 전환</button>
+    </div>
+
+    <div id="search-box">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="고객사, 담당자, 프로젝트 등 검색"
+        onkeyup="filterTable()"
+      >
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div id="table-container"></div>
+</div>
+
+<script>
+const WEBAPP_URL = '/api/proxy';
+let currentSheet = 0;
+
+function parseMaybeJson(response) {
+  const ct = response.headers.get('content-type') || '';
+
+  if (ct.includes('application/json')) {
+    return response.json();
+  }
+
+  return response.text().then(txt => {
+    try {
+      return JSON.parse(txt);
+    } catch (e) {
+      return txt;
+    }
+  });
+}
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function login() {
+  const pw = document.getElementById('pass').value.trim();
+
+  if (!pw) {
+    alert('비밀번호를 입력하세요.');
+    return;
+  }
+
+  fetch(WEBAPP_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'login',
+      password: pw
+    })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
+    return parseMaybeJson(res);
+  })
+  .then(res => {
+    if (typeof res === 'string') {
+      alert('서버 응답 형식을 확인해주세요.');
+      return;
+    }
+
+    if (!res || res.success === false) {
+      alert('비밀번호 오류');
+      return;
+    }
+
+    document.getElementById('login-section').classList.add('hidden');
+    document.getElementById('content').classList.remove('hidden');
+
+    if (res.name || res.data) {
+      document.getElementById('sheet-name').innerText = res.name || '데이터베이스';
+      makeTable(res.data || []);
+    } else {
+      loadSheet(0);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert('통신 오류가 발생했습니다.');
+  });
+}
+
+function loadSheet(idx) {
+  currentSheet = idx;
+  document.getElementById('searchInput').value = '';
+
+  fetch(WEBAPP_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'getSheetByIndex',
+      index: String(idx)
+    })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
+    return parseMaybeJson(res);
+  })
+  .then(res => {
+    if (typeof res === 'string' || !res || res.success === false) {
+      alert('시트 로드에 실패했습니다.');
+      return;
+    }
+
+    document.getElementById('sheet-name').innerText = res.name || '데이터베이스';
+    makeTable(res.data || []);
+  })
+  .catch(err => {
+    console.error(err);
+    alert('통신 오류가 발생했습니다.');
+  });
+}
+
+function swapSheet() {
+  loadSheet(currentSheet === 0 ? 1 : 0);
+}
+
+function makeTable(data) {
+  const container = document.getElementById('table-container');
+
+  if (!Array.isArray(data) || data.length === 0) {
+    container.innerHTML = '<div class="table-wrap"><div class="empty-message">표시할 데이터가 없습니다.</div></div>';
+    return;
+  }
+
+  let html = '<div class="table-wrap"><table>';
+
+  data.forEach((row, rowIndex) => {
+    if (rowIndex === 0) {
+      html += '<thead><tr>';
+      row.forEach(cell => {
+        html += `<th title="${escapeHtml(cell)}">${escapeHtml(cell)}</th>`;
+      });
+      html += '</tr></thead><tbody>';
+      return;
+    }
+
+    html += '<tr>';
+    row.forEach(cell => {
+      const value = escapeHtml(cell);
+      html += `<td title="${value}">${value}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  container.innerHTML = html;
+}
+
+function filterTable() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+
+  document.querySelectorAll('#table-container tbody tr').forEach(tr => {
+    tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
