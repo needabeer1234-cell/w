@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CC-Link 설정 기준</title>
+  <style>
+    :root {
+      --bg: #f5f8f7;
+      --card: #ffffff;
+      --text: #1f2d2a;
+      --muted: #60706b;
+      --line: #dbe5e1;
+      --accent: #2f7d64;
+      --accent-soft: #e8f4ef;
+      --warning: #fff7df;
+      --warning-line: #efd58b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 8px 24px rgba(30, 60, 50, 0.06);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      color: var(--accent);
+    }
+
+    .subtitle {
+      margin: 0 0 28px;
+      color: var(--muted);
+    }
+
+    h2 {
+      margin: 30px 0 12px;
+      font-size: 20px;
+      color: #285d4d;
+    }
+
+    .formula {
+      padding: 18px 20px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      border-left: 5px solid var(--accent);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .notice {
+      margin-top: 14px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: var(--warning);
+      border: 1px solid var(--warning-line);
+    }
+
+    .notice strong {
+      color: #755500;
+    }
+
+    ul {
+      margin: 10px 0;
+      padding-left: 22px;
+    }
+
+    li { margin: 6px 0; }
+
+    table {
+      width: 100%;
+      margin-top: 12px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      background: #edf5f1;
+      color: #285d4d;
+      font-weight: 700;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    tr:hover td {
+      background: #f7fbf9;
+    }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .example {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfdfc;
+    }
+
+    .example b {
+      color: var(--accent);
+    }
+
+    .checklist {
+      padding: 18px 20px;
+      border-radius: 12px;
+      background: #f8fbfa;
+      border: 1px solid var(--line);
+    }
+
+    @media (max-width: 600px) {
+      .wrap { margin: 20px auto; }
+      .card { padding: 22px 16px; }
+      h1 { font-size: 24px; }
+      th, td { padding: 11px 8px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>CC-Link 점유국수 / 확장사이클 설정 기준</h1>
+      <p class="subtitle">Handy 설정값을 기준으로 PLC CC-Link 파라미터를 설정합니다.</p>
+
+      <h2>1. L 값 산정</h2>
+
+      <div class="formula">
+        L = MAX(IN Byte Length, OUT Byte Length)
+      </div>
+
+      <div class="notice">
+        <strong>중요:</strong> IN Byte와 OUT Byte를 더하지 않습니다.<br>
+        두 값 중 <strong>큰 값 하나만</strong> L로 사용합니다.
+      </div>
+
+      <div class="examples">
+        <div class="example">IN 3 Byte / OUT 3 Byte<br><b>→ L = 3</b></div>
+        <div class="example">IN 3 Byte / OUT 6 Byte<br><b>→ L = 6</b></div>
+        <div class="example">IN 12 Byte / OUT 8 Byte<br><b>→ L = 12</b></div>
+        <div class="example">IN 16 Byte / OUT 20 Byte<br><b>→ L = 20</b></div>
+      </div>
+
+      <h2>2. PLC CC-Link 설정값</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>L 값</th>
+            <th>확장사이클</th>
+            <th>점유국수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1 ~ 4 Byte</td><td>1배</td><td>1국</td></tr>
+          <tr><td>5 ~ 8 Byte</td><td>1배</td><td>2국</td></tr>
+          <tr><td>9 ~ 12 Byte</td><td>1배</td><td>3국</td></tr>
+          <tr><td>13 ~ 16 Byte</td><td>1배</td><td>4국</td></tr>
+          <tr><td>17 ~ 28 Byte</td><td>2배</td><td>4국</td></tr>
+          <tr><td>29 ~ 56 Byte</td><td>4배</td><td>4국</td></tr>
+          <tr><td>57 Byte 이상</td><td>8배</td><td>4국</td></tr>
+        </tbody>
+      </table>
+
+      <h2>3. 작업 전 확인사항</h2>
+
+      <div class="checklist">
+        <ul>
+          <li><strong>IN + OUT 합산 금지</strong></li>
+          <li>IN/OUT 중 큰 Byte 값을 L로 적용</li>
+          <li>표에서 선택한 행의 확장사이클과 점유국수를 함께 설정</li>
+          <li>점유국수만큼 연속 국번이 사용되므로 다른 장치와 중복되지 않도록 확인</li>
+          <li>예: 시작 국번 5번, 4국 점유 → 5 ~ 8번 사용</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

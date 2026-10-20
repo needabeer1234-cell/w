@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>에스틱 너트러너 트레이서빌리티 안내</title>
+ <meta name="description" content="에스틱 너트러너의 트레이서빌리티 체계와 당사의 너트러너 및 펄스모드전용 너트러너의 정도보증 관계를 정리한 안내입니다.">
+ <style>
+ /* 기술 매뉴얼 전용 변수 선언 및 색상 정의 (오프화이트, 짙은 남색, 파란색 강조) */
+ :root {
+ --bg-main: #f8fafc;
+ --text-main: #0f172a;
+ --text-muted: #475569;
+ --primary: #1e3a8a;
+ --primary-light: #3b82f6;
+ --accent: #2563eb;
+ --card-bg: #ffffff;
+ --border-color: #e2e8f0;
+ --code-bg: #0f172a;
+ }
+
+ /* 기본 여백 초기화 및 박스 모델 설정 */
+ *, *::before, *::after {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ }
+
+ body {
+ font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+ background-color: var(--bg-main);
+ color: var(--text-main);
+ line-height: 1.6;
+ padding: 2rem 1rem;
+ }
+
+ .container {
+ max-width: 1000px;
+ margin: 0 auto;
+ }
+
+ /* 메인 타이틀 헤더 스타일 */
+ header {
+ background-color: var(--primary);
+ color: #ffffff;
+ padding: 2rem;
+ border-radius: 0.5rem;
+ margin-bottom: 2rem;
+ box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+ }
+
+ header h1 {
+ font-size: 1.75rem;
+ font-weight: 700;
+ margin-bottom: 0.5rem;
+ }
+
+ header p {
+ color: #93c5fd;
+ font-size: 0.95rem;
+ }
+
+ /* 카드 형태의 섹션 배치 */
+ section {
+ background-color: var(--card-bg);
+ border: 1px solid var(--border-color);
+ border-radius: 0.5rem;
+ padding: 2rem;
+ margin-bottom: 2rem;
+ box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+ }
+
+ section h2 {
+ font-size: 1.35rem;
+ color: var(--primary);
+ border-left: 4px solid var(--accent);
+ padding-left: 0.75rem;
+ margin-bottom: 1.25rem;
+ font-weight: 700;
+ }
+
+ section h3 {
+ font-size: 1.1rem;
+ color: var(--text-main);
+ margin-top: 1.25rem;
+ margin-bottom: 0.75rem;
+ font-weight: 600;
+ }
+
+ p {
+ margin-bottom: 1rem;
+ color: var(--text-muted);
+ font-size: 0.95rem;
+ }
+
+ /* 이미지 컨테이너 스타일 */
+ .image-box {
+ margin: 1.5rem 0;
+ text-align: center;
+ }
+
+ .image-box img {
+ max-width: 100%;
+ height: auto;
+ border-radius: 0.375rem;
+ border: 1px solid var(--border-color);
+ }
+
+ .image-caption {
+ font-size: 0.85rem;
+ color: var(--text-muted);
+ margin-top: 0.5rem;
+ }
+
+ /* 반응형 데이터 테이블 스타일 */
+ .table-responsive {
+ overflow-x: auto;
+ margin-bottom: 1.25rem;
+ border-radius: 0.375rem;
+ border: 1px solid var(--border-color);
+ }
+
+ table {
+ width: 100%;
+ border-collapse: collapse;
+ text-align: left;
+ font-size: 0.9rem;
+ }
+
+ th {
+ background-color: #f8fafc;
+ color: var(--primary);
+ padding: 0.75rem 1rem;
+ font-weight: 600;
+ border-bottom: 2px solid var(--border-color);
+ }
+
+ td {
+ padding: 0.75rem 1rem;
+ border-bottom: 1px solid var(--border-color);
+ color: var(--text-main);
+ }
+
+ tr:nth-child(even) {
+ background-color: #fdfdfd;
+ }
+
+ tr:last-child td {
+ border-bottom: none;
+ }
+
+ /* 인터록 주의사항 및 위험 알림 박스 */
+ .callout {
+ background-color: #fffbeb;
+ border: 1px solid #fef3c7;
+ border-left: 4px solid #d97706;
+ padding: 1.25rem;
+ border-radius: 0.375rem;
+ margin-bottom: 1.25rem;
+ }
+
+ .callout-title {
+ font-weight: 600;
+ color: #92400e;
+ margin-bottom: 0.5rem;
+ font-size: 0.95rem;
+ }
+
+ .callout ul {
+ list-style-type: disc;
+ padding-left: 1.25rem;
+ color: #78350f;
+ font-size: 0.9rem;
+ }
+
+ .callout li {
+ margin-bottom: 0.25rem;
+ }
+
+ /* 가이드라인 핵심 요약 종합 박스 */
+ .summary-box {
+ background-color: #f0fdf4;
+ border: 1px solid #dcfce7;
+ border-left: 4px solid #16a34a;
+ padding: 1.25rem;
+ border-radius: 0.5rem;
+ }
+
+ .summary-box ul {
+ list-style-type: none;
+ }
+
+ .summary-box li {
+ position: relative;
+ padding-left: 1.25rem;
+ margin-bottom: 0.5rem;
+ font-size: 0.925rem;
+ color: #14532d;
+ }
+
+ .summary-box li::before { content: "✓"; position: absolute; left: 0; color: #16a34a; font-weight: bold; }
+ .summary-box li:last-child { margin-bottom: 0; }
+
+ @media (max-width: 768px) {
+ body { padding: 1rem 0.5rem; }
+ section { padding: 1.25rem; }
+ }
+ </style>
+</head>
+<body>
+ <div class="container">
+ <article>
+ <header>
+ <h1>에스틱 너트러너 트레이서빌리티 안내</h1>
+ <p>당사의 너트러너 및 펄스모드전용 너트러너의 정도보증과 트레이서빌리티 관계(족보)</p>
+ </header>
+
+ <section>
+ <h2>1. 트레이서빌리티 개요</h2>
+ <p>트레이서빌리티는 교정기가 어느 국가기관의 표준기와 트레이서빌리티한 관계에 있는지를 나타내는 개념입니다. <br>
+  트레이서빌리티 체계도를 통해 해당 도구를 발행하거나 교정한 기관의 관계를 확인할 수 있습니다.</p>
+ <p>교정 및 일상 점검에 사용되는 도구의 근간이 되는 요소이며, 본 안내는 에스틱 너트러너가 어떤 기관과 트레이서빌리티한 관계에 있는지를 설명합니다.</p>
+ 
+ <!-- 이미지 1 추가 영역 -->
+ <figure class="image-box">
+ <img src="images/pyramid.png" alt="너트러너 트레이서빌리티 체계도">
+ <figcaption class="image-caption">국가 표준기에서 교정기와 너트러너로 이어지는 트레이서빌리티 체계도</figcaption>
+ </figure>
+ </section>
+
+ <section>
+ <h2>2. 당사의 너트러너의 정도보증</h2>
+ <p>당사의 너트러너의 정도보증은 PTB, DAkkS, 키슬러 및 에스틱 너트러너의 관계로 설명됩니다.</p>
+ <div class="table-responsive">
+ <table>
+ <thead>
+ <tr>
+ <th>기관·장비</th>
+ <th>자료에 기재된 역할</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><strong>PTB</strong></td>
+ <td>독일의 산업종합연구소로, 세계적인 주요 계측기관
+  <br><a href="https://www.ptb.de/cms/" target="_blank">https://www.ptb.de/cms/</a>
+ </td>
+ </tr>
+ <tr>
+ <td><strong>DAkkS</strong></td>
+ <td>독일의 국가 인정 기관으로, 국제적으로 적용 가능한 기준·법적 근거·관련 규칙에 따라 적절한 업무 수행 여부를 확인
+  <br><a href="https://www.dakks.de/en/home-en.html" target="_blank">https://www.dakks.de/en/home-en.html</a>
+ </td>
+ </tr>
+ <tr>
+ <td><strong>키슬러</strong></td>
+ <td>ISO 17025를 보유한 센서 및 검정기 메이커로서 토크검사기기를 제공
+    <br><a href="https://www.kistler.com/KR/en/p/mobile-testing-device-certest-mobile-for-torque-tools-5413-5392-/20000163" target="_blank">https://www.kistler.com/KR/en/p/mobile-testing-device-certest-mobile-for-torque-tools-5413-5392-/20000163</a>
+
+ </td>
+ </tr>
+ <tr>
+ <td><strong>에스틱<br> 너트러너</strong></td>
+ <td>키슬러 토크검사기기로 측정하는 너트러너</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+
+ <!-- 이미지 2 추가 영역 -->
+ <figure class="image-box">
+ <img src="prymid.png" alt="당사의 너트러너 정도보증 체계">
+ <figcaption class="image-caption">PTB, DAkkS, 키슬러 토크검사기기 및 에스틱 너트러너의 관계도</figcaption>
+ </figure>
+ </section>
+
+ <section>
+ <h2>3. 펄스모드전용 너트러너의 정도보증</h2>
+ <p>펄스모드전용 너트러너은 국제 시험소 인정 협력기구인 ILAC와 국제 상호 승인 협정인 MRA, 영국의 국가 인정기관인 UKAS, 그리고 Crane Electronics의 관계를 기반으로 안내됩니다.</p>
+ <div class="table-responsive">
+ <table>
+ <thead>
+ <tr>
+ <th>기관·장비</th>
+ <th>자료에 기재된 역할</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td><strong>ILAC</strong></td>
+ <td>국제 시험소 인정 협력기구</td>
+ </tr>
+ <tr>
+ <td><strong>MRA</strong></td>
+ <td>국제 상호 승인 협정</td>
+ </tr>
+ <tr>
+ <td><strong>UKAS</strong></td>
+ <td>영국인증기관인정심의회로서 국가 인정기관</td>
+ </tr>
+ <tr>
+ <td><strong>Crane Electronics</strong></td>
+ <td>ISO 17025를 보유한 센서 및 검정기 메이커로서 검사 장비를 교정</td>
+ </tr>
+ <tr>
+ <td><strong>에스틱 펄스 전용툴</strong></td>
+ <td>Crane Electronics 토크검사기기와 연결되는 펄스모드전용 너트러너</td> </tr>
+ </tbody>
+ </table>
+ </div>
+
+ <!-- 이미지 3 추가 영역 -->
+ <figure class="image-box">
+ <img src="이미지_3_주소.jpg" alt="펄스모드전용 너트러너 정도보증 체계">
+ <figcaption class="image-caption">ILAC, UKAS, Crane Electronics 및 에스틱 펄스 전용툴의 관계도</figcaption>
+ </figure>
+ </section>
+
+ <section>
+ <h2>4. 인정기관 및 시험소 관련 설명</h2>
+ <h3>ILAC</h3>
+ <p>시험소 요구 사항인 ISO / IEC 17025 및 시험소 인정기관 요구 사항인 ISO / IEC 17011의 적용을 위한 지침 문서를 작성합니다. 또한 인정기관 간 업무 내용의 정합화를 진행하고, 정부기관에 의한 인정 활용 촉진 및 인정제도 개발을 지원합니다.</p>
+ <h3>UKAS</h3>
+ <p>UKAS는 국제적으로 인지된 기관이며, 주요 각국의 인정기관으로 구성된 IAF(International Accreditation Forum, 국제인정기관포럼)의 정회원입니다.</p>
+ <div class="callout">
+ <div class="callout-title">중요 안내</div>
+ <ul>
+ <li>자료에는 당사의 너트러너과 펄스모드전용 너트러너에 대해 서로 다른 정도보증 관계가 제시되어 있습니다.</li>
+ <li>교정 및 검사 장비의 추적 관계는 사용하는 너트러너의 종류에 따라 확인해야 합니다.</li>
+ </ul>
+ </div>
+ </section>
+
+ <section>
+ <h2>5. 핵심 요약</h2>
+ <div class="summary-box">
+ <ul>
+ <li>트레이서빌리티는 교정기와 국가기관 표준기 사이의 트레이서빌리티(족보)한 관계를 의미합니다.</li>
+ <li>당사의 너트러너은 PTB, DAkkS, 키슬러 토크검사기기 및 에스틱 너트러너의 관계로 안내됩니다.</li>
+ <li>펄스모드전용 너트러너은 ILAC, MRA, UKAS, Crane Electronics 및 에스틱 펄스 전용툴의 관계로 안내됩니다.</li>
+ <li>키슬러와 Crane Electronics는 자료에서 ISO 17025를 보유한 센서 및 검정기 메이커로 소개됩니다.</li>
+ </ul>
+ </div>
+ </section>
+
+ <section class="faq">
+ <h2>6. FAQ: 트레이서빌리티</h2>
+ <h3>트레이서빌리티란 무엇입니까?</h3>
+ <p>교정기가 어느 국가기관의 표준기와 트레이서빌리티(족보)한 관계에 있는지를 나타내며, 도구를 발행하거나 교정한 기관의 관계를 확인하는 개념입니다.</p>
+ <h3>당사의 너트러너과 펄스모드전용 너트러너의 차이는 무엇입니까?</h3>
+ <p>자료에서는 당사의 너트러너에 키슬러 토크검사기기 관련 체계를, 펄스모드전용 너트러너에 Crane Electronics 토크검사기기 관련 체계를 제시합니다.</p>
+ </section>
+ </article>
+ </div>
+</body>
+</html>
