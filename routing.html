@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css">
+  <meta charset="UTF-8">
+  <title>MIF용 망분리 가이드라인</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+   body {
+    background: #f7f8f5;
+    color: #38566f;
+    font-family: "Pretendard Variable", Pretendard, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .panel { background: #fbfcfa; border: 1px solid #d1dde4; }
+    .header, .footer { background: #edf3f6; }
+    .title, .heading, .white-text { color: #1e5f8f; }
+    .step { background: #dce9ef; color: #1e5f8f; }
+    .highlight-border { background: #f1f6f8; border: 1px solid #b9cbd5; }
+    .router { background: #f1f6f8; border-left: 4px solid #1e5f8f; }
+    .connection-line { border-left: 2px dashed #8ba8ba; }
+    .octet-51 { color: #527b99; font-weight: bold; }
+    .octet-52 { color: #1e5f8f; font-weight: 900; text-decoration: ; }
+    .wan { background: #eaf1f4; color: #38566f; }
+    .lan { background: #dce9ef; border: 1px solid #b9cbd5; color: #1e5f8f; }
+    .muted { color: #6f8797; }
+    .warning { color: #a66700; font-weight: bold; }
+  </style>
+</head>
+
+<body class="p-4 md:p-10">
+  <div class="panel max-w-xl mx-auto shadow-lg rounded-lg overflow-hidden">
+    <div class="header p-6 border-b border-[#d1dde4]">
+      <h1 class="title text-lg  tracking-widest uppercase text-center">
+        MIF용 망분리 가이드라인
+      </h1>
+    </div>
+
+    <div class="p-6 md:p-10 space-y-6">
+      <div class="flex items-start">
+        <div class="step px-2 py-1 rounded text-[10px] mr-4 ">01</div>
+        <div>
+          <h3 class="heading  text-sm">컴퓨터가 접속중인 서브넷</h3>
+          <p class="text-xs mt-1 tracking-tighter">IP: 192.168.<span class="octet-51">51</span>.*</p>
+          <p class="muted text-[10px]">무선접속</p>
+        </div>
+      </div>
+
+      <div class="connection-line text-[10px] pl-5">↓ 무선 연결</div>
+
+      <div class="highlight-border flex items-start p-4 rounded">
+        <div class="step px-2 py-1 rounded text-[10px] mr-4 ">02</div>
+        <div>
+          <h3 class="heading  text-sm">WIFI Extender(확장기) (RE200)</h3>
+          <p class="text-xs mt-1 tracking-tighter">IP: 192.168.<span class="octet-51">51</span>.*</p>
+          <p class="warning text-[10px] mt-1 uppercase">★ 무선 → 유선(LAN) 전환 지점</p>
+        </div>
+      </div>
+
+      <div class="connection-line title text-[10px] pl-5 ">
+        ↓ 유선 케이블 연결 (RJ45)
+      </div>
+
+      <div class="router flex items-start p-4 rounded shadow-sm">
+        <div class="step px-2 py-1 rounded text-[10px]  mr-4">03</div>
+        <div class="w-full">
+          <h3 class="heading  text-sm uppercase tracking-wide">인터넷 공유기(라우터, Archer AX23v)</h3>
+
+          <div class="grid grid-cols-1 gap-1 mt-3">
+            <div class="wan text-[11px] p-2 rounded flex justify-between">
+              <span class="muted">WAN (입구)</span>
+              <span>192.168.<span class="octet-51">51</span>.*</span>
+            </div>
+
+            <div class="lan text-[11px] p-2 rounded flex justify-between">
+              <span class="">LAN (출구)</span>
+              <span>192.168.<span class="octet-52">52</span>.*</span>
+            </div>
+          </div>
+
+          <p class="muted text-[9px] mt-2  text-right">
+            * 여기서 3번째 옥텟이 .51에서 .52로 변경됨
+            * 인터넷 공유기(라우터, Archer AX23v) IP주소를 192.168.52.254로 설정하세요.
+          </p>
+        </div>
+      </div>
+
+      <div class="connection-line text-[10px] pl-5">↓ 유선 케이블 연결 (RJ45)</div>
+
+      <div class="flex items-start">
+        <div class="step px-2 py-1 rounded text-[10px] mr-4 ">04</div>
+        <div class="w-full">
+          <h3 class="heading  text-sm">MIF 장비</h3>
+          <div class="mt-2 space-y-1">
+            <p class="text-xs">IP: 192.168.<span class="octet-52">52</span>.*</p>
+            <p class="text-xs">Gateway: <span class="title">192.168.52.254</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
