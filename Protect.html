@@ -3,349 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>대리점 전용 페이지</title>
-
+<title>ESTIC KOREA  Partner Portal</title>
 <style>
-:root {
-  --bg: #0b1220;
-  --surface: #111b2e;
-  --surface-2: #17243a;
-  --border: #263650;
-  --text: #e8eef9;
-  --muted: #9aa9bf;
-  --primary: #4f8cff;
-  --primary-hover: #3776eb;
-  --danger: #ff6978;
+:root{
+  --navy:#0a2345;
+  --navy2:#102f58;
+  --blue:#1671ec;
+  --sky:#62baff;
+  --text:#10264a;
+  --muted:#63718a;
+  --line:#dbe7f5;
+  --bg:#f6faff;
+  --danger:#ef3d4c;
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  min-width: 320px;
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+*{box-sizing:border-box}
+body{
+  margin:0; min-width:320px; color:var(--text);
+  font-family:"Pretendard","Noto Sans KR","Malgun Gothic",Arial,sans-serif;
+  background:var(--bg);
 }
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
 
-button,
-input {
-  font: inherit;
+/* Hero */
+.hero{
+  position:relative; min-height:385px; overflow:hidden;
+  color:white; background:
+    radial-gradient(circle at 75% 20%,rgba(65,142,243,.35),transparent 27%),
+    linear-gradient(115deg,#071b37 0%,#112e55 50%,#082040 100%);
 }
-
-.hidden { display: none !important; }
-
-/* 로그인 */
-#login-section {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 24px;
+.hero:after{
+  content:""; position:absolute; z-index:0; right:-4%; bottom:0; width:48%; height:76%;
+  opacity:.88;
   background:
-    radial-gradient(circle at 20% 10%, rgba(79, 140, 255, .16), transparent 30%),
-    var(--bg);
+    linear-gradient(90deg,transparent 0 10%,rgba(56,138,232,.26) 10% 11%,transparent 11% 27%,rgba(56,138,232,.28) 27% 28%,transparent 28%),
+    linear-gradient(0deg,#0a2549 0 7%,transparent 7%);
+  clip-path:polygon(0 68%,14% 58%,14% 100%,23% 100%,23% 42%,43% 29%,43% 100%,56% 100%,56% 0,78% 8%,78% 100%,91% 100%,91% 33%,100% 29%,100% 100%,0 100%);
+  background-color:rgba(22,91,172,.45);
 }
-
-.login-box {
-  width: min(100%, 480px);
-  padding: 36px;
-  text-align: center;
-  background: rgba(17, 27, 46, .96);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
+.hero-inner{position:relative;z-index:1;width:min(100% - 112px,1120px);margin:auto}
+.topnav{
+  height:104px; display:flex; align-items:center; justify-content:space-between;
 }
-
-.login-box h2 {
-  margin: 0 0 16px;
-  font-size: 20px;
+.brand{display:flex;align-items:center;gap:17px}
+.logo-mark{
+  width:48px;height:36px;
+  background:linear-gradient(125deg,#55b5ff 0 38%,transparent 39%),
+             linear-gradient(55deg,transparent 0 40%,#1977df 41% 73%,transparent 74%);
+  clip-path:polygon(0 100%,42% 0,59% 0,100% 100%,74% 100%,51% 55%,28% 100%);
 }
+.logo-name{font-size:31px;font-weight:800;letter-spacing:-1.5px}
+.brand-line{width:1px;height:35px;background:rgba(255,255,255,.55)}
+.brand-sub{font-size:16px;line-height:1.25;color:#d8e7fa}
+.brand-sub small{display:block;font-size:14px;letter-spacing:.4px}
+.nav-links{display:flex;gap:20px;color:#d6e1ef;font-size:14px}
+.nav-links span+span:before{content:"|";margin-right:20px;color:#91a5c0}
+.hero-copy{padding-top:18px}
+.hero-copy h1{margin:0;font-size:48px;line-height:1.28;letter-spacing:-2.5px}
+.hero-copy h1 strong{color:var(--sky)}
+.hero-copy p{margin:20px 0 0;font-size:19px;line-height:1.52;color:#d8e4f3}
 
-.login-box h2:not(:first-child) {
-  margin-top: 32px;
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 600;
+/* Contents */
+.page{width:min(100% - 64px,960px);margin:-41px auto 0;position:relative;z-index:2}
+.login-card{
+  padding:36px 52px 30px;border-radius:13px;
+  background:rgba(255,255,255,.98);
+  box-shadow:0 10px 29px rgba(18,53,97,.14);
 }
-
-.login-box input,
-.login-box button {
-  width: 100%;
-  height: 46px;
-  border-radius: 9px;
+.login-header{display:flex;align-items:center;gap:34px}
+.icon-circle{
+  flex:0 0 110px;width:110px;height:110px;border-radius:50%;
+  display:grid;place-items:center;color:#fff;
+  background:linear-gradient(140deg,#e6f4ff,#f5f9ff);
 }
-
-.login-box input {
-  padding: 0 14px;
-  color: var(--text);
-  background: #0b1220;
-  border: 1px solid var(--border);
-  text-align: left;
-  outline: none;
+.lock-icon{font-size:42px;filter:drop-shadow(0 3px 3px rgba(8,53,115,.15))}
+.eyebrow{color:#2385ec;font-size:11px;font-weight:800;letter-spacing:3px}
+.login-header h2{margin:9px 0 7px;font-size:31px;letter-spacing:-1.8px}
+.login-header p{margin:0;color:var(--muted);font-size:16px;line-height:1.52}
+.login-form{display:flex;gap:13px;margin-top:26px}
+.password-wrap{position:relative;flex:1}
+.password-wrap input{
+  width:100%;height:61px;padding:0 58px 0 62px;border:1px solid #bfcee1;
+  border-radius:8px;outline:none;color:var(--text);font-size:16px;
 }
-
-.login-box input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(79, 140, 255, .18);
+.password-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,113,236,.12)}
+.password-wrap:before{content:"🔒";position:absolute;left:21px;top:18px;filter:grayscale(1);opacity:.72}
+.password-wrap:after{content:"◉";position:absolute;right:21px;top:17px;color:#64738a;font-size:22px}
+.login-btn{
+  width:229px;border:0;border-radius:8px;color:#fff;font-size:18px;font-weight:800;
+  background:linear-gradient(135deg,#187df2,#1760db);box-shadow:0 5px 10px rgba(19,100,224,.2);
 }
+.login-btn:after{content:"›";font-size:32px;line-height:0;vertical-align:-3px;margin-left:14px}
+.error-message{display:none;margin:12px 0 0 5px;color:var(--danger);font-size:13px}
 
-.login-box button {
-  margin-top: 10px;
-  cursor: pointer;
-  font-weight: 700;
-  transition: transform .15s ease, background .15s ease, border .15s ease;
+/* Request */
+.requests{padding:26px 6px 21px}
+.section-title{
+  display:flex;align-items:center;gap:18px;justify-content:center;
+  color:#2d6fb9;font-size:12px;font-weight:800;letter-spacing:3px;
 }
-
-.login-box button:hover {
-  transform: translateY(-1px);
+.section-title:before,.section-title:after{content:"";height:1px;background:#8fafcf;flex:1}
+.request-heading{display:flex;align-items:center;gap:24px;margin:20px 27px}
+.request-heading .icon-circle{flex-basis:90px;width:90px;height:90px}
+.request-heading .icon-circle span{font-size:36px}
+.request-heading h2{margin:0 0 4px;font-size:30px;letter-spacing:-1.8px}
+.request-heading p{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+.request-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.request-card{
+  min-height:117px;padding:19px 13px;display:flex;align-items:center;gap:14px;
+  background:#fff;border:1px solid #dce9f8;border-radius:9px;
+  box-shadow:0 4px 12px rgba(32,82,142,.04);text-decoration:none;color:var(--text);
+  transition:.18s ease;
 }
+.request-card:hover{transform:translateY(-3px);border-color:#8cbeef;box-shadow:0 9px 20px rgba(22,91,172,.12)}
+.request-icon{flex:0 0 61px;width:61px;height:61px;border-radius:50%;display:grid;place-items:center;background:#edf7ff;color:#1762b4;font-size:28px}
+.request-card h3{margin:0 0 5px;font-size:16px;letter-spacing:-.8px}
+.request-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+.request-arrow{margin-left:auto;font-size:31px;color:#405a7d;font-weight:300}
 
-.login-btn {
-  border: 0;
-  color: #fff;
-  background: var(--primary);
+/* Database */
+#content{width:min(100% - 64px,1200px);margin:34px auto}
+.control-section{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:15px}
+#top-bar{display:flex;align-items:center;gap:10px}
+#sheet-name{font-size:24px;font-weight:800}
+.btn-swap{
+  padding:9px 13px;border:1px solid #b9cde4;border-radius:7px;background:#fff;color:#244c7d;font-weight:700;
 }
+#search-box{width:min(100%,350px)}
+#searchInput{width:100%;height:40px;padding:0 14px;border:1px solid #bfd1e6;border-radius:7px;outline:none}
+.divider{border:0;border-top:1px solid #d6e3f1}
+.table-wrap{max-height:calc(100vh - 170px);overflow:auto;background:#fff;border:1px solid #d9e6f4;border-radius:10px}
+table{width:100%;min-width:900px;border-collapse:collapse}
+th,td{height:48px;padding:10px 14px;border-bottom:1px solid #e5edf6;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+th{position:sticky;top:0;background:#edf5ff;color:#1c4d84;font-size:13px}
+td{font-size:14px;color:#31445f}tbody tr:hover td{background:#f2f8ff}.empty-message{padding:46px;text-align:center;color:var(--muted)}
 
-.login-btn:hover {
-  background: var(--primary-hover);
-}
+/* Footer */
+footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:linear-gradient(100deg,#122e55,#173b6b);font-size:12px}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.footer-brand{font-size:20px;font-weight:800;color:#fff}.footer-brand small{font-size:10px;font-weight:500;letter-spacing:.6px;margin-left:9px;color:#c9d8eb}
+.footer-links{display:flex;gap:17px}.footer-links span+span:before{content:"|";margin-right:17px;color:#7890ad}
 
-.protect-btn,
-.norm-btn {
-  color: var(--text);
-  background: transparent;
-  border: 1px solid var(--border);
-}
-
-.protect-btn {
-  color: #ff9ca5;
-  border-color: rgba(255, 105, 120, .65);
-}
-
-.protect-btn:hover {
-  color: #fff;
-  background: rgba(255, 105, 120, .14);
-}
-
-.norm-btn:hover {
-  border-color: var(--primary);
-  background: rgba(79, 140, 255, .12);
-}
-
-/* 메인 */
-#content {
-  width: min(100%, 1600px);
-  margin: 0 auto;
-  padding: 28px;
-}
-
-.control-section {
-  display: flex;
-  gap: 14px;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-
-#top-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-#sheet-name {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -.4px;
-}
-
-.btn-swap {
-  height: 38px;
-  padding: 0 14px;
-  color: var(--text);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: .15s ease;
-}
-
-.btn-swap:hover {
-  border-color: var(--primary);
-  background: var(--surface-2);
-}
-
-#search-box {
-  width: min(100%, 360px);
-}
-
-#searchInput {
-  width: 100%;
-  height: 40px;
-  padding: 0 14px;
-  color: var(--text);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  outline: none;
-}
-
-#searchInput::placeholder {
-  color: var(--muted);
-}
-
-#searchInput:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(79, 140, 255, .14);
-}
-
-.divider {
-  margin: 0 0 16px;
-  border: 0;
-  border-top: 1px solid var(--border);
-}
-
-/* 테이블 */
-.table-wrap {
-  max-height: calc(100vh - 160px);
-  overflow: auto;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .16);
-}
-
-table {
-  width: 100%;
-  min-width: 900px;
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-th,
-td {
-  height: 50px;
-  max-width: 280px;
-  padding: 10px 14px;
-  border-bottom: 1px solid rgba(38, 54, 80, .8);
-  text-align: left;
-  vertical-align: middle;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-th {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  color: #cbd8ec;
-  background: #1b2a43;
-  font-size: 13px;
-  font-weight: 700;
-  box-shadow: 0 1px 0 var(--border);
-}
-
-td {
-  color: #dce6f5;
-  font-size: 14px;
-}
-
-tbody tr:nth-child(even) td {
-  background: rgba(255, 255, 255, .018);
-}
-
-tbody tr {
-  transition: background .12s ease;
-}
-
-tbody tr:hover td {
-  background: rgba(79, 140, 255, .10);
-  color: #fff;
-}
-
-/* 클릭 없이도 긴 내용을 확인할 수 있도록 툴팁 */
-td:hover {
-  overflow: visible;
-  white-space: normal;
-  text-overflow: clip;
-}
-
-tbody tr:last-child td {
-  border-bottom: 0;
-}
-
-.empty-message {
-  padding: 48px 20px;
-  color: var(--muted);
-  text-align: center;
-}
-
-@media (max-width: 640px) {
-  #content {
-    padding: 18px;
-  }
-
-  .login-box {
-    padding: 26px 20px;
-  }
-
-  .control-section {
-    align-items: stretch;
-  }
-
-  #top-bar {
-    justify-content: space-between;
-  }
-
-  #sheet-name {
-    max-width: 55vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 18px;
-  }
-
-  #search-box {
-    width: 100%;
-  }
+@media(max-width:720px){
+  .hero{min-height:330px}.hero-inner{width:calc(100% - 40px)}.topnav{height:78px}.nav-links{display:none}
+  .logo-name{font-size:25px}.brand-sub{font-size:13px}.hero-copy{padding-top:22px}.hero-copy h1{font-size:35px}.hero-copy p{font-size:16px}
+  .page,#content{width:calc(100% - 32px)}.login-card{padding:28px 20px}.login-header{gap:16px}.login-header .icon-circle{display:none}.login-header h2{font-size:25px}.login-form{flex-direction:column}.login-btn{width:100%;height:57px}
+  .request-heading{margin:20px 5px}.request-heading .icon-circle{display:none}.request-heading h2{font-size:26px}.request-list{grid-template-columns:1fr}.request-card{min-height:94px}
+  .control-section{align-items:stretch;flex-direction:column}#search-box{width:100%}.footer-inner{flex-direction:column;align-items:flex-start}.footer-links{flex-wrap:wrap}
 }
 </style>
 </head>
-
 <body>
-<div id="login-section">
-  <div class="login-box">
-    <h2>대리점 전용 데이터베이스</h2>
 
-    <input
-      type="password"
-      id="pass"
-      placeholder="비밀번호 입력"
-      onkeypress="if(event.key==='Enter') login()"
-    >
-
-    <button class="login-btn" onclick="login()">데이터베이스 접속하기</button>
-
-    <h2>구글 폼 링크</h2>
-
-    <button class="protect-btn"
-      onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform'">
-      영업보호요청
-    </button>
-
-    <button class="norm-btn"
-      onclick="location.href='https://forms.gle/m71X5mr71kjhVpQT6'">
-      특주품 견적의뢰
-    </button>
-
-    <button class="norm-btn"
-      onclick="location.href='https://forms.gle/4nvTLNJ7w8WKnw6r7'">
-      표준품 납기확인
-    </button>
+<section class="hero">
+  <div class="hero-inner">
+    <nav class="topnav">
+      <div class="brand">
+        <div class="logo-mark"></div>
+        <div class="logo-name">ESTIC KOREA</div>
+        <div class="brand-line"></div>
+        <div class="brand-sub">Partner Portal<small> </small></div>
+      </div>
+      <div class="nav-links"><span>함께 만드는 더 큰 성장</span><span>신뢰</span><span>협력</span><span>지속적인 성장</span></div>
+    </nav>
+    <div class="hero-copy">
+      <h1>파트너의 성공이<br><strong>우리의 성장</strong>입니다.</h1>
+      <p>신뢰하는 파트너와 함께,<br>더 큰 가치를 만들어갑니다.</p>
+    </div>
   </div>
+</section>
+
+<div class="page" id="login-section">
+  <section class="login-card">
+    <div class="login-header">
+      <div class="icon-circle"><span class="lock-icon">🔒</span></div>
+      <div>
+        <div class="eyebrow"> ONLY</div>
+        <h2>대리점 전용 데이터베이스 접속</h2>
+        <p>대리점 전용 데이터베이스에 접속하려면 비밀번호를 입력해주세요.<br>허가된 파트너만 이용할 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="login-form">
+      <div class="password-wrap">
+        <input type="password" id="pass" placeholder="비밀번호를 입력하세요." onkeypress="if(event.key==='Enter') login()">
+      </div>
+      <button class="login-btn" onclick="login()">접속하기</button>
+    </div>
+    <p class="error-message" id="error-message">● &nbsp;비밀번호가 올바르지 않습니다. 다시 확인해주세요.</p>
+  </section>
+
+  <section class="requests">
+    <div class="section-title">BUSINESS REQUEST</div>
+    <div class="request-heading">
+      <div class="icon-circle"><span>▣</span></div>
+      <div>
+        <h2>업무 요청</h2>
+        <p>아래의 항목 중 필요한 업무를 선택하여 요청해주세요.<br>담당자가 확인 후 신속하게 안내드리겠습니다.</p>
+      </div>
+    </div>
+
+    <div class="request-list">
+      <a class="request-card" href="https://forms.gle/m71X5mr71kjhVpQT6">
+        <div class="request-icon">▤</div>
+        <div><h3>거래처 등록 요청</h3><p>신규 거래처 등록을<br>요청하실 수 있습니다.</p></div><span class="request-arrow">›</span>
+      </a>
+      <a class="request-card" href="https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform">
+        <div class="request-icon">♟</div>
+        <div><h3>제품 견적 요청</h3><p>제품 견적서 발급을<br>요청하실 수 있습니다.</p></div><span class="request-arrow">›</span>
+      </a>
+      <a class="request-card" href="https://forms.gle/4nvTLNJ7w8WKnw6r7">
+        <div class="request-icon">♢</div>
+        <div><h3>영업보호 요청</h3><p>영업 지역 보호를<br>요청하실 수 있습니다.</p></div><span class="request-arrow">›</span>
+      </a>
+    </div>
+  </section>
 </div>
 
 <div id="content" class="hidden">
@@ -354,20 +227,21 @@ tbody tr:last-child td {
       <span id="sheet-name"></span>
       <button class="btn-swap" onclick="swapSheet()">시트 전환</button>
     </div>
-
     <div id="search-box">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="고객사, 담당자, 프로젝트 등 검색"
-        onkeyup="filterTable()"
-      >
+      <input type="text" id="searchInput" placeholder="고객사, 담당자, 프로젝트 등 검색" onkeyup="filterTable()">
     </div>
   </div>
-
   <hr class="divider">
   <div id="table-container"></div>
 </div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">ESTIC KOREA <small> PARTNER PORTAL</small></div>
+    <div>신뢰하는 파트너, 더 가까운 내일</div>
+    <!-- <div class="footer-links"><span>고객지원</span><span>이용안내</span><span>개인정보처리방침</span></div> -->
+  </div>
+</footer>
 
 <script>
 const WEBAPP_URL = '/api/proxy';
@@ -375,23 +249,14 @@ let currentSheet = 0;
 
 function parseMaybeJson(response) {
   const ct = response.headers.get('content-type') || '';
-
-  if (ct.includes('application/json')) {
-    return response.json();
-  }
-
+  if (ct.includes('application/json')) return response.json();
   return response.text().then(txt => {
-    try {
-      return JSON.parse(txt);
-    } catch (e) {
-      return txt;
-    }
+    try { return JSON.parse(txt); } catch (e) { return txt; }
   });
 }
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
-
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -400,34 +265,31 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
+function showLoginError(show) {
+  document.getElementById('error-message').style.display = show ? 'block' : 'none';
+}
+
 function login() {
   const pw = document.getElementById('pass').value.trim();
+  showLoginError(false);
 
   if (!pw) {
-    alert('비밀번호를 입력하세요.');
+    showLoginError(true);
     return;
   }
 
   fetch(WEBAPP_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      action: 'login',
-      password: pw
-    })
+    body: JSON.stringify({ action: 'login', password: pw })
   })
   .then(res => {
     if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
     return parseMaybeJson(res);
   })
   .then(res => {
-    if (typeof res === 'string') {
-      alert('서버 응답 형식을 확인해주세요.');
-      return;
-    }
-
-    if (!res || res.success === false) {
-      alert('비밀번호 오류');
+    if (typeof res === 'string' || !res || res.success === false) {
+      showLoginError(true);
       return;
     }
 
@@ -454,10 +316,7 @@ function loadSheet(idx) {
   fetch(WEBAPP_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      action: 'getSheetByIndex',
-      index: String(idx)
-    })
+    body: JSON.stringify({ action: 'getSheetByIndex', index: String(idx) })
   })
   .then(res => {
     if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
@@ -468,7 +327,6 @@ function loadSheet(idx) {
       alert('시트 로드에 실패했습니다.');
       return;
     }
-
     document.getElementById('sheet-name').innerText = res.name || '데이터베이스';
     makeTable(res.data || []);
   })
@@ -491,32 +349,26 @@ function makeTable(data) {
   }
 
   let html = '<div class="table-wrap"><table>';
-
   data.forEach((row, rowIndex) => {
     if (rowIndex === 0) {
       html += '<thead><tr>';
-      row.forEach(cell => {
-        html += `<th title="${escapeHtml(cell)}">${escapeHtml(cell)}</th>`;
-      });
+      row.forEach(cell => html += `<th title="${escapeHtml(cell)}">${escapeHtml(cell)}</th>`);
       html += '</tr></thead><tbody>';
-      return;
+    } else {
+      html += '<tr>';
+      row.forEach(cell => {
+        const value = escapeHtml(cell);
+        html += `<td title="${value}">${value}</td>`;
+      });
+      html += '</tr>';
     }
-
-    html += '<tr>';
-    row.forEach(cell => {
-      const value = escapeHtml(cell);
-      html += `<td title="${value}">${value}</td>`;
-    });
-    html += '</tr>';
   });
-
   html += '</tbody></table></div>';
   container.innerHTML = html;
 }
 
 function filterTable() {
   const q = document.getElementById('searchInput').value.trim().toLowerCase();
-
   document.querySelectorAll('#table-container tbody tr').forEach(tr => {
     tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none';
   });
