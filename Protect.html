@@ -86,7 +86,7 @@ button,input{font:inherit} button{cursor:pointer}.hidden{display:none!important}
 .request-arrow{margin-left:auto;font-size:31px;color:#405a7d;font-weight:300}
 
 /* Database */
-#content{width:min(100% - 64px,1200px);margin:34px auto}
+#content{width:min(100% - 64px,1200px);margin:34px auto;min-height:calc(100vh - 170px)}
 .control-section{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:15px}
 #top-bar{display:flex;align-items:center;gap:10px}
 #sheet-name{font-size:24px;font-weight:800}
@@ -123,7 +123,7 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
 </head>
 <body>
 
-<section class="hero">
+<section class="hero" id="hero-section">
   <div class="hero-inner">
     <nav class="topnav">
       <div class="brand">
@@ -247,15 +247,30 @@ function escapeHtml(value) {
   if (value === null || value === undefined) return '';
 
   return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"')
+    .replace(/'/g, '&#39;');
 }
 
 function showLoginError(show) {
   document.getElementById('error-message').style.display = show ? 'block' : 'none';
+}
+
+function showDatabase(result) {
+  document.getElementById('hero-section').classList.add('hidden');
+  document.getElementById('login-section').classList.add('hidden');
+  document.getElementById('content').classList.remove('hidden');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (result.name || result.data) {
+    document.getElementById('sheet-name').innerText = result.name || '데이터베이스';
+    makeTable(result.data || []);
+  } else {
+    loadSheet(0);
+  }
 }
 
 function login() {
@@ -282,15 +297,7 @@ function login() {
       return;
     }
 
-    document.getElementById('login-section').classList.add('hidden');
-    document.getElementById('content').classList.remove('hidden');
-
-    if (result.name || result.data) {
-      document.getElementById('sheet-name').innerText = result.name || '데이터베이스';
-      makeTable(result.data || []);
-    } else {
-      loadSheet(0);
-    }
+    showDatabase(result);
   })
   .catch(error => {
     console.error(error);
