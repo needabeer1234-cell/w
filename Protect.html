@@ -3,57 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ESTIC KOREA  Partner Portal</title>
+<title>ESTIC KOREA Partner Portal</title>
 <style>
 :root{
-  --navy:#0a2345;
-  --navy2:#102f58;
-  --blue:#1671ec;
-  --sky:#62baff;
-  --text:#10264a;
-  --muted:#63718a;
-  --line:#dbe7f5;
-  --bg:#f6faff;
-  --danger:#ef3d4c;
+  --navy:#0a2345; --blue:#1671ec; --sky:#62baff;
+  --text:#10264a; --muted:#63718a; --bg:#f6faff; --danger:#ef3d4c;
 }
 *{box-sizing:border-box}
-body{
-  margin:0; min-width:320px; color:var(--text);
-  font-family:"Pretendard","Noto Sans KR","Malgun Gothic",Arial,sans-serif;
-  background:var(--bg);
-}
-button,input{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
+body{margin:0;min-width:320px;color:var(--text);font-family:"Pretendard","Noto Sans KR","Malgun Gothic",Arial,sans-serif;background:var(--bg)}
+button,input{font:inherit} button{cursor:pointer}.hidden{display:none!important}
 
 /* Hero */
 .hero{
-  position:relative; min-height:385px; overflow:hidden;
-  color:white; background:
-    radial-gradient(circle at 75% 20%,rgba(65,142,243,.35),transparent 27%),
-    linear-gradient(115deg,#071b37 0%,#112e55 50%,#082040 100%);
+  position:relative;min-height:385px;overflow:hidden;color:#fff;
+  background:radial-gradient(circle at 75% 20%,rgba(65,142,243,.35),transparent 27%),
+  linear-gradient(115deg,#071b37 0%,#112e55 50%,#082040 100%);
 }
 .hero:after{
-  content:""; position:absolute; z-index:0; right:-4%; bottom:0; width:48%; height:76%;
-  opacity:.88;
-  background:
-    linear-gradient(90deg,transparent 0 10%,rgba(56,138,232,.26) 10% 11%,transparent 11% 27%,rgba(56,138,232,.28) 27% 28%,transparent 28%),
-    linear-gradient(0deg,#0a2549 0 7%,transparent 7%);
+  content:"";position:absolute;z-index:0;right:-4%;bottom:0;width:48%;height:76%;opacity:.88;
+  background:linear-gradient(90deg,transparent 0 10%,rgba(56,138,232,.26) 10% 11%,transparent 11% 27%,rgba(56,138,232,.28) 27% 28%,transparent 28%),
+  linear-gradient(0deg,#0a2549 0 7%,transparent 7%);
   clip-path:polygon(0 68%,14% 58%,14% 100%,23% 100%,23% 42%,43% 29%,43% 100%,56% 100%,56% 0,78% 8%,78% 100%,91% 100%,91% 33%,100% 29%,100% 100%,0 100%);
   background-color:rgba(22,91,172,.45);
 }
 .hero-inner{position:relative;z-index:1;width:min(100% - 112px,1120px);margin:auto}
-.topnav{
-  height:104px; display:flex; align-items:center; justify-content:space-between;
-}
+.topnav{height:104px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:17px}
-.logo-mark{
-  width:48px;height:36px;
-  background:linear-gradient(125deg,#55b5ff 0 38%,transparent 39%),
-             linear-gradient(55deg,transparent 0 40%,#1977df 41% 73%,transparent 74%);
-  clip-path:polygon(0 100%,42% 0,59% 0,100% 100%,74% 100%,51% 55%,28% 100%);
-}
-.logo-name{font-size:31px;font-weight:800;letter-spacing:-1.5px}
+.estic-logo{width:172px;height:auto;max-height:46px;object-fit:contain;display:block}
 .brand-line{width:1px;height:35px;background:rgba(255,255,255,.55)}
 .brand-sub{font-size:16px;line-height:1.25;color:#d8e7fa}
 .brand-sub small{display:block;font-size:14px;letter-spacing:.4px}
@@ -64,18 +40,13 @@ button{cursor:pointer}
 .hero-copy h1 strong{color:var(--sky)}
 .hero-copy p{margin:20px 0 0;font-size:19px;line-height:1.52;color:#d8e4f3}
 
-/* Contents */
+/* Login */
 .page{width:min(100% - 64px,960px);margin:-41px auto 0;position:relative;z-index:2}
-.login-card{
-  padding:36px 52px 30px;border-radius:13px;
-  background:rgba(255,255,255,.98);
-  box-shadow:0 10px 29px rgba(18,53,97,.14);
-}
+.login-card{padding:36px 52px 30px;border-radius:13px;background:rgba(255,255,255,.98);box-shadow:0 10px 29px rgba(18,53,97,.14)}
 .login-header{display:flex;align-items:center;gap:34px}
 .icon-circle{
-  flex:0 0 110px;width:110px;height:110px;border-radius:50%;
-  display:grid;place-items:center;color:#fff;
-  background:linear-gradient(140deg,#e6f4ff,#f5f9ff);
+  flex:0 0 110px;width:110px;height:110px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(140deg,#e6f4ff,#f5f9ff)
 }
 .lock-icon{font-size:42px;filter:drop-shadow(0 3px 3px rgba(8,53,115,.15))}
 .eyebrow{color:#2385ec;font-size:11px;font-weight:800;letter-spacing:3px}
@@ -83,26 +54,19 @@ button{cursor:pointer}
 .login-header p{margin:0;color:var(--muted);font-size:16px;line-height:1.52}
 .login-form{display:flex;gap:13px;margin-top:26px}
 .password-wrap{position:relative;flex:1}
-.password-wrap input{
-  width:100%;height:61px;padding:0 58px 0 62px;border:1px solid #bfcee1;
-  border-radius:8px;outline:none;color:var(--text);font-size:16px;
-}
+.password-wrap input{width:100%;height:61px;padding:0 58px 0 62px;border:1px solid #bfcee1;border-radius:8px;outline:none;color:var(--text);font-size:16px}
 .password-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,113,236,.12)}
 .password-wrap:before{content:"🔒";position:absolute;left:21px;top:18px;filter:grayscale(1);opacity:.72}
-.password-wrap:after{content:"◉";position:absolute;right:21px;top:17px;color:#64738a;font-size:22px}
 .login-btn{
   width:229px;border:0;border-radius:8px;color:#fff;font-size:18px;font-weight:800;
-  background:linear-gradient(135deg,#187df2,#1760db);box-shadow:0 5px 10px rgba(19,100,224,.2);
+  background:linear-gradient(135deg,#187df2,#1760db);box-shadow:0 5px 10px rgba(19,100,224,.2)
 }
 .login-btn:after{content:"›";font-size:32px;line-height:0;vertical-align:-3px;margin-left:14px}
 .error-message{display:none;margin:12px 0 0 5px;color:var(--danger);font-size:13px}
 
 /* Request */
 .requests{padding:26px 6px 21px}
-.section-title{
-  display:flex;align-items:center;gap:18px;justify-content:center;
-  color:#2d6fb9;font-size:12px;font-weight:800;letter-spacing:3px;
-}
+.section-title{display:flex;align-items:center;gap:18px;justify-content:center;color:#2d6fb9;font-size:12px;font-weight:800;letter-spacing:3px}
 .section-title:before,.section-title:after{content:"";height:1px;background:#8fafcf;flex:1}
 .request-heading{display:flex;align-items:center;gap:24px;margin:20px 27px}
 .request-heading .icon-circle{flex-basis:90px;width:90px;height:90px}
@@ -111,10 +75,9 @@ button{cursor:pointer}
 .request-heading p{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
 .request-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .request-card{
-  min-height:117px;padding:19px 13px;display:flex;align-items:center;gap:14px;
-  background:#fff;border:1px solid #dce9f8;border-radius:9px;
-  box-shadow:0 4px 12px rgba(32,82,142,.04);text-decoration:none;color:var(--text);
-  transition:.18s ease;
+  min-height:117px;padding:19px 13px;display:flex;align-items:center;gap:14px;background:#fff;
+  border:1px solid #dce9f8;border-radius:9px;box-shadow:0 4px 12px rgba(32,82,142,.04);
+  text-decoration:none;color:var(--text);transition:.18s ease
 }
 .request-card:hover{transform:translateY(-3px);border-color:#8cbeef;box-shadow:0 9px 20px rgba(22,91,172,.12)}
 .request-icon{flex:0 0 61px;width:61px;height:61px;border-radius:50%;display:grid;place-items:center;background:#edf7ff;color:#1762b4;font-size:28px}
@@ -127,9 +90,7 @@ button{cursor:pointer}
 .control-section{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:15px}
 #top-bar{display:flex;align-items:center;gap:10px}
 #sheet-name{font-size:24px;font-weight:800}
-.btn-swap{
-  padding:9px 13px;border:1px solid #b9cde4;border-radius:7px;background:#fff;color:#244c7d;font-weight:700;
-}
+.btn-swap{padding:9px 13px;border:1px solid #b9cde4;border-radius:7px;background:#fff;color:#244c7d;font-weight:700}
 #search-box{width:min(100%,350px)}
 #searchInput{width:100%;height:40px;padding:0 14px;border:1px solid #bfd1e6;border-radius:7px;outline:none}
 .divider{border:0;border-top:1px solid #d6e3f1}
@@ -137,20 +98,26 @@ button{cursor:pointer}
 table{width:100%;min-width:900px;border-collapse:collapse}
 th,td{height:48px;padding:10px 14px;border-bottom:1px solid #e5edf6;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 th{position:sticky;top:0;background:#edf5ff;color:#1c4d84;font-size:13px}
-td{font-size:14px;color:#31445f}tbody tr:hover td{background:#f2f8ff}.empty-message{padding:46px;text-align:center;color:var(--muted)}
+td{font-size:14px;color:#31445f}
+tbody tr:hover td{background:#f2f8ff}
+.empty-message{padding:46px;text-align:center;color:var(--muted)}
 
 /* Footer */
 footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:linear-gradient(100deg,#122e55,#173b6b);font-size:12px}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px}
-.footer-brand{font-size:20px;font-weight:800;color:#fff}.footer-brand small{font-size:10px;font-weight:500;letter-spacing:.6px;margin-left:9px;color:#c9d8eb}
-.footer-links{display:flex;gap:17px}.footer-links span+span:before{content:"|";margin-right:17px;color:#7890ad}
+.footer-brand{font-size:20px;font-weight:800;color:#fff}
+.footer-brand small{font-size:10px;font-weight:500;letter-spacing:.6px;margin-left:9px;color:#c9d8eb}
 
 @media(max-width:720px){
   .hero{min-height:330px}.hero-inner{width:calc(100% - 40px)}.topnav{height:78px}.nav-links{display:none}
-  .logo-name{font-size:25px}.brand-sub{font-size:13px}.hero-copy{padding-top:22px}.hero-copy h1{font-size:35px}.hero-copy p{font-size:16px}
-  .page,#content{width:calc(100% - 32px)}.login-card{padding:28px 20px}.login-header{gap:16px}.login-header .icon-circle{display:none}.login-header h2{font-size:25px}.login-form{flex-direction:column}.login-btn{width:100%;height:57px}
-  .request-heading{margin:20px 5px}.request-heading .icon-circle{display:none}.request-heading h2{font-size:26px}.request-list{grid-template-columns:1fr}.request-card{min-height:94px}
-  .control-section{align-items:stretch;flex-direction:column}#search-box{width:100%}.footer-inner{flex-direction:column;align-items:flex-start}.footer-links{flex-wrap:wrap}
+  .estic-logo{width:135px}.brand-sub{font-size:13px}.brand-sub small{font-size:11px}
+  .hero-copy{padding-top:22px}.hero-copy h1{font-size:35px}.hero-copy p{font-size:16px}
+  .page,#content{width:calc(100% - 32px)}.login-card{padding:28px 20px}.login-header{gap:16px}
+  .login-header .icon-circle{display:none}.login-header h2{font-size:25px}.login-form{flex-direction:column}.login-btn{width:100%;height:57px}
+  .request-heading{margin:20px 5px}.request-heading .icon-circle{display:none}.request-heading h2{font-size:26px}
+  .request-list{grid-template-columns:1fr}.request-card{min-height:94px}
+  .control-section{align-items:stretch;flex-direction:column}#search-box{width:100%}
+  .footer-inner{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
@@ -160,13 +127,19 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
   <div class="hero-inner">
     <nav class="topnav">
       <div class="brand">
-        <div class="logo-mark"></div>
-        <div class="logo-name">ESTIC KOREA</div>
+        <img src="images/estic-korea-logo.png" alt="ESTIC KOREA" class="estic-logo">
         <div class="brand-line"></div>
-        <div class="brand-sub">Partner Portal<small> </small></div>
+        <div class="brand-sub">Partner Portal<small>B2B DEALER</small></div>
       </div>
-      <div class="nav-links"><span>함께 만드는 더 큰 성장</span><span>신뢰</span><span>협력</span><span>지속적인 성장</span></div>
+
+      <div class="nav-links">
+        <span>함께 만드는 더 큰 성장</span>
+        <span>신뢰</span>
+        <span>협력</span>
+        <span>지속적인 성장</span>
+      </div>
     </nav>
+
     <div class="hero-copy">
       <h1>파트너의 성공이<br><strong>우리의 성장</strong>입니다.</h1>
       <p>신뢰하는 파트너와 함께,<br>더 큰 가치를 만들어갑니다.</p>
@@ -179,7 +152,7 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
     <div class="login-header">
       <div class="icon-circle"><span class="lock-icon">🔒</span></div>
       <div>
-        <div class="eyebrow"> ONLY</div>
+        <div class="eyebrow">ESTIC KOREA PARTNER ONLY</div>
         <h2>대리점 전용 데이터베이스 접속</h2>
         <p>대리점 전용 데이터베이스에 접속하려면 비밀번호를 입력해주세요.<br>허가된 파트너만 이용할 수 있습니다.</p>
       </div>
@@ -191,11 +164,13 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
       </div>
       <button class="login-btn" onclick="login()">접속하기</button>
     </div>
-    <p class="error-message" id="error-message">● &nbsp;비밀번호가 올바르지 않습니다. 다시 확인해주세요.</p>
+
+    <p class="error-message" id="error-message">● 비밀번호가 올바르지 않습니다. 다시 확인해주세요.</p>
   </section>
 
   <section class="requests">
     <div class="section-title">BUSINESS REQUEST</div>
+
     <div class="request-heading">
       <div class="icon-circle"><span>▣</span></div>
       <div>
@@ -205,17 +180,22 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
     </div>
 
     <div class="request-list">
-      <a class="request-card" href="https://forms.gle/m71X5mr71kjhVpQT6">
+      <a class="request-card" href="https://forms.gle/m71X5mr71kjhVpQT6" target="_blank" rel="noopener">
         <div class="request-icon">▤</div>
-        <div><h3>거래처 등록 요청</h3><p>신규 거래처 등록을<br>요청하실 수 있습니다.</p></div><span class="request-arrow">›</span>
+        <div><h3>거래처 등록 요청</h3><p>신규 거래처 등록을<br>요청하실 수 있습니다.</p></div>
+        <span class="request-arrow">›</span>
       </a>
-      <a class="request-card" href="https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform">
+
+      <a class="request-card" href="https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform" target="_blank" rel="noopener">
         <div class="request-icon">♟</div>
-        <div><h3>제품 견적 요청</h3><p>제품 견적서 발급을<br>요청하실 수 있습니다.</p></div><span class="request-arrow">›</span>
+        <div><h3>제품 견적 요청</h3><p>제품 견적서 발급을<br>요청하실 수 있습니다.</p></div>
+        <span class="request-arrow">›</span>
       </a>
-      <a class="request-card" href="https://forms.gle/4nvTLNJ7w8WKnw6r7">
+
+      <a class="request-card" href="https://forms.gle/4nvTLNJ7w8WKnw6r7" target="_blank" rel="noopener">
         <div class="request-icon">♢</div>
-        <div><h3>영업보호 요청</h3><p>영업 지역 보호를<br>요청하실 수 있습니다.</p></div><span class="request-arrow">›</span>
+        <div><h3>영업보호 요청</h3><p>영업 지역 보호를<br>요청하실 수 있습니다.</p></div>
+        <span class="request-arrow">›</span>
       </a>
     </div>
   </section>
@@ -231,15 +211,15 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
       <input type="text" id="searchInput" placeholder="고객사, 담당자, 프로젝트 등 검색" onkeyup="filterTable()">
     </div>
   </div>
+
   <hr class="divider">
   <div id="table-container"></div>
 </div>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">ESTIC KOREA <small> PARTNER PORTAL</small></div>
+    <div class="footer-brand">ESTIC KOREA <small>PARTNER PORTAL</small></div>
     <div>신뢰하는 파트너, 더 가까운 내일</div>
-    <!-- <div class="footer-links"><span>고객지원</span><span>이용안내</span><span>개인정보처리방침</span></div> -->
   </div>
 </footer>
 
@@ -248,16 +228,25 @@ const WEBAPP_URL = '/api/proxy';
 let currentSheet = 0;
 
 function parseMaybeJson(response) {
-  const ct = response.headers.get('content-type') || '';
-  if (ct.includes('application/json')) return response.json();
-  return response.text().then(txt => {
-    try { return JSON.parse(txt); } catch (e) { return txt; }
+  const contentType = response.headers.get('content-type') || '';
+
+  if (contentType.includes('application/json')) {
+    return response.json();
+  }
+
+  return response.text().then(text => {
+    try {
+      return JSON.parse(text);
+    } catch {
+      return text;
+    }
   });
 }
 
-function escapeHtml(str) {
-  if (str === null || str === undefined) return '';
-  return String(str)
+function escapeHtml(value) {
+  if (value === null || value === undefined) return '';
+
+  return String(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -270,10 +259,10 @@ function showLoginError(show) {
 }
 
 function login() {
-  const pw = document.getElementById('pass').value.trim();
+  const password = document.getElementById('pass').value.trim();
   showLoginError(false);
 
-  if (!pw) {
+  if (!password) {
     showLoginError(true);
     return;
   }
@@ -281,14 +270,14 @@ function login() {
   fetch(WEBAPP_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'login', password: pw })
+    body: JSON.stringify({ action: 'login', password })
   })
-  .then(res => {
-    if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
-    return parseMaybeJson(res);
+  .then(response => {
+    if (!response.ok) throw new Error('Login request failed');
+    return parseMaybeJson(response);
   })
-  .then(res => {
-    if (typeof res === 'string' || !res || res.success === false) {
+  .then(result => {
+    if (typeof result === 'string' || !result || result.success === false) {
       showLoginError(true);
       return;
     }
@@ -296,42 +285,43 @@ function login() {
     document.getElementById('login-section').classList.add('hidden');
     document.getElementById('content').classList.remove('hidden');
 
-    if (res.name || res.data) {
-      document.getElementById('sheet-name').innerText = res.name || '데이터베이스';
-      makeTable(res.data || []);
+    if (result.name || result.data) {
+      document.getElementById('sheet-name').innerText = result.name || '데이터베이스';
+      makeTable(result.data || []);
     } else {
       loadSheet(0);
     }
   })
-  .catch(err => {
-    console.error(err);
+  .catch(error => {
+    console.error(error);
     alert('통신 오류가 발생했습니다.');
   });
 }
 
-function loadSheet(idx) {
-  currentSheet = idx;
+function loadSheet(index) {
+  currentSheet = index;
   document.getElementById('searchInput').value = '';
 
   fetch(WEBAPP_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'getSheetByIndex', index: String(idx) })
+    body: JSON.stringify({ action: 'getSheetByIndex', index: String(index) })
   })
-  .then(res => {
-    if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
-    return parseMaybeJson(res);
+  .then(response => {
+    if (!response.ok) throw new Error('Sheet request failed');
+    return parseMaybeJson(response);
   })
-  .then(res => {
-    if (typeof res === 'string' || !res || res.success === false) {
+  .then(result => {
+    if (typeof result === 'string' || !result || result.success === false) {
       alert('시트 로드에 실패했습니다.');
       return;
     }
-    document.getElementById('sheet-name').innerText = res.name || '데이터베이스';
-    makeTable(res.data || []);
+
+    document.getElementById('sheet-name').innerText = result.name || '데이터베이스';
+    makeTable(result.data || []);
   })
-  .catch(err => {
-    console.error(err);
+  .catch(error => {
+    console.error(error);
     alert('통신 오류가 발생했습니다.');
   });
 }
@@ -349,10 +339,14 @@ function makeTable(data) {
   }
 
   let html = '<div class="table-wrap"><table>';
+
   data.forEach((row, rowIndex) => {
     if (rowIndex === 0) {
       html += '<thead><tr>';
-      row.forEach(cell => html += `<th title="${escapeHtml(cell)}">${escapeHtml(cell)}</th>`);
+      row.forEach(cell => {
+        const value = escapeHtml(cell);
+        html += `<th title="${value}">${value}</th>`;
+      });
       html += '</tr></thead><tbody>';
     } else {
       html += '<tr>';
@@ -363,14 +357,16 @@ function makeTable(data) {
       html += '</tr>';
     }
   });
+
   html += '</tbody></table></div>';
   container.innerHTML = html;
 }
 
 function filterTable() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  document.querySelectorAll('#table-container tbody tr').forEach(tr => {
-    tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none';
+  const query = document.getElementById('searchInput').value.trim().toLowerCase();
+
+  document.querySelectorAll('#table-container tbody tr').forEach(row => {
+    row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none';
   });
 }
 </script>
