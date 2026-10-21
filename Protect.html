@@ -86,7 +86,7 @@ button,input{font:inherit} button{cursor:pointer}.hidden{display:none!important}
 .request-arrow{margin-left:auto;font-size:31px;color:#405a7d;font-weight:300}
 
 /* Database */
-#content{width:min(100% - 64px,1200px);margin:34px auto;min-height:calc(100vh - 170px)}
+#content{width:min(100% - 64px,1200px);margin:34px auto;min-height:calc(100vh - 68px)}
 .control-section{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:15px}
 #top-bar{display:flex;align-items:center;gap:10px}
 #sheet-name{font-size:24px;font-weight:800}
@@ -102,12 +102,6 @@ td{font-size:14px;color:#31445f}
 tbody tr:hover td{background:#f2f8ff}
 .empty-message{padding:46px;text-align:center;color:var(--muted)}
 
-/* Footer */
-footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:linear-gradient(100deg,#122e55,#173b6b);font-size:12px}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px}
-.footer-brand{font-size:20px;font-weight:800;color:#fff}
-.footer-brand small{font-size:10px;font-weight:500;letter-spacing:.6px;margin-left:9px;color:#c9d8eb}
-
 @media(max-width:720px){
   .hero{min-height:330px}.hero-inner{width:calc(100% - 40px)}.topnav{height:78px}.nav-links{display:none}
   .estic-logo{width:135px}.brand-sub{font-size:13px}.brand-sub small{font-size:11px}
@@ -117,7 +111,6 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
   .request-heading{margin:20px 5px}.request-heading .icon-circle{display:none}.request-heading h2{font-size:26px}
   .request-list{grid-template-columns:1fr}.request-card{min-height:94px}
   .control-section{align-items:stretch;flex-direction:column}#search-box{width:100%}
-  .footer-inner{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
@@ -127,22 +120,20 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
   <div class="hero-inner">
     <nav class="topnav">
       <div class="brand">
-        <img src="images/estic-korea-logo.png" alt="ESTIC KOREA" class="estic-logo">
         <div class="brand-line"></div>
-        <div class="brand-sub">Partner Portal<small>B2B DEALER</small></div>
+        <div class="brand-sub">Partner Portal<small></small></div>
       </div>
 
       <div class="nav-links">
-        <span>함께 만드는 더 큰 성장</span>
+        <span>함께 만드는 지속적인 성장</span>
         <span>신뢰</span>
         <span>협력</span>
-        <span>지속적인 성장</span>
       </div>
     </nav>
 
     <div class="hero-copy">
-      <h1>파트너의 성공이<br><strong>우리의 성장</strong>입니다.</h1>
-      <p>신뢰하는 파트너와 함께,<br>더 큰 가치를 만들어갑니다.</p>
+      <h1>파트너의 성공이 <strong>우리의 성장</strong>입니다.</h1>
+      <p>소중한 파트너 분들과 함께, 더 큰 가치를 만들어갑니다.</p>
     </div>
   </div>
 </section>
@@ -153,8 +144,8 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
       <div class="icon-circle"><span class="lock-icon">🔒</span></div>
       <div>
         <div class="eyebrow">ESTIC KOREA PARTNER ONLY</div>
-        <h2>대리점 전용 데이터베이스 접속</h2>
-        <p>대리점 전용 데이터베이스에 접속하려면 비밀번호를 입력해주세요.<br>허가된 파트너만 이용할 수 있습니다.</p>
+        <h2>파트너 전용 데이터베이스 접속</h2>
+        <p>파트너 전용 데이터베이스에 접속하려면 비밀번호를 입력해주세요.<br>허가된 파트너만 이용할 수 있습니다.</p>
       </div>
     </div>
 
@@ -174,7 +165,7 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
     <div class="request-heading">
       <div class="icon-circle"><span>▣</span></div>
       <div>
-        <h2>업무 요청</h2>
+        <h2>업무요청용 구글 설문지</h2>
         <p>아래의 항목 중 필요한 업무를 선택하여 요청해주세요.<br>담당자가 확인 후 신속하게 안내드리겠습니다.</p>
       </div>
     </div>
@@ -182,19 +173,19 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
     <div class="request-list">
       <a class="request-card" href="https://forms.gle/m71X5mr71kjhVpQT6" target="_blank" rel="noopener">
         <div class="request-icon">▤</div>
-        <div><h3>거래처 등록 요청</h3><p>신규 거래처 등록을<br>요청하실 수 있습니다.</p></div>
+        <div><h3>특주품</h3><p>특주품의 견적을<br>요청하실 수 있습니다.</p></div>
         <span class="request-arrow">›</span>
       </a>
 
       <a class="request-card" href="https://docs.google.com/forms/d/e/1FAIpQLSetZPoILgJ7bKKh4foBkncz_UsZFQTBvX04AMzKoUli0gUXuQ/viewform" target="_blank" rel="noopener">
         <div class="request-icon">♟</div>
-        <div><h3>제품 견적 요청</h3><p>제품 견적서 발급을<br>요청하실 수 있습니다.</p></div>
+        <div><h3>영업보호</h3><p>영업보호를 요청하실 수 있습니다.</p></div>
         <span class="request-arrow">›</span>
       </a>
 
       <a class="request-card" href="https://forms.gle/4nvTLNJ7w8WKnw6r7" target="_blank" rel="noopener">
         <div class="request-icon">♢</div>
-        <div><h3>영업보호 요청</h3><p>영업 지역 보호를<br>요청하실 수 있습니다.</p></div>
+        <div><h3>납기확인</h3><p>납기확인 없이 유저 발주가 불가능한 경우 사용바랍니다.</p></div>
         <span class="request-arrow">›</span>
       </a>
     </div>
@@ -215,13 +206,6 @@ footer{padding:24px max(32px,calc((100% - 1120px)/2));color:#d4e2f2;background:l
   <hr class="divider">
   <div id="table-container"></div>
 </div>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">ESTIC KOREA <small>PARTNER PORTAL</small></div>
-    <div>신뢰하는 파트너, 더 가까운 내일</div>
-  </div>
-</footer>
 
 <script>
 const WEBAPP_URL = '/api/proxy';
@@ -247,10 +231,10 @@ function escapeHtml(value) {
   if (value === null || value === undefined) return '';
 
   return String(value)
-    .replace(/&/g, '&')
-    .replace(/</g, '<')
-    .replace(/>/g, '>')
-    .replace(/"/g, '"')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
 
