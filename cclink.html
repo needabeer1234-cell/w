@@ -145,32 +145,53 @@
       h1 { font-size: 24px; }
       th, td { padding: 11px 8px; font-size: 14px; }
     }
+    .video-wrap {
+     position: relative;
+      width: 100%;
+     aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+    .video-wrap iframe {
+    width: 100%;
+     height: 100%;
+    border: 0;
+    }
+
+
   </style>
 </head>
 <body>
   <main class="wrap">
-    <section class="card">
-      <h1>CC-Link 점유국수 / 확장사이클 설정 기준</h1>
-      <p class="subtitle">Handy 설정값을 기준으로 PLC CC-Link 파라미터를 설정합니다.</p>
+      <section class="card">
+      <h1>CC-Link 설정가이드</h1>
+      <p class="subtitle">Handy2000기준으로 PLC CC-Link 파라미터를 설정합니다.<br>  </p>
 
-      <h2>1. L 값 산정</h2>
+      * 시간이 있으시면 하기 동영상을 먼저 시청해 해주세요.
+  
+      <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/_8spjQoHd2Y" allowfullscreen></iframe>
+        </div>
+      <h2>1. L 값 산정(계산치)</h2>
 
       <div class="formula">
         L = MAX(IN Byte Length, OUT Byte Length)
       </div>
 
       <div class="notice">
-        <strong>중요:</strong> IN Byte와 OUT Byte를 더하지 않습니다.<br>
-        두 값 중 <strong>큰 값 하나만</strong> L로 사용합니다.
+        <strong>중요:</strong>두 값 중 <strong>큰 값 하나만</strong> L로 사용합니다. IN Byte와 OUT Byte를 <strong>더하지</strong> 않습니다.        
       </div>
 
       <div class="examples">
-        <div class="example">IN 3 Byte / OUT 3 Byte<br><b>→ L = 3</b></div>
-        <div class="example">IN 3 Byte / OUT 6 Byte<br><b>→ L = 6</b></div>
-        <div class="example">IN 12 Byte / OUT 8 Byte<br><b>→ L = 12</b></div>
-        <div class="example">IN 16 Byte / OUT 20 Byte<br><b>→ L = 20</b></div>
+        <div class="example">IN 3 Byte / OUT 3 Byte<br>를 입력 한 경우에는 <b>L = 3</b></div>
+        <div class="example">IN 3 Byte / OUT 6 Byte<br>를 입력 한 경우에는 <b>L = 6</b></div>
+        <div class="example">IN 12 Byte / OUT 8 Byte<br>를 입력 한 경우에는 <b>L = 12</b></div>
+        <div class="example">IN 16 Byte / OUT 20 Byte<br>를 입력 한 경우에는 <b>L = 20</b></div>
       </div>
-
+        <div class="examples">
+        <img src="image/fieldbus_cclink.jpg"
+        alt="cclink_settings"
+        style="max-width: 100%; height: auto;">
+        </div>
       <h2>2. PLC CC-Link 설정값</h2>
 
       <table>
@@ -196,11 +217,10 @@
 
       <div class="checklist">
         <ul>
-          <li><strong>IN + OUT 합산 금지</strong></li>
-          <li>IN/OUT 중 큰 Byte 값을 L로 적용</li>
-          <li>표에서 선택한 행의 확장사이클과 점유국수를 함께 설정</li>
-          <li>점유국수만큼 연속 국번이 사용되므로 다른 장치와 중복되지 않도록 확인</li>
-          <li>예: 시작 국번 5번, 4국 점유 → 5 ~ 8번 사용</li>
+          <li>IN / OUT <strong>덧셈 금지</strong></li>
+          <li>IN/OUT 중 <strong>큰 Byte 값을 L로 적용</strong></li>
+          <li>상기표대로 확장사이클/점유국수를 설정</li> 
+          <li>점유국수만큼 연속 국번이 사용되므로 다른 장치와 중복되지 않도록 확인<br>예: 시작 국번 5번, 4국 점유 → 5 ~ 8번 사용</li>
         </ul>
       </div>
     </section>
