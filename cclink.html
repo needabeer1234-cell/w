@@ -15,6 +15,8 @@
       --accent-soft: #e8f4ef;
       --warning: #fff7df;
       --warning-line: #efd58b;
+      --highlight: #e7f0fb;
+      --highlight-line: #b9d3f2;
     }
 
     * { box-sizing: border-box; }
@@ -114,6 +116,23 @@
       background: #f7fbf9;
     }
 
+    tr.highlight td {
+      background: var(--highlight);
+    }
+
+    tr.highlight:hover td {
+      background: var(--highlight);
+    }
+
+    tr.highlight td strong {
+      color: #1a4e9c;
+    }
+
+    td strong.num {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
     .examples {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -200,16 +219,17 @@
             <th>L 값</th>
             <th>확장사이클</th>
             <th>점유국수</th>
+            <th>리모트국점수</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>1 ~ 4 Byte</td><td>1배</td><td>1국</td></tr>
-          <tr><td>5 ~ 8 Byte</td><td>1배</td><td>2국</td></tr>
-          <tr><td>9 ~ 12 Byte</td><td>1배</td><td>3국</td></tr>
-          <tr><td>13 ~ 16 Byte</td><td>1배</td><td>4국</td></tr>
-          <tr><td>17 ~ 28 Byte</td><td>2배</td><td>4국</td></tr>
-          <tr><td>29 ~ 56 Byte</td><td>4배</td><td>4국</td></tr>
-          <tr><td>57 Byte 이상</td><td>8배</td><td>4국</td></tr>
+          <tr><td>1 ~ 4 Byte</td><td>1배</td><td>1국</td><td><strong class="num">32점</strong></td></tr>
+          <tr><td>5 ~ 8 Byte</td><td>1배</td><td>2국</td><td><strong class="num">64점</strong></td></tr>
+          <tr><td>9 ~ 12 Byte</td><td>1배</td><td>3국</td><td><strong class="num">96점</strong></td></tr>
+          <tr><td>13 ~ 16 Byte</td><td>1배</td><td>4국</td><td><strong class="num">128점</strong></td></tr>
+          <tr><td>17 ~ 28 Byte</td><td>2배</td><td>4국</td><td><strong class="num">224점</strong></td></tr>
+          <tr><td>29 ~ 56 Byte</td><td>4배</td><td>4국</td><td><strong class="num">448점</strong></td></tr>
+          <tr><td>57 Byte 이상</td><td>8배</td><td>4국</td><td><strong class="num">896점</strong></td></tr>
         </tbody>
       </table>
 
@@ -219,7 +239,7 @@
         <ul>
           <li>IN / OUT <strong>덧셈 금지</strong></li>
           <li>IN/OUT 중 <strong>큰 Byte 값을 L로 적용</strong></li>
-          <li>상기표대로 확장사이클/점유국수를 설정</li> 
+          <li>상기표대로 확장사이클/점유국수/리모트국점수를 설정</li> 
           <li>점유국수만큼 연속 국번이 사용되므로 다른 장치와 중복되지 않도록 확인<br>예: 시작 국번 5번, 4국 점유 → 5 ~ 8번 사용</li>
         </ul>
       </div>
