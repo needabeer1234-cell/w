@@ -4,282 +4,245 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ESTIC Z50/Z55 Open Protocol 기술 사양서</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          paper: '#F6F6F3', surface: '#FCFCFB', ink: '#20242A', sub: '#5B6167',
-          line: '#E4E3DE', steel: '#2C5A73', steeldark: '#1F425A', steellight: '#EAF1F3',
-          amber: '#9C6B15', amberlight: '#FBF3E3',
-        },
-        fontFamily: { sans: ['"Noto Sans KR"', 'sans-serif'], mono: ['"IBM Plex Mono"', 'monospace'] }
-      }
-    }
-  }
-</script>
 <style>
+  :root {
+    --bg-main: #f8fafc; --text-main: #0f172a; --text-muted: #475569;
+    --primary: #1e3a8a; --primary-light: #3b82f6; --accent: #2563eb;
+    --card-bg: #ffffff; --border-color: #e2e8f0; --code-bg: #0f172a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Noto Sans KR', sans-serif; }
-  .mono { font-family: 'IBM Plex Mono', monospace; }
-  ::selection { background: #2C5A73; color: #fff; }
-  .navlink.active { color: #1F425A; border-left-color: #2C5A73; background: #EAF1F3; }
-  table { border-collapse: separate; border-spacing: 0; }
-  .ok { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:9999px; background:#EAF1F3; color:#1F425A; font-weight:600; font-size:13px; }
-  .no { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:9999px; background:#F1EBE3; color:#9C6B15; font-weight:600; font-size:13px; }
-  @media (max-width: 1023px) { #sidebar { display: none; } }
+  body {
+    font-family: "Noto Sans KR", "Malgun Gothic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; padding: 2rem 1rem;
+  }
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  header {
+    background-color: var(--primary); color: #fff; padding: 2rem;
+    border-radius: 0.5rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  }
+  header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+  header p { color: #93c5fd; font-size: 0.95rem; margin: 0; }
+
+  section {
+    background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 0.5rem;
+    padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.05); scroll-margin-top: 1rem;
+  }
+  section h2 {
+    font-size: 1.35rem; color: var(--primary); border-left: 4px solid var(--accent);
+    padding-left: 0.75rem; margin-bottom: 1.25rem; font-weight: 700;
+  }
+  section h3 { font-size: 1.1rem; color: var(--text-main); margin-top: 1.25rem; margin-bottom: 0.75rem; font-weight: 600; }
+  p { margin-bottom: 1rem; color: var(--text-muted); font-size: 0.95rem; }
+
+  .badge {
+    display: inline-block; padding: 0.125rem 0.5rem; font-size: 0.85rem; font-weight: 600;
+    border-radius: 0.25rem; background-color: #dbeafe; color: #1e40af; margin: 0 0.25rem; font-family: monospace;
+  }
+  .table-responsive { overflow-x: auto; margin-bottom: 1.25rem; border-radius: 0.375rem; border: 1px solid var(--border-color); }
+  table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+  caption { text-align: left; padding: 0.6rem 1rem; font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+  th { background-color: #f1f5f9; color: var(--primary); padding: 0.75rem 1rem; font-weight: 600; border-bottom: 2px solid var(--border-color); }
+  td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); color: var(--text-main); }
+  tr:nth-child(even) td { background-color: #fafbfd; }
+  tr:last-child td { border-bottom: none; }
+  td.c, th.c { text-align: center; }
+  td.mono, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85rem; }
+
+  pre {
+    background-color: var(--code-bg); color: #e2e8f0; padding: 1rem 1.25rem; border-radius: 0.375rem; overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875rem; margin-bottom: 1.25rem;
+    border-left: 4px solid var(--primary-light);
+  }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background-color: #f1f5f9;
+    color: #0f172a; padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-size: 0.875rem;
+  }
+
+  .callout {
+    background-color: #fffbeb; border: 1px solid #fef3c7; border-left: 4px solid #d97706;
+    padding: 1.25rem; border-radius: 0.375rem; margin-bottom: 1.25rem;
+  }
+  .callout-title { font-weight: 600; color: #92400e; margin-bottom: 0.5rem; font-size: 0.95rem; }
+  .callout p { color: #78350f; font-size: 0.9rem; margin-bottom: 0; }
+  .callout ul { list-style-type: disc; padding-left: 1.25rem; color: #78350f; font-size: 0.9rem; }
+  .callout li { margin-bottom: 0.25rem; }
+
+  .list-bullet { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; color: var(--text-muted); font-size: 0.925rem; }
+  .list-bullet li { margin-bottom: 0.5rem; }
+
+  .flow-step {
+    background-color: #f8fafc; border: 1px solid var(--border-color); padding: 0.75rem 1rem; border-radius: 0.375rem;
+    margin-bottom: 0.375rem; font-weight: 500; font-size: 0.925rem; border-left: 4px solid var(--primary-light);
+  }
+  .flow-arrow { text-align: center; color: var(--primary-light); font-size: 1rem; margin-bottom: 0.375rem; font-weight: bold; }
+
+  .summary-box { background-color: #f0fdf4; border: 1px solid #dcfce7; border-left: 4px solid #16a34a; padding: 1.25rem; border-radius: 0.5rem; }
+  .summary-box ul { list-style-type: none; }
+  .summary-box li { position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem; font-size: 0.925rem; color: #14532d; }
+  .summary-box li::before { content: "✓"; position: absolute; left: 0; color: #16a34a; font-weight: bold; }
+  .summary-box li:last-child { margin-bottom: 0; }
+
+  /* 확인 필요 항목: 노란 형광 */
+  mark.chk { background-color: #fde047; color: #0f172a; padding: 0.05rem 0.25rem; border-radius: 0.2rem; }
+
+  .toc a { display: inline-block; margin: 0 0.75rem 0.25rem 0; color: var(--primary); text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+  .ok { color: var(--primary); font-weight: 700; }
+  .no { color: #92400e; font-weight: 700; }
+
+  @media (max-width: 768px) {
+    body { padding: 1rem 0.5rem; }
+    section { padding: 1.25rem; }
+    header { padding: 1.25rem; }
+    header h1 { font-size: 1.4rem; }
+  }
+  @media print {
+    body { background-color: #fff; padding: 0; }
+    header { border: 1px solid #000; background: none; color: #000; box-shadow: none; }
+    header p { color: #000; }
+    section { page-break-inside: avoid; box-shadow: none; border: 1px solid #cbd5e1; }
+    th { background-color: #f1f5f9 !important; color: #000 !important; border-bottom: 2px solid #000; }
+    pre { border: 1px solid #cbd5e1; background-color: #f8fafc; color: #000; }
+    .toc { display: none; }
+    mark.chk { background-color: #fde047 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  .sub{display:block;font-size:.8rem;color:var(--text-muted);font-weight:400}
+  th.grp{background:#eef2ff;color:var(--primary);font-size:.85rem;border-bottom:1px solid var(--border-color)}
+  table.g tr:nth-child(even) td{background:none}
+  table.g tbody tr:hover td{background:#f1f5f9}
+  tr.unsup td{color:var(--text-muted)}
+  td.mono{white-space:nowrap}
+  tr{page-break-inside:avoid}
 </style>
 </head>
-<body class="bg-paper text-ink antialiased">
+<body>
+<div class="container">
 
-<header class="border-b border-line bg-surface sticky top-0 z-30">
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-4 flex items-center justify-between gap-4">
-    <div class="flex items-baseline gap-3 min-w-0">
-      <span class="mono text-[11px] tracking-wide text-steel border border-steel/30 rounded px-1.5 py-0.5 shrink-0">ESTIC</span>
-      <h1 class="text-[15px] sm:text-base font-semibold text-ink truncate">Z50/Z55 Open Protocol 기술 사양서</h1>
-    </div>
-    <div class="hidden sm:flex items-center gap-2 shrink-0">
-      <span class="mono text-xs text-sub">Rev. 003</span>
-      <span class="w-1 h-1 rounded-full bg-line"></span>
-      <span class="mono text-xs text-sub">2026/04/08</span>
-    </div>
-  </div>
+<header>
+  <h1>ESTIC Z50/Z55 Open Protocol 기술 사양서</h1>
+  <p>문서 개정 Rev. 003 · 2026/04/08 · 대상 펌웨어: MU50 MA1680 / MAU55 MI2150</p>
 </header>
 
-<div class="max-w-[1400px] mx-auto flex">
+<section>
+  <div class="callout">
+    <div class="callout-title">범례</div>
+    <p><mark class="chk">노란 형광</mark> = 원본 사양과 대조·확인이 필요한 항목 (마우스를 올리면 사유 표시). 최종본 배포 전 모두 해제할 것. 표의 ○ = 지원, × = 미지원.</p>
+  </div>
+  <nav class="toc" aria-label="목차">
+    <a href="#intro">1. 개요</a><a href="#comm">2. 통신 구조</a><a href="#header">3. 헤더 사양</a><a href="#mid">4. MID 매트릭스</a><a href="#notes">5. 동작 로직</a><a href="#trace">6. 트레이스 커브</a><a href="#todo">7. 보완 필요 항목</a><a href="#history">8. 개정 이력</a>
+  </nav>
+</section>
 
-  <aside id="sidebar" class="w-64 shrink-0 sticky top-[57px] h-[calc(100vh-57px)] overflow-y-auto border-r border-line py-8 pr-4">
-    <nav class="flex flex-col gap-0.5 text-[13.5px]">
-      <a href="#intro" class="navlink border-l-2 border-transparent px-4 py-1.5 text-sub hover:text-ink hover:bg-black/[0.02] rounded-r">1. 개요</a>
-      <a href="#comm" class="navlink border-l-2 border-transparent px-4 py-1.5 text-sub hover:text-ink hover:bg-black/[0.02] rounded-r">2. 통신 구조</a>
-      <a href="#header" class="navlink border-l-2 border-transparent px-4 py-1.5 text-sub hover:text-ink hover:bg-black/[0.02] rounded-r">3. 헤더 사양</a>
-      <a href="#mid" class="navlink border-l-2 border-transparent px-4 py-1.5 text-sub hover:text-ink hover:bg-black/[0.02] rounded-r">4. MID 매트릭스</a>
-      <a href="#notes" class="navlink border-l-2 border-transparent px-4 py-1.5 text-sub hover:text-ink hover:bg-black/[0.02] rounded-r">5. 동작 로직</a>
-      <a href="#trace" class="navlink border-l-2 border-transparent px-4 py-1.5 text-sub hover:text-ink hover:bg-black/[0.02] rounded-r">6. 트레이스 커브</a>
-    </nav>
-    <div class="mt-8 mx-4 pt-5 border-t border-line">
-      <p class="text-[11px] uppercase tracking-wider text-sub/70 mb-2">대상 모델</p>
-      <div class="space-y-1.5 text-[13px]">
-        <div class="flex justify-between"><span class="text-sub">MU50</span><span class="mono text-ink">MA1680</span></div>
-        <div class="flex justify-between"><span class="text-sub">MAU55</span><span class="mono text-ink">MI2150</span></div>
-      </div>
-    </div>
-  </aside>
+<section id="intro">
+  <h2>1. 개요</h2>
+  <ul class="list-bullet">
+    <li>ESTIC Z50(MU50) / Z55(MAU55) 컨트롤러의 Open Protocol <strong>고유 구현</strong> 사양입니다.</li>
+    <li>이 문서에 없는 항목은 공식 Open Protocol 표준 사양을 따릅니다.</li>
+    <li>대상 펌웨어: MU50 <span class="badge">MA1680</span> / MAU55 <span class="badge">MI2150</span></li>
+    <li>용어 구분: <strong>문서 개정</strong>(Rev. 003)과 <strong>MID Revision</strong>(Rev 1/2)은 별개입니다.</li>
+  </ul>
+</section>
 
-  <main class="flex-1 min-w-0 px-6 lg:px-12 py-10 max-w-[880px]">
+<section id="comm">
+  <h2>2. 통신 프로토콜 및 메시지 구조</h2>
+  <ul class="list-bullet">
+    <li>워크그룹(Workgroup) 단위로 독립 제어합니다.</li>
+    <li>워크그룹당 TCP 포트 1개 고정, 포트당 동시 연결 최대 2개입니다.</li>
+    <li>전 워크그룹 공통: 전송 포맷 ASCII, 메시지 종료 코드 NUL (0x00).</li>
+  </ul>
+  <div class="table-responsive"><table class=""><caption>워크그룹별 포트</caption><thead><tr><th scope="col">워크그룹</th><th scope="col">TCP 포트</th><th scope="col" class="c">동시 연결</th></tr></thead><tbody><tr><td>A</td><td class="mono">4545</td><td class="c mono">2</td></tr><tr><td>B</td><td class="mono">4546</td><td class="c mono">2</td></tr><tr><td>C</td><td class="mono">4547</td><td class="c mono">2</td></tr><tr><td>D</td><td class="mono">4548</td><td class="c mono">2</td></tr></tbody></table></div>
+  <h3>메시지 레이아웃</h3>
+  <div class="table-responsive"><table class=""><caption>Length/MID 기준 가변 파싱</caption><thead><tr><th scope="col">파트</th><th scope="col">크기</th><th scope="col">구성</th></tr></thead><tbody><tr><td>Header</td><td class="mono">20 Bytes</td><td>Length(4), MID(4), Rev(3), Spare(9)</td></tr><tr><td>Data Field</td><td class="mono">Max 1004 Bytes</td><td>MID별 고유 데이터 <mark class="chk" title="6장 MID 0900은 최대 9,999 Bytes로 기재되어 모순. 예외 여부 명시 필요">※ MID 0900 예외 여부</mark></td></tr><tr><td>Message End</td><td class="mono">1 Byte</td><td>NUL (0x00)</td></tr></tbody></table></div>
+  <p>Length 필드 값은 헤더 20 Bytes + Data Field 길이이며, 종료 NUL의 <mark class="chk" title="Length에 NUL 포함 여부가 원본에 없음">포함/미포함 확인 필요</mark>.</p>
+</section>
 
-    <!-- 1 -->
-    <section id="intro" class="scroll-mt-20 mb-14">
-      <p class="mono text-xs text-steel mb-2">01</p>
-      <h2 class="text-2xl font-semibold text-ink mb-5">개요</h2>
-      <ul class="space-y-2.5 text-[15px] leading-[1.7] text-ink/90">
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span>ESTIC Z50(MU50) / Z55(MAU55) 컨트롤러의 Open Protocol <strong class="font-medium">고유 구현</strong> 사양 (기준: <span class="mono">Rev 003, 2026/04/08</span>)</span></li>
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span>여기 없는 항목 → 공식 Open Protocol 표준 사양 참조</span></li>
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span>대상 펌웨어: MU50 <span class="mono">MA1680</span> / MAU55 <span class="mono">MI2150</span></span></li>
-      </ul>
-    </section>
+<section id="header">
+  <h2>3. ESTIC 고유 헤더 사양</h2>
+  <ul class="list-bullet">
+    <li>미사용 필드는 <span class="badge">Space (0x20)</span> 고정이 필수입니다.</li>
+  </ul>
+  <div class="table-responsive"><table class=""><caption>헤더 필드 (위치는 각 필드 크기로부터 산출)</caption><thead><tr><th scope="col">필드명</th><th scope="col">위치</th><th scope="col" class="c">Bytes</th><th scope="col">고유 사양</th></tr></thead><tbody><tr><td>Length</td><td class="mono">1–4</td><td class="c mono">4</td><td>—</td></tr><tr><td>MID</td><td class="mono">5–8</td><td class="c mono">4</td><td>—</td></tr><tr><td>Revision</td><td class="mono">9–11</td><td class="c mono">3</td><td>—</td></tr><tr><td>No ack flag</td><td class="mono">12</td><td class="c mono">1</td><td>Space 고정</td></tr><tr><td>Station ID</td><td class="mono">13–14</td><td class="c mono">2</td><td>Space 고정</td></tr><tr><td>Spindle ID</td><td class="mono">15–16</td><td class="c mono">2</td><td>MID 0061/0065/0900만 축 번호, 그 외 Space</td></tr><tr><td>Sequence number</td><td class="mono">17–18</td><td class="c mono">2</td><td>Space 고정</td></tr><tr><td>Number of message parts</td><td class="mono">19</td><td class="c mono">1</td><td>Space 고정</td></tr><tr><td>Message part number</td><td class="mono">20</td><td class="c mono">1</td><td>Space 고정</td></tr></tbody></table></div>
+  <h3>전문 예시 (MID 0001, Rev 1)</h3>
+  <pre><code>00200001001         &lt;NUL&gt;
+0020 | 0001 | 001 | (Space × 9) | NUL
+Length  MID   Rev   Spare</code></pre>
+  <p>Data Field가 없는 헤더 전용 메시지입니다. </p>
+</section>
 
-    <!-- 2 -->
-    <section id="comm" class="scroll-mt-20 mb-14">
-      <p class="mono text-xs text-steel mb-2">02</p>
-      <h2 class="text-2xl font-semibold text-ink mb-5">통신 프로토콜 및 메시지 구조</h2>
+<section id="mid">
+  <h2>4. MID(Message ID) 대응 매트릭스</h2>
+  <p>○ 지원 / × 미지원. MU50과 MAU55는 전 MID에서 동일하여 한 열로 통합했습니다. </p>
+  <div class="table-responsive"><table class="g"><caption>MID 지원 현황 (MU50/MAU55 공통)</caption><thead><tr><th scope="col">MID</th><th scope="col">명칭</th><th scope="col" class="c">지원</th><th scope="col">지원 Revision</th></tr></thead><tbody><tr><th scope="rowgroup" colspan="4" class="grp">통신 관리</th></tr><tr><td class="mono">0001</td><td>통신 시작<span class="sub">Communication start</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0002</td><td>통신 시작 확인 응답<span class="sub">Communication start acknowledge</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0003</td><td>통신 정지<span class="sub">Communication stop</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0004</td><td>명령 오류<span class="sub">Command error</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0005</td><td>명령 수신<span class="sub">Command accepted</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0008</td><td>애플리케이션 메시지 구독<span class="sub">Application data message subscription</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0009</td><td>애플리케이션 메시지 구독 해제<span class="sub">Application data message unsubscribe</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">프로그램 (Parameter set)</th></tr><tr><td class="mono">0010</td><td>프로그램 번호 업로드 요청<span class="sub">Parameter set numbers upload request</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0011</td><td>프로그램 번호 업로드 응답<span class="sub">Parameter set numbers upload reply</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr class="unsup"><td class="mono">0012</td><td>프로그램 데이터 업로드 요청<span class="sub">Parameter set data upload request</span></td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td><td>—</td></tr><tr class="unsup"><td class="mono">0013</td><td>프로그램 데이터 업로드 응답<span class="sub">Parameter set data upload reply</span></td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td><td>—</td></tr><tr><td class="mono">0014</td><td>프로그램 선택 구독<span class="sub">Parameter set selected subscribe</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0015</td><td>프로그램 선택 통지<span class="sub">Parameter set selected</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0016</td><td>프로그램 선택 확인 응답<span class="sub">Parameter set selected acknowledge</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0017</td><td>프로그램 선택 구독 해제<span class="sub">Parameter set selected unsubscribe</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0018</td><td>프로그램 선택 지시<span class="sub">Select Parameter set</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr class="unsup"><td class="mono">0019</td><td>프로그램 배치 크기 설정<span class="sub">Set Parameter set batch size</span></td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td><td>—</td></tr><tr class="unsup"><td class="mono">0020</td><td>프로그램 배치 크기 초기화<span class="sub">Reset Parameter set batch size</span></td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td><td>—</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">JOB(Job) · TOOL</th></tr><tr class="unsup"><td class="mono">0030–0041</td><td>JOB·TOOL 데이터 관련</td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td><td>—</td></tr><tr><td class="mono">0042</td><td>TOOL 비활성화<span class="sub">Disable tool</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0043</td><td>TOOL 활성화<span class="sub">Enable tool</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr class="unsup"><td class="mono">0044</td><td>TOOL 분리 요청<span class="sub">Disconnect tool request</span></td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td><td>—</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">차대번호 (VIN)</th></tr><tr><td class="mono">0050</td><td>차대번호 다운로드 요청<span class="sub">Vehicle ID Number download request</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0051</td><td>차대번호 업로드 구독<span class="sub">Vehicle ID Number upload subscribe</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0052</td><td>차대번호 업로드<span class="sub">Vehicle ID Number upload</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>Rev 1만 (Rev 2 ×)</td></tr><tr><td class="mono">0053</td><td>차대번호 업로드 확인 응답<span class="sub">Vehicle ID Number upload acknowledge</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0054</td><td>차대번호 업로드 구독 해제<span class="sub">Vehicle ID Number upload unsubscribe</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">체결 결과</th></tr><tr><td class="mono">0060</td><td>최신 체결 데이터 구독<span class="sub">Last tightening result data subscribe</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0061</td><td>최신 체결 데이터 업로드<span class="sub">Last tightening result data upload</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>Rev 1만 (Rev 2–6 ×)</td></tr><tr><td class="mono">0062</td><td>최신 체결 데이터 확인 응답<span class="sub">Last tightening result data acknowledge</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0063</td><td>최신 체결 데이터 구독 해제<span class="sub">Last tightening result data unsubscribe</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0064</td><td>체결 이력 데이터 업로드 요청<span class="sub">Old tightening result upload request</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>Rev 1, 2</td></tr><tr><td class="mono">0065</td><td>체결 이력 데이터 응답<span class="sub">Old tightening result upload reply</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>Rev 1, 2 (Rev 3–8 ×)</td></tr><tr class="unsup"><td class="mono">0066–0077</td><td>체결 그래프 / 알람 관련 MID</td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td><td>—</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">시간</th></tr><tr><td class="mono">0080</td><td>시간 읽기 업로드 요청<span class="sub">Read time upload request</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0081</td><td>시간 업로드 응답<span class="sub">Time upload reply</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0082</td><td>토크 컨트롤러 시간 설정<span class="sub">Set Time in the Torque Controller</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">멀티 스핀들</th></tr><tr class="unsup"><td class="mono">0090–0093</td><td>멀티 스핀들 상태 구독·업로드·확인 응답·구독 해제<span class="sub">Multi spindle status subscribe / upload / acknowledge / unsubscribe</span></td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td><td>—</td></tr><tr><td class="mono">0100</td><td>멀티 스핀들 결과 구독<span class="sub">Multi spindle result subscribe</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0101</td><td>멀티 스핀들 결과 업로드<span class="sub">Multi spindle result upload</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0102</td><td>멀티 스핀들 결과 업로드 확인 응답<span class="sub">Multi spindle result upload acknowledge</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">0103</td><td>멀티 스핀들 결과 구독 해제<span class="sub">Multi spindle result unsubscribe</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">트레이스 · 기타</th></tr><tr><td class="mono">0900</td><td>토크 곡선 데이터 메시지<span class="sub">Trace curve data message</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr><tr><td class="mono">9999</td><td>연결 유지 메시지<span class="sub">Keep alive message</span></td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td><td>—</td></tr></tbody></table></div>
+  <p>"Rev 1만"으로 표기된 MID에 상위 Revision을 요청했을 때의 동작(거부 / 하위 호환)은 <mark class="chk" title="원본에 미기재">확인 필요</mark>.</p>
+</section>
 
-      <ul class="space-y-2.5 text-[15px] leading-[1.7] text-ink/90 mb-6">
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span>워크그룹(Workgroup) 단위 독립 제어 → 다축 부하 분산</span></li>
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span>워크그룹당 <strong class="font-medium">TCP 포트 1개 고정</strong>, 포트당 동시 연결 <strong class="font-medium">최대 2개</strong> → 폴링 시 Keep-alive/세션 관리 필수</span></li>
-      </ul>
+<section id="notes">
+  <h2>5. ESTIC 전용 동작 로직</h2>
+  <ul class="list-bullet">
+    <li><strong>전체 락(Lock):</strong> MID 0042/0043은 축 단위가 아니라 <strong>워크그룹 전체</strong>에 즉시 적용됩니다 (축별 개별 무효화 불가).</li>
+    <li><strong>프로그램 정보:</strong> MID 0011/0015는 해당 워크그룹 내 정보·변경 일시만 송신합니다.</li>
+  </ul>
+  <h3>MID별 고정값 · 필드 정의</h3>
+  <div class="table-responsive"><table class="g"><caption>고정값 · 필드 정의</caption><thead><tr><th scope="col">ID</th><th scope="col" class="c">Bytes</th><th scope="col">파라미터</th><th scope="col">값</th></tr></thead><tbody><tr><th scope="rowgroup" colspan="4" class="grp">MID 0061 · Rev 1</th></tr><tr><td class="mono">01</td><td class="c mono">4</td><td>Cell ID</td><td>"0001" 고정</td></tr><tr><td class="mono">02</td><td class="c mono">2</td><td>Channel ID</td><td>"01" 고정</td></tr><tr><td class="mono">07</td><td class="c mono">4</td><td>Batch size</td><td>"0000" 고정</td></tr><tr><td class="mono">08</td><td class="c mono">4</td><td>Batch counter</td><td>"0000" 고정</td></tr><tr><td class="mono">22</td><td class="c mono">1</td><td>Batch status</td><td>"2" 고정</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">MID 0065 · Rev 1</th></tr><tr><td class="mono">04</td><td class="c mono">4</td><td>Batch counter</td><td>"0001" 고정 </td></tr><tr><td class="mono">11</td><td class="c mono">1</td><td>Batch status</td><td>"2" 고정</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">MID 0065 · Rev 2</th></tr><tr><td class="mono">03</td><td class="c mono">4</td><td>Job ID</td><td>"0000" 고정</td></tr><tr><td class="mono">07</td><td class="c mono">4</td><td>Batch size</td><td>"0000" 고정</td></tr><tr><td class="mono">08</td><td class="c mono">4</td><td>Batch counter</td><td>"0000" 고정</td></tr><tr><td class="mono">10</td><td class="c mono">1</td><td>Batch status</td><td>"2" 고정</td></tr><tr><td class="mono">17</td><td class="c mono">1</td><td>Prevail Torque compensate status</td><td>"1" 고정</td></tr><tr><td class="mono">18</td><td class="c mono">10</td><td>Tightening error status</td><td>"0000000000" 고정</td></tr><tr><td class="mono">25</td><td class="c mono">5</td><td>Job sequence number</td><td>"00000" 고정</td></tr><tr><td class="mono">27</td><td class="c mono">14</td><td>Tool serial number</td><td>14바이트 공백 고정</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">MID 0101 · 고정값</th></tr><tr><td class="mono">03</td><td class="c mono">2</td><td>Job ID</td><td>"00" 고정</td></tr><tr><td class="mono">05</td><td class="c mono">4</td><td>Batch size</td><td>"0000" 고정</td></tr><tr><td class="mono">06</td><td class="c mono">4</td><td>Batch counter</td><td>"0000" 고정</td></tr><tr><td class="mono">07</td><td class="c mono">1</td><td>Batch status</td><td>"2" 고정</td></tr><tr><th scope="rowgroup" colspan="4" class="grp">MID 0101 · 가변 필드</th></tr><tr><td class="mono">16</td><td class="c mono">2</td><td>Sync tightening ID</td><td>동기 체결 ID (사용자 변경의 영향을 받지 않는 MID 0101 전용 16비트 카운터)</td></tr><tr><td class="mono">18</td><td class="c mono">4</td><td>Spindle status</td><td>Byte 3–4: 축 번호가 작은 순서대로 유효 축을 센 유효 축 번호 </td></tr></tbody></table></div>
+  <ul class="list-bullet">
+    <li>MID 0101: <span class="badge">Field ID 1~17</span> 1번 축 데이터 / <span class="badge">Field ID 18~</span> 그룹 내 전체 유효 축 데이터 통합축 비활성(OFF) 상태 포함</li>
+  </ul>  
+</section>
 
-      <div class="overflow-x-auto rounded-lg border border-line mb-8">
-        <table class="w-full text-sm">
-          <thead><tr class="bg-steellight text-steeldark">
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">워크그룹</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">TCP 포트</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">동시 연결</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">비고</th>
-          </tr></thead>
-          <tbody class="bg-surface">
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">A</td><td class="px-4 py-2.5 mono">4545</td><td class="px-4 py-2.5 mono">2</td><td class="px-4 py-2.5 text-sub">Serial ASCII 미지원</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">B</td><td class="px-4 py-2.5 mono">4546</td><td class="px-4 py-2.5 mono">2</td><td class="px-4 py-2.5 text-sub">전송 포맷: ASCII</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">C</td><td class="px-4 py-2.5 mono">4547</td><td class="px-4 py-2.5 mono">2</td><td class="px-4 py-2.5 text-sub">엔드 코드: NUL (0x0)</td></tr>
-            <tr><td class="px-4 py-2.5 font-medium">D</td><td class="px-4 py-2.5 mono">4548</td><td class="px-4 py-2.5 mono">2</td><td class="px-4 py-2.5 text-sub">—</td></tr>
-          </tbody>
-        </table>
-      </div>
+<section id="trace">
+  <h2>6. 트레이스 커브 데이터 (MID 0900)</h2>
+  <h3>ACK 흐름 제어</h3>
+  <div class="flow-container">
+    <div class="flow-step">MID 0008 구독 (전송 옵션 = 0 고정)</div><div class="flow-arrow">↓</div>
+    <div class="flow-step">MID 0900 수신</div><div class="flow-arrow">↓</div>
+    <div class="flow-step">MID 0005 ACK 송신</div><div class="flow-arrow">↓</div>
+    <div class="flow-step">다음 MID 0900 수신 가능</div>
+  </div>
+  <div class="callout" style="margin-top:1.25rem">
+    <div class="callout-title">주의사항</div>
+    <ul>
+      <li>MID 0900 전송 후 MID 0005 수신 전까지 다음 전문을 보내지 않습니다. 무시하고 연속 요청하면 버퍼 오버플로우가 발생합니다. <mark class="chk" title="ACK 미수신 시 타임아웃/재전송 동작이 미기재">ACK 타임아웃·재전송 확인</mark></li>
+      <li>MID 0008 구독 시 전송 옵션은 <span class="badge">0</span>(새 데이터만) 고정입니다. <mark class="chk" title="표준 필드명('Send alternatives' 등)과 표기 통일 필요">필드명 확인</mark></li>
+      <li>결과 0점이어도 헤더 포함 MID 0900 전문이 송신됩니다. 렌더링 전 <span class="badge">Point Count</span> 필드를 반드시 검증하세요.</li>
+    </ul>
+  </div>
+  <h3>전송 한계</h3>
+  <ul class="list-bullet">
+    <li>최대 전송 <span class="badge">9,999 Bytes</span> / <span class="badge">5,000점 미만</span> / 정밀도 <span class="badge">0.5ms</span>. 샘플은 2바이트 바이너리이며 Coefficient로 물리값 변환합니다.</li>
+    <li><mark class="chk" title="9,999 Bytes에 헤더·PID가 포함되는지, 포함이면 실제 최대 점 수는 얼마인지. 2장 Data Field Max 1004와도 모순">9,999 Bytes 한도의 범위(헤더·PID 포함 여부)와 2장 1004 Bytes 한도와의 관계 확인 필요</mark></li>
+  </ul>
+  <div class="table-responsive"><table class="g"><caption>MID 0900 지정 옵션</caption><thead><tr><th scope="col">번호</th><th scope="col">내용</th><th scope="col" class="c">지원</th></tr></thead><tbody><tr><th scope="rowgroup" colspan="3" class="grp">전송 옵션 (MID 0008 구독 시)</th></tr><tr><td class="mono">0</td><td>새 데이터만 전송 (체결 완료 시 트레이스 데이터 출력)</td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td></tr><tr class="unsup"><td class="mono">1</td><td>지정된 인덱스부터의 저장 데이터</td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td></tr><tr class="unsup"><td class="mono">2</td><td>지정된 타임스탬프부터의 저장 데이터</td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td></tr><tr class="unsup"><td class="mono">3</td><td>두 인덱스 사이의 저장 데이터</td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td></tr><tr class="unsup"><td class="mono">4</td><td>Unix 시간 기준 두 지정 타임스탬프 사이의 저장 데이터</td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td></tr><tr><th scope="rowgroup" colspan="3" class="grp">트레이스 유형</th></tr><tr><td class="mono">0</td><td>Angle trace</td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td></tr><tr><td class="mono">1</td><td>Torque trace</td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td></tr><tr><td class="mono">2</td><td>Current trace</td><td class="c"><span class="ok" role="img" aria-label="지원">○</span></td></tr><tr class="unsup"><td class="mono">3</td><td>Gradient trace</td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td></tr><tr class="unsup"><td class="mono">4</td><td>Stroke trace</td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td></tr><tr class="unsup"><td class="mono">5</td><td>Force trace</td><td class="c"><span class="no" role="img" aria-label="미지원">×</span></td></tr></tbody></table></div>
+  <div class="table-responsive"><table class=""><caption>MID 0900 PID 목록 (PID 순)</caption><thead><tr><th scope="col">PID</th><th scope="col">Name</th><th scope="col">Description</th></tr></thead><tbody><tr><td class="mono">00003</td><td>Station Name</td><td>컨트롤러 명칭</td></tr><tr><td class="mono">00010</td><td>VIN Number</td><td>체결 VIN 정보</td></tr><tr><td class="mono">00030</td><td>Tightening Identifier</td><td>MID 0061의 "Tightening ID"</td></tr><tr><td class="mono">01001</td><td>Tightening program Name</td><td>채널 명칭</td></tr><tr><td class="mono">01205</td><td>Spindle Number</td><td>축 번호 (헤더 Spindle ID와 일치)</td></tr><tr><td class="mono">02213</td><td>Coefficient (1)</td><td>2바이트 바이너리 데이터를 실제 물리값으로 변환하는 계수 <mark class="chk" title="두 계수가 각각 무엇에 쓰이는지(토크/각도 등) 미기재">(1)/(2) 용도 구분 필요</mark></td></tr><tr><td class="mono">02214</td><td>Coefficient (2)</td><td>2바이트 바이너리 데이터를 실제 물리값으로 변환하는 계수</td></tr></tbody></table></div>
+</section>
 
-      <p class="text-[13px] uppercase tracking-wide text-sub/70 mb-2">메시지 레이아웃 · Length/MID 기준 가변 파싱</p>
-      <div class="overflow-x-auto rounded-lg border border-line">
-        <table class="w-full text-sm">
-          <thead><tr class="bg-steellight text-steeldark">
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">파트</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">크기</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">구성</th>
-          </tr></thead>
-          <tbody class="bg-surface">
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">Header</td><td class="px-4 py-2.5 mono">20 Bytes</td><td class="px-4 py-2.5 mono text-[13px]">Length(4), MID(4), Rev(3), Spare(9)</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">Data Field</td><td class="px-4 py-2.5 mono">Max 1004 Bytes</td><td class="px-4 py-2.5 text-sub">MID별 고유 데이터</td></tr>
-            <tr><td class="px-4 py-2.5 font-medium">Message End</td><td class="px-4 py-2.5 mono">1 Byte</td><td class="px-4 py-2.5 mono">NUL (0x0)</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
 
-    <!-- 3 -->
-    <section id="header" class="scroll-mt-20 mb-14">
-      <p class="mono text-xs text-steel mb-2">03</p>
-      <h2 class="text-2xl font-semibold text-ink mb-5">에스티크 고유 헤더 사양</h2>
-      <ul class="space-y-2.5 text-[15px] leading-[1.7] text-ink/90 mb-6">
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span>미사용 필드 = <span class="mono bg-steellight text-steeldark px-1.5 py-0.5 rounded text-[13px]">Space (0x20)</span> 고정 필수</span></li>
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span>위반 시 → 체크섬 오류 또는 <span class="mono">MID 0004</span>(명령 오류) 발생</span></li>
-      </ul>
-      <div class="overflow-x-auto rounded-lg border border-line">
-        <table class="w-full text-sm">
-          <thead><tr class="bg-steellight text-steeldark">
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">필드명</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">Bytes</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">고유 사양</th>
-          </tr></thead>
-          <tbody class="bg-surface">
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">No ack flag</td><td class="px-4 py-2.5 mono">1</td><td class="px-4 py-2.5 mono text-[13px]">Space 고정</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">Station ID</td><td class="px-4 py-2.5 mono">2</td><td class="px-4 py-2.5 mono text-[13px]">Space 고정</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">Spindle ID</td><td class="px-4 py-2.5 mono">2</td><td class="px-4 py-2.5 text-[13.5px]">MID 0061/0065/0900만 축 번호, 그 외 Space</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">Sequence number</td><td class="px-4 py-2.5 mono">2</td><td class="px-4 py-2.5 mono text-[13px]">Space 고정</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 font-medium">Number of message parts</td><td class="px-4 py-2.5 mono">1</td><td class="px-4 py-2.5 mono text-[13px]">Space 고정</td></tr>
-            <tr><td class="px-4 py-2.5 font-medium">Message part number</td><td class="px-4 py-2.5 mono">1</td><td class="px-4 py-2.5 mono text-[13px]">Space 고정</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
 
-    <!-- 4 -->
-    <section id="mid" class="scroll-mt-20 mb-14">
-      <p class="mono text-xs text-steel mb-2">04</p>
-      <h2 class="text-2xl font-semibold text-ink mb-5">MID(Message ID) 대응 매트릭스</h2>
-      <div class="overflow-x-auto rounded-lg border border-line">
-        <table class="w-full text-sm">
-          <thead><tr class="bg-steellight text-steeldark">
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">MID</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">설명</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">Revision</th>
-            <th class="text-center font-medium px-4 py-2.5 border-b border-line">MU50</th>
-            <th class="text-center font-medium px-4 py-2.5 border-b border-line">MAU55</th>
-          </tr></thead>
-          <tbody class="bg-surface">
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0001~0005</td><td class="px-4 py-2.5">통신 시작/중지 및 승인 관리</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0008~0009</td><td class="px-4 py-2.5">애플리케이션 전용 예약/해제</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0010~0011</td><td class="px-4 py-2.5">Parameter Set 업로드</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line bg-black/[0.015]"><td class="px-4 py-2.5 mono">0012~0013</td><td class="px-4 py-2.5">Parameter Set 상세 데이터 업로드</td><td class="px-4 py-2.5 mono text-[13px] text-sub">—</td><td class="px-4 py-2.5 text-center"><span class="no">×</span></td><td class="px-4 py-2.5 text-center"><span class="no">×</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0014~0017</td><td class="px-4 py-2.5">프로그램 선택 예약 및 상태 보고</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0018</td><td class="px-4 py-2.5">프로그램 직접 선택</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line bg-black/[0.015]"><td class="px-4 py-2.5 mono">0019~0020</td><td class="px-4 py-2.5">Batch Size 설정 및 리셋</td><td class="px-4 py-2.5 mono text-[13px] text-sub">—</td><td class="px-4 py-2.5 text-center"><span class="no">×</span></td><td class="px-4 py-2.5 text-center"><span class="no">×</span></td></tr>
-            <tr class="border-b border-line bg-black/[0.015]"><td class="px-4 py-2.5 mono">0030~0041</td><td class="px-4 py-2.5">Job 관련 및 툴 데이터 상세 업로드</td><td class="px-4 py-2.5 mono text-[13px] text-sub">—</td><td class="px-4 py-2.5 text-center"><span class="no">×</span></td><td class="px-4 py-2.5 text-center"><span class="no">×</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0042~0043</td><td class="px-4 py-2.5">툴 Enable/Disable</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0050~0051</td><td class="px-4 py-2.5">VIN 번호 다운로드 및 예약</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0052</td><td class="px-4 py-2.5">Vehicle Id Number 업로드</td><td class="px-4 py-2.5 text-[13px]">Rev 1만</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0060~0063</td><td class="px-4 py-2.5">최신 체결 결과 예약 및 전송</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0061</td><td class="px-4 py-2.5">Last Tightening Result Upload</td><td class="px-4 py-2.5 text-[13px]">Rev 1만</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0064</td><td class="px-4 py-2.5">Tightening Result 이력 요청</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1, 2</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0065</td><td class="px-4 py-2.5">Old Tightening Result Upload</td><td class="px-4 py-2.5 text-[13px]">Rev 1, 2</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0100~0103</td><td class="px-4 py-2.5">멀티 스핀들 결과 관리</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">0900</td><td class="px-4 py-2.5">Trace Curve Data</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-            <tr><td class="px-4 py-2.5 mono">9999</td><td class="px-4 py-2.5">Keep Alive</td><td class="px-4 py-2.5 mono text-[13px]">Rev 1</td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td><td class="px-4 py-2.5 text-center"><span class="ok">○</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+<section id="history">
+  <h2>7. 소스</h2>
+  <div class="summary-box">
+    <ul>
+      <li>2026/04/08 Z50 오픈프로토콜 사양서(REV.003)을 토대로 작성됨 </li>
+    </ul>
+  </div>
+</section>
 
-    <!-- 5 -->
-    <section id="notes" class="scroll-mt-20 mb-14">
-      <p class="mono text-xs text-steel mb-2">05</p>
-      <h2 class="text-2xl font-semibold text-ink mb-5">에스티크 전용 동작 로직</h2>
+<section id="todo">
+  <h2> 확인필요 항목</h2>
+  <div class="callout">
+    <div class="callout-title">원본 사양 대조 후 채울 것</div>
+    <ul>
+      <li><mark class="chk">MID 0004 에러 코드 표 (헤더 Space 규칙 위반 시 응답 포함)</mark></li>
+      <li><mark class="chk">Keep-alive(MID 9999) 주기·타임아웃, 3번째 연결 시도 시 동작</mark></li>
+      <li><mark class="chk">MID 0900 ACK 미수신 시 타임아웃·재전송</mark></li>
+      <li><mark class="chk">Coefficient(1)/(2) 물리값 변환식</mark></li>
+      <li><mark class="chk">실제 전문 예시 (MID 0001 송수신 등)</mark></li>
+    </ul>
+  </div>
+</section>
 
-      <ul class="space-y-2.5 text-[15px] leading-[1.7] text-ink/90 mb-7">
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span><strong class="font-medium">전체 락(Lock):</strong> MID 0042/0043 → 축 단위 아닌 <strong class="font-medium">워크그룹 전체</strong>에 즉시 적용 (축별 개별 무효화 불가)</span></li>
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span><strong class="font-medium">프로그램 정보:</strong> MID 0011/0015는 <strong class="font-medium">해당 워크그룹 내</strong> 정보·변경 일시만 송신</span></li>
-      </ul>
-
-      <div class="space-y-3">
-        <div class="bg-surface border border-line rounded-lg p-4">
-          <p class="text-sm font-medium text-ink mb-2">MID 0061 <span class="text-sub font-normal">(Rev 1)</span></p>
-          <p class="text-[13.5px] text-ink/80 mono leading-relaxed">Cell ID="0001", Channel ID="01", Batch Size/Counter="0000", Batch Status="2"</p>
-        </div>
-        <div class="bg-surface border border-line rounded-lg p-4">
-          <p class="text-sm font-medium text-ink mb-2">MID 0065 <span class="text-sub font-normal">(Rev 2)</span></p>
-          <ul class="text-[13.5px] text-ink/80 mono leading-relaxed space-y-1">
-            <li>Job ID="0000", Batch Size/Counter="0000", Batch Status="2"</li>
-            <li>Tightening Error Status="0000000000"</li>
-            <li>Tool Serial Number = 14 Bytes Space</li>
-          </ul>
-        </div>
-        <div class="bg-surface border border-line rounded-lg p-4">
-          <p class="text-sm font-medium text-ink mb-2">MID 0101 <span class="text-sub font-normal">(멀티 스핀들)</span></p>
-          <ul class="text-[13.5px] text-ink/80 leading-relaxed space-y-1">
-            <li><span class="mono">Field ID 1~17</span>: 1번 축 데이터</li>
-            <li><span class="mono">Field ID 18~</span>: 그룹 내 전체 유효 축 데이터 통합 (축切り 상태 포함)</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6 -->
-    <section id="trace" class="scroll-mt-20 mb-10">
-      <p class="mono text-xs text-steel mb-2">06</p>
-      <h2 class="text-2xl font-semibold text-ink mb-5">트레이스 커브 데이터 (MID 0900)</h2>
-
-      <div class="border-l-2 border-amber/50 bg-amberlight/60 rounded-r-lg p-4 mb-3">
-        <p class="text-[14.5px] leading-[1.7] text-ink/90"><strong class="font-medium text-ink">ACK 흐름 제어:</strong> MID 0900 전송 후 <span class="mono">MID 0005</span> 수신 전까지 다음 전문 대기 → 무시하고 연속 요청 시 버퍼 오버플로우</p>
-      </div>
-      <div class="border-l-2 border-line bg-surface rounded-r-lg p-4 mb-3">
-        <p class="text-[14.5px] leading-[1.7] text-ink/90"><strong class="font-medium text-ink">전송 옵션:</strong> MID 0008 예약 시 'Send alternatives' = <span class="mono bg-steellight text-steeldark px-1.5 py-0.5 rounded">0</span> (새 데이터만) 고정</p>
-      </div>
-      <div class="border-l-2 border-amber/50 bg-amberlight/60 rounded-r-lg p-4 mb-6">
-        <p class="text-[14.5px] leading-[1.7] text-ink/90"><strong class="font-medium text-ink">파싱 주의:</strong> 결과 0점이어도 헤더 포함 MID 0900 전문 송신됨 → 렌더링 전 <span class="mono">Point Count</span> 필드 반드시 검증</p>
-      </div>
-
-      <ul class="space-y-2 text-[15px] leading-[1.7] text-ink/90 mb-6">
-        <li class="flex gap-2.5"><span class="text-steel mt-0.5">–</span><span>최대 전송: <span class="mono">9,999 Bytes</span> / <span class="mono">5,000점 미만</span> / 정밀도 <span class="mono">0.5ms</span></span></li>
-      </ul>
-
-      <div class="overflow-x-auto rounded-lg border border-line">
-        <table class="w-full text-sm">
-          <thead><tr class="bg-steellight text-steeldark">
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">PID</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">Name</th>
-            <th class="text-left font-medium px-4 py-2.5 border-b border-line">Description</th>
-          </tr></thead>
-          <tbody class="bg-surface">
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">00003</td><td class="px-4 py-2.5">Station Name</td><td class="px-4 py-2.5 text-sub">컨트롤러 명칭</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">00010</td><td class="px-4 py-2.5">VIN Number</td><td class="px-4 py-2.5 text-sub">체결 VIN 정보</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">00030</td><td class="px-4 py-2.5">Tightening Identifier</td><td class="px-4 py-2.5 text-sub">MID 0061 Tightening ID 연동</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">01001</td><td class="px-4 py-2.5">Program Name</td><td class="px-4 py-2.5 text-sub">채널 명칭</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">02213</td><td class="px-4 py-2.5">Coefficient (1)</td><td class="px-4 py-2.5 text-sub">물리값 변환 계수</td></tr>
-            <tr class="border-b border-line"><td class="px-4 py-2.5 mono">02214</td><td class="px-4 py-2.5">Coefficient (2)</td><td class="px-4 py-2.5 text-sub">물리값 변환 계수(추가)</td></tr>
-            <tr><td class="px-4 py-2.5 mono">01205</td><td class="px-4 py-2.5">Spindle Number</td><td class="px-4 py-2.5 text-sub">헤더 Spindle ID와 일치</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <footer class="border-t border-line pt-6 pb-16">
-      <p class="text-xs text-sub">ESTIC Z50/Z55 Open Protocol 기술 사양서 · Rev. 003 · 2026/04/08</p>
-    </footer>
-
-  </main>
 </div>
-
-<script>
-  const links = document.querySelectorAll('.navlink');
-  const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href')));
-  const setActive = () => {
-    let idx = 0;
-    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top - 90 <= 0) idx = i; });
-    links.forEach((l, i) => l.classList.toggle('active', i === idx));
-  };
-  document.addEventListener('scroll', setActive);
-  setActive();
-</script>
-
 </body>
 </html>

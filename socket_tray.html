@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>토크는 'OK'인데 왜 불량이 출하될까? | 멀티 소켓 오체결 방지와 소켓트레이의 원리</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#F6F6F3', surface: '#FCFCFB', ink: '#20242A', sub: '#5B6167',
+          line: '#E4E3DE', steel: '#2C5A73', steeldark: '#1F425A', steellight: '#EAF1F3',
+          amber: '#9C6B15', amberlight: '#FBF3E3',
+        },
+        fontFamily: { sans: ['"Noto Sans KR"', 'sans-serif'], mono: ['"IBM Plex Mono"', 'monospace'] }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans KR', sans-serif; }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  ::selection { background: #2C5A73; color: #fff; }
+  table { border-collapse: separate; border-spacing: 0; }
+  .led { display:inline-block; width:10px; height:10px; border-radius:9999px; }
+</style>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header class="border-b border-line bg-surface sticky top-0 z-30">
+  <div class="max-w-[1100px] mx-auto px-6 py-4 flex items-center justify-between gap-4">
+    <div class="flex items-baseline gap-3 min-w-0">
+      <span class="mono text-[11px] tracking-wide text-steel border border-steel/30 rounded px-1.5 py-0.5 shrink-0">ESTIC</span>
+      <span class="text-[15px] font-semibold text-ink truncate">기술 블로그</span>
+    </div>
+    <span class="mono text-xs text-sub shrink-0">품질관리 특집 1/2</span>
+  </div>
+</header>
+
+<main class="max-w-[740px] mx-auto px-6 py-14">
+
+  <!-- Title -->
+  <article>
+    <div class="mb-12">
+      <p class="mono text-xs text-steel mb-4">[조립공정 품질관리 특집 1편]</p>
+      <h1 class="text-[28px] sm:text-[34px] leading-[1.35] font-bold text-ink mb-5">토크는 'OK'인데 왜 불량이 출하될까?</h1>
+      <p class="text-lg text-sub leading-relaxed">멀티 소켓 오체결 방지와 소켓트레이의 원리</p>
+      <div class="flex flex-wrap gap-2 mt-6">
+        <span class="mono text-[12px] bg-steellight text-steeldark px-2 py-1 rounded">EH2-ST4/ST8</span>
+        <span class="mono text-[12px] bg-steellight text-steeldark px-2 py-1 rounded">Tool Lock</span>
+        <span class="mono text-[12px] bg-steellight text-steeldark px-2 py-1 rounded">Poka-yoke</span>
+      </div>
+    </div>
+
+    <!-- Intro -->
+    <section class="mb-14">
+      <h2 class="text-xl font-semibold text-ink mb-4">들어가며: 토크 데이터는 정상인데, 고객사에서 클레임이 터지는 이유</h2>
+      <p class="text-[16px] leading-[1.9] text-ink/90 mb-5">
+        하나의 너트러너 툴로 4개, 8개, 많게는 24개 이상의 서로 다른 소켓을 교체하며 작업하는 복수 체결 공정. 자동차 부품, 배터리 모듈, 전자제품 조립 라인에서 흔히 볼 수 있는 구성입니다.
+      </p>
+      <p class="text-[16px] leading-[1.9] text-ink/90 mb-6">
+        하지만 생산기술 및 품질보전 현장에서 가장 까다롭게 꼽는 불량 유형이 있습니다.
+      </p>
+
+      <blockquote class="border-l-2 border-steel bg-surface rounded-r-lg px-5 py-4 mb-6">
+        <p class="text-[17px] leading-[1.8] font-medium text-ink">"토크 그래프와 수치는 분명 '정상(OK)'으로 기록되었는데, 실제로는 엉뚱한 위치에 엉뚱한 소켓으로 조여져 있었던 경우"</p>
+      </blockquote>
+
+      <p class="text-[16px] leading-[1.9] text-ink/90">
+        작업지시서를 보고 소켓을 직접 고르는 방식에서는 아무리 숙련공이라 하더라도 <strong class="font-medium text-ink">지시서 오독, 유사 사이즈 소켓 혼동, 작업 피로도에 따른 오선택</strong>을 100% 막을 수 없습니다.
+        특히 신규 인력이 투입되는 시점마다 불량률이 치솟는다면, 이는 작업자의 실수가 아닌 <strong class="font-medium text-ink">공정 구조 자체의 결함</strong>입니다.
+      </p>
+    </section>
+
+    <!-- 1 -->
+    <section class="mb-14">
+      <p class="mono text-xs text-steel mb-2">01</p>
+      <h2 class="text-xl font-semibold text-ink mb-4">수동 멀티 소켓 공정이 안고 있는 4가지 리스크</h2>
+      <p class="text-[16px] leading-[1.9] text-ink/90 mb-6">
+        수동 소켓 선택 공정은 단순한 '휴먼 에러'를 넘어 다음과 같은 구조적 품질 리스크를 내포합니다.
+      </p>
+
+      <div class="overflow-x-auto rounded-lg border border-line mb-6">
+        <table class="w-full text-sm">
+          <thead><tr class="bg-steellight text-steeldark">
+            <th class="text-left font-medium px-4 py-3 border-b border-line">리스크 요인</th>
+            <th class="text-left font-medium px-4 py-3 border-b border-line">현장 결함 증상</th>
+            <th class="text-left font-medium px-4 py-3 border-b border-line">ESTIC 소켓트레이 도입 시</th>
+          </tr></thead>
+          <tbody class="bg-surface">
+            <tr class="border-b border-line align-top">
+              <td class="px-4 py-3 font-medium">작업지시서 수동 참조</td>
+              <td class="px-4 py-3 text-sub">지시서 오독 및 이종 차종 소켓 혼동</td>
+              <td class="px-4 py-3 text-steeldark font-medium">컨트롤러 연동 LED 즉시 지시</td>
+            </tr>
+            <tr class="border-b border-line align-top">
+              <td class="px-4 py-3 font-medium">유사 형상 소켓 혼동</td>
+              <td class="px-4 py-3 text-sub">M8/M10 등 외형이 비슷한 소켓 오선택</td>
+              <td class="px-4 py-3 text-steeldark font-medium">센서 기반 실시간 위치/사이즈 감지</td>
+            </tr>
+            <tr class="border-b border-line align-top">
+              <td class="px-4 py-3 font-medium">숙련도 편차</td>
+              <td class="px-4 py-3 text-sub">신규/대체 작업자 투입 시 오체결 급증</td>
+              <td class="px-4 py-3 text-steeldark font-medium">시스템 차단(포카요케)으로 작업자 편차 제거</td>
+            </tr>
+            <tr class="align-top">
+              <td class="px-4 py-3 font-medium">체결 후 검증 불가</td>
+              <td class="px-4 py-3 text-sub">잘못된 소켓 체결도 토크 OK면 통과</td>
+              <td class="px-4 py-3 text-steeldark font-medium">올바른 소켓 미선택 시 툴 락(Tool Lock) 작동</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="border-l-2 border-amber/50 bg-amberlight/60 rounded-r-lg p-4">
+        <p class="text-[15px] leading-[1.8] text-ink/90">가장 치명적인 것은 <strong class="font-medium text-ink">잘못된 소켓으로 조여졌음에도 토크값 조건이 맞아 떨어지면 정상 체결로 판정되어 후공정으로 흘러간다</strong>는 점입니다.</p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="mb-14">
+      <p class="mono text-xs text-steel mb-2">02</p>
+      <h2 class="text-xl font-semibold text-ink mb-4">ESTIC 소켓트레이(EH2-ST4/ST8)의 물리적 차단 원리</h2>
+      <p class="text-[16px] leading-[1.9] text-ink/90 mb-6">
+        ESTIC 소켓트레이 시스템은 "작업자의 시각과 판단"에 의존하던 공정을 4단계 자동 검증 체계로 전환합니다.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-2 mb-10 text-[13px]">
+        <span class="bg-surface border border-line rounded px-3 py-1.5">컨트롤러 지시</span><span class="text-sub">→</span>
+        <span class="bg-surface border border-line rounded px-3 py-1.5">LED 시각화</span><span class="text-sub">→</span>
+        <span class="bg-surface border border-line rounded px-3 py-1.5">광센서 위치 검증</span><span class="text-sub">→</span>
+        <span class="bg-steellight text-steeldark border border-steel/30 rounded px-3 py-1.5 font-medium">물리적 툴 락</span>
+      </div>
+
+      <h3 class="text-base font-semibold text-ink mb-4">센서 검증 및 체결 동작 메커니즘</h3>
+      <ol class="space-y-3 mb-6">
+        <li class="flex gap-4 bg-surface border border-line rounded-lg p-4">
+          <span class="mono text-sm text-steel font-medium shrink-0 w-6">01</span>
+          <div>
+            <p class="font-medium text-ink mb-1">채널 연동 지시</p>
+            <p class="text-[15px] leading-[1.75] text-ink/85">컨트롤러에서 해당 체결 채널(CH)이 지정되면, 사용할 소켓 홀더의 <span class="inline-flex items-center gap-1.5"><span class="led bg-emerald-600/80"></span><strong class="font-medium">녹색 LED가 점멸</strong></span>합니다.</p>
+          </div>
+        </li>
+        <li class="flex gap-4 bg-surface border border-line rounded-lg p-4">
+          <span class="mono text-sm text-steel font-medium shrink-0 w-6">02</span>
+          <div class="w-full">
+            <p class="font-medium text-ink mb-1">집어듦(Pick-up) 센서 감지</p>
+            <p class="text-[15px] leading-[1.75] text-ink/85 mb-3">작업자가 소켓을 뽑아드는 순간 센서가 이를 즉시 감지합니다.</p>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div class="border border-line rounded-md p-3 bg-paper">
+                <p class="text-[12px] text-sub mb-1">정상 소켓 선택</p>
+                <p class="text-[14px] leading-[1.7] text-ink/90"><span class="led bg-emerald-600/80 mr-1.5"></span>LED <strong class="font-medium">녹색 점등</strong> → 툴 락 해제 (체결 가능)</p>
+              </div>
+              <div class="border border-line rounded-md p-3 bg-paper">
+                <p class="text-[12px] text-sub mb-1">잘못된 소켓 선택</p>
+                <p class="text-[14px] leading-[1.7] text-ink/90"><span class="led bg-red-600/80 mr-1.5"></span>해당 LED <strong class="font-medium">적색 점등</strong> + 툴 락 유지 → 체결 불가</p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="bg-steellight/60 border border-steel/15 rounded-lg px-4 py-3 mb-10">
+        <p class="text-[13.5px] mono text-steeldark">채널 선택 시 녹색 점멸 → 올바른 소켓 뽑을 시 녹색 점등 → 오선택 시 적색 점등 + 툴 락</p>
+      </div>
+
+      <h3 class="text-base font-semibold text-ink mb-4">센서 검출 스펙과 확장성</h3>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div class="bg-surface border border-line rounded-lg p-4">
+          <p class="text-[12px] uppercase tracking-wide text-sub/80 mb-2">정밀 센싱</p>
+          <p class="text-[14.5px] leading-[1.75] text-ink/90">소켓 홀더 하단 <span class="mono">4.5mm</span> 위치 중심, 직경 <span class="mono">4.5mm</span> 검출 영역. 육각 <span class="mono">HEX 6.35mm</span>, 원형 <span class="mono">φ7mm</span> 소형 소켓부터 인식.</p>
+        </div>
+        <div class="bg-surface border border-line rounded-lg p-4">
+          <p class="text-[12px] uppercase tracking-wide text-sub/80 mb-2">유연한 확장성</p>
+          <p class="text-[14.5px] leading-[1.75] text-ink/90">4연(<span class="mono">EH2-ST4</span>) · 8연(<span class="mono">EH2-ST8</span>) 유닛 조합으로 <strong class="font-medium">최대 24연</strong>까지 NET 포트 네트워킹 확장. 다품종 복합 라인 대응.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="mb-14">
+      <p class="mono text-xs text-steel mb-2">03</p>
+      <h2 class="text-xl font-semibold text-ink mb-4">적용 가능한 컨트롤러 및 시스템 전제 조건</h2>
+      <p class="text-[16px] leading-[1.9] text-ink/90 mb-5">
+        ESTIC 소켓트레이는 단독 작동형이 아니며, <strong class="font-medium text-ink">ESTIC Handy2000 시리즈 컨트롤 유닛</strong>의 NET 통신 포트에 종단저항(<span class="mono">EH2-CNST</span>)과 함께 결합되어 통합 제어됩니다.
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <span class="mono text-[13px] bg-surface border border-line px-3 py-1.5 rounded">Handy2000Touch</span>
+        <span class="mono text-[13px] bg-surface border border-line px-3 py-1.5 rounded">Handy2000Liteplus</span>
+        <span class="mono text-[13px] bg-surface border border-line px-3 py-1.5 rounded">Handy2000Micro</span>
+        <span class="mono text-[13px] bg-surface border border-line px-3 py-1.5 rounded">Handy2000Cordless2</span>
+      </div>
+    </section>
+
+    <!-- Next -->
+    <section class="mb-12 bg-surface border border-line rounded-xl p-6 sm:p-8">
+      <p class="mono text-xs text-steel mb-2">NEXT · 2편 예고</p>
+      <h2 class="text-xl font-semibold text-ink mb-4">우리 현장 라인에는 어떤 모드가 맞을까?</h2>
+      <p class="text-[15.5px] leading-[1.85] text-ink/90 mb-5">소켓트레이 도입 결정 후 생산기술 엔지니어가 가장 먼저 부딪히는 실무 질문이 있습니다.</p>
+
+      <div class="space-y-3 mb-6">
+        <blockquote class="border-l-2 border-steel pl-4 text-[15.5px] leading-[1.8] text-ink italic">"소켓을 집어들면 채널이 자동으로 바뀌게 할 것인가 (Select Socket Mode)?"</blockquote>
+        <blockquote class="border-l-2 border-steel pl-4 text-[15.5px] leading-[1.8] text-ink italic">"PLC에서 채널을 내려주면 작업자가 뽑아야 할 소켓을 가리키게 할 것인가 (Channel Call Mode)?"</blockquote>
+      </div>
+
+      <p class="text-[15.5px] leading-[1.85] text-ink/90 mb-4">
+        2편에서는 소켓트레이가 지원하는 <strong class="font-medium text-ink">4가지 운용 모드의 특징과 공정별 최적 모드 선정 기준</strong>을 비교합니다.
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <span class="text-[13px] bg-steellight text-steeldark px-2.5 py-1 rounded">Select Socket Mode</span>
+        <span class="text-[13px] bg-steellight text-steeldark px-2.5 py-1 rounded">Channel Call Mode</span>
+        <span class="text-[13px] bg-steellight text-steeldark px-2.5 py-1 rounded">Open Protocol 모드</span>
+        <span class="text-[13px] bg-steellight text-steeldark px-2.5 py-1 rounded">외부제어(Fieldbus) 모드</span>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="border-t border-line pt-10">
+      <div class="bg-steeldark text-white rounded-xl p-6 sm:p-8">
+        <p class="text-[12px] tracking-wide text-white/60 mb-2">사내 공정 개선 제안서용 기술 자료 문의</p>
+        <p class="text-[16px] leading-[1.85] text-white/95">
+          현재 가동 중인 라인의 <strong class="font-medium text-white">컨트롤러 모델명과 소켓 수량</strong>을 공유해 주시면, 소켓트레이 적용 타당성 및 라인 구성안에 대한 전문 엔지니어 기술 상담을 지원해 드립니다.
+        </p>
+      </div>
+    </section>
+  </article>
+
+  <footer class="mt-14 pb-10">
+    <p class="text-xs text-sub">ESTIC 기술 블로그 · 조립공정 품질관리 특집 1편</p>
+  </footer>
+</main>
+
+</body>
+</html>
