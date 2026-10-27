@@ -4,9 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ESTIC Korea | 정밀 체결 솔루션</title>
+<link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---bg:#fff;--bg2:#f2f5f9;--fg:#101a2b;--mut:#5a677d;--pri:#0b4ea2;--pri2:#e8f0fb;--line:#d9e0ea;--on:#fff}
+--bg:#fff;--bg2:#f2f5f9;--fg:#101a2b;--mut:#5a677d;--pri:#0b4ea2;--pri2:#e8f0fb;--line:#d9e0ea;--on:#fff;--gold:#b8944e}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1420;--bg2:#141d2c;--fg:#e8edf5;--mut:#9aa7bb;--pri:#5b9bff;--pri2:#16284a;--line:#26334a;--on:#08111f;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#0d1420;--bg2:#141d2c;--fg:#e8edf5;--mut:#9aa7bb;--pri:#5b9bff;--pri2:#16284a;--line:#26334a;--on:#08111f;color-scheme:dark}
 html{scroll-padding-top:70px;scroll-behavior:smooth}
@@ -42,6 +43,22 @@ ul.k{padding-left:18px;margin:12px 0 0;color:var(--mut);font-size:14px}
 dl{display:grid;grid-template-columns:90px 1fr;gap:8px 12px;margin:0;font-size:15px}
 dt{color:var(--mut)}dd{margin:0}
 footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-size:13px}
+/* ===== 제안서 섹션 ===== */
+.vid{width:100%;max-width:820px;border-radius:10px;display:block;margin:6px 0 24px}
+.lab{display:inline-block;font-size:12.5px;font-weight:700;color:var(--pri);border:1px solid var(--gold);border-radius:99px;padding:5px 14px;margin:0 0 8px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-bottom:20px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--bg2);color:var(--pri);text-align:left;padding:12px 16px;font-size:12.5px}
+td{padding:12px 16px;border-top:1px solid var(--line);vertical-align:top}
+.mono{display:inline-block;background:var(--pri2);color:var(--pri);border-radius:4px;font:11.5px monospace;padding:2px 7px;margin:2px}
+.box{background:var(--bg2);border-left:4px solid var(--pri);border-radius:4px 14px 14px 4px;padding:18px 22px;margin-bottom:24px;word-break:keep-all}
+.pf{display:grid;grid-template-columns:130px 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px;margin-bottom:8px}
+.pf b{background:var(--bg2);color:var(--pri);padding:12px 16px;border-top:1px solid var(--line)}
+.pf span{padding:12px 16px;border-top:1px solid var(--line)}
+.pf b:first-child,.pf span:nth-child(2){border-top:0}
+.tl{border-left:2px solid var(--gold);padding-left:18px;font-size:14px;margin-top:24px}
+.tl p{margin:0 0 10px;color:var(--mut);word-break:keep-all}.tl b{color:var(--fg)}
+.cc{font-size:17px;max-width:800px;word-break:keep-all}
 /* ===== 플로팅 채팅 위젯 ===== */
 #chat-fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:60px;height:60px;border-radius:50%;border:0;background:var(--pri);color:var(--on);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:20}
 #chat-pop{position:fixed;right:20px;bottom:calc(92px + env(safe-area-inset-bottom,0px));width:340px;max-width:calc(100vw - 40px);height:460px;max-height:calc(100% - 140px);background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.28);display:none;flex-direction:column;overflow:hidden;z-index:20}
@@ -64,7 +81,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-siz
 </head>
 <body>
 <header><div class="w"><div class="logo">ESTIC<small>Korea</small></div>
-<nav><a href="#products">제품</a><a href="#tech">기술</a><a href="#industry">적용 분야</a><a href="#contact" class="btn" style="padding:8px 16px;color:var(--on)">문의하기</a></nav></div></header>
+<nav><a href="#products">제품</a><a href="#value">가성비</a><a href="#tech">기술</a><a href="#company">회사 소개</a><a href="#contact" class="btn" style="padding:8px 16px;color:var(--on)">문의하기</a></nav></div></header>
 
 <div class="hero"><div class="w">
 <h1>높은 정밀도, 높은 신뢰성.<br>추적 관리가 필요한 체결 공정의 표준.</h1>
@@ -76,6 +93,38 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-siz
 <div><b>Ethernet / Fieldbus</b><span>PLC 연동 및 이력 관리</span></div>
 <div><b>4개 거점</b><span>일본·중국·태국·미국 글로벌 네트워크</span></div>
 </div></div></div>
+
+<section id="value"><div class="w">
+<div class="lab">Feature · Counter와 JOB 화면</div>
+<video class="vid" autoplay loop muted playsinline><source src="image/COUUNTER VS JOB.mp4" type="video/mp4"></video>
+<div class="lab">Feature · 터치액정 표시화면 일람</div>
+<video class="vid" autoplay loop muted playsinline><source src="image/h2000touch_mainmenu.mp4" type="video/mp4"></video>
+<div class="lab">Feature · 오픈프로토콜 완벽 호환</div>
+<video class="vid" autoplay loop muted playsinline style="margin-bottom:8px"><source src="image/Sample Open protocol simulator.mp4" type="video/mp4"></video>
+<p class="sub">오픈프로토콜 MID0061, MID0900을 사용하여 고객사가 원하는 대로 라인용 대시보드를 만드실 수 있습니다.</p>
+<h2>합리적인 선택, 에스틱</h2>
+<div class="box"><b>합리적인 도입 비용</b>으로도 타사 수준의 고정밀 체결 제어와 <b>데이터 추적성(Traceability)</b>을 동일하게 제공합니다. <b>전용 표준품 소프트웨어인 데이터 로거</b>를 사용하면 별도의 소프트웨어를 자체 개발하지 않아도 강력한 통계 분석과 품질 관리가 가능합니다.</div>
+<div class="g" style="margin-bottom:36px">
+<div class="c"><h3>📊 강력한 데이터 분석</h3><p>표준품 ESW-DL(데이터로거)만으로도 통계적 공정 관리, 공정능력지수(Cp/Cpk), 커브 분석을 현장에서 즉시 수행할 수 있습니다.</p></div>
+<div class="c"><h3>⚙️ 고정밀 체결 제어</h3><p>업계 최고 수준의 반복정밀도와 ±0.1°의 각도 분해능으로 체결 공정을 정밀하게 제어하고, 강력한 마이크로 프로세서와 메모리로 이력 추적성을 보장합니다.</p></div>
+<div class="c"><h3>💡 합리적 도입 비용</h3><p>복잡한 옵션과 라이선스 구조 없이, 설치와 동시에 필요한 기능을 즉시 사용할 수 있는 심플하고 강력한 제품입니다.</p></div>
+</div>
+<h2>수집 가능한 데이터 항목</h2>
+<div class="tw"><table><thead><tr><th>분류</th><th>상세 수집 항목</th><th>관리 목적 및 가치</th></tr></thead><tbody>
+<tr><td>기본 결과</td><td><span class="mono">최종 토크</span><span class="mono">최종 각도</span><span class="mono">판정 OK/NG</span></td><td>기본적인 체결 품질 확보</td></tr>
+<tr><td>품질 심화</td><td><span class="mono">런다운 각도</span><span class="mono">시트 토크</span></td><td>볼트 착좌 상태 확인, 나사산 뭉개짐(Cross Thread) 감지</td></tr>
+<tr><td>보전/분석</td><td><span class="mono">토크 레이트</span><span class="mono">전자 서멀</span><span class="mono">오버로드</span></td><td>모터의 과부하 상태 및 수명 관리</td></tr>
+</tbody></table></div>
+<h2>주요 파라미터</h2>
+<div class="tw"><table><thead><tr><th>파라미터</th><th>항목</th><th>설명</th></tr></thead><tbody>
+<tr><td><span class="mono">FINAL MAX TRQ</span></td><td>최종 토크 상한</td><td>설정 최대치 초과 시 NG 판정 → 워크 손상 방지</td></tr>
+<tr><td><span class="mono">FINAL MIN TRQ</span></td><td>최종 토크 하한</td><td>최소 기준 미달 시 NG 판정 → 미체결 예방</td></tr>
+<tr><td><span class="mono">RUNDOWN ANG</span></td><td>런다운 각도 모니터</td><td>체결 시작부터 시트 시점까지의 회전 각도 감시</td></tr>
+<tr><td><span class="mono">RUNDOWN MAX/MIN</span></td><td>런다운 상/하한 각도</td><td>볼트 길이 상이 또는 부품 누락 시 설정 각도 이상 → NG 발생</td></tr>
+<tr><td><span class="mono">PRE SEAT TIME</span></td><td>가체결 하한 시간</td><td>설정 시간보다 빨리 조여지면 재체결(이중체결)로 판단 → 작업 차단</td></tr>
+</tbody></table></div>
+<p class="cc">에스틱 너트러너는 타사 대비 도입 비용을 크게 절감하면서도 데이터 정밀도와 분석 성능은 동급 이상을 보장합니다. 별도의 소프트웨어 라이선스 구매나 주문제작 소프트웨어 없이, 표준품 데이터로거로 공정 품질을 한 단계 높일 수 있습니다.</p>
+</div></section>
 
 <section id="products"><div class="w">
 <h2>제품 라인업</h2><p class="sub">공정 요구에 맞춰 조합하는 체결 솔루션</p>
@@ -98,16 +147,46 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-siz
 <div class="c"><h3>유연한 시스템 구성</h3><p>PLC 직결부터 마스터 컨트롤 기반 대규모 구성까지, 요구 사양에 맞춰 설계합니다.</p></div>
 </div></div></section>
 
-<section id="industry"><div class="w">
-<h2>적용 분야</h2><p class="sub">높은 신뢰성이 요구되는 현장</p>
+<section id="company"><div class="w">
+<h2>에스틱을 신뢰할 수 있는 이유</h2>
+<p class="sub">30년 이상의 업력, 도쿄증권거래소 상장 기업, 4개국 8개 거점</p>
+<div class="box">에스틱은 1993년 창립 이후 <b>30년 이상</b> 너트러너 한 분야에 집중해 온 일본의 전문회사입니다. 도쿄증권거래소에 상장된 공개기업으로, 투명한 재무 공시와 책임 경영을 바탕으로 글로벌 완성차 및 부품사의 신뢰를 쌓아 왔습니다.</div>
+<div class="pf">
+<b>사명</b><span>주식회사 에스틱 (ESTIC Corporation)</span>
+<b>본사</b><span>일본 오사카</span>
+<b>창립</b><span>1993년 8월 25일 (타이요철강으로부터 독립 분사)</span>
+<b>종업원 수</b><span>250명 (2025년 3월 기준)</span>
+<b>상장 정보</b><span>도쿄증권거래소 스탠다드 시장 · 증권코드 6161</span>
+<b>사업 영역</b><span>전동 너트러너, 고정식 체결 설비, 서보프레스, 맞춤형 자동화 설비</span>
+</div>
+<div class="stats" style="margin:28px 0">
+<div><b>30년+</b><span>전동 체결 전문 업력</span></div>
+<div><b>79억엔</b><span>연간 매출 (2025 회계연도)</span></div>
+<div><b>4개국</b><span>글로벌 법인 운영</span></div>
+<div><b>8개소</b><span>전 세계 영업·기술 거점</span></div>
+</div>
+<h2 style="font-size:22px">글로벌 서비스 네트워크</h2>
+<div class="box">이슈 발생 시 일본 본사 문의에 의존하지 않고, 한국을 포함한 주요 시장 인근의 현지 대리점과 기술 인력을 통해 신속하게 현장 대응합니다.</div>
 <div class="g">
-<div class="c"><h3>자동차</h3><p>엔진·샤시·구동계 등 추적 관리가 필요한 조립 라인</p></div>
-<div class="c"><h3>항공·기계</h3><p>고신뢰 체결이 필요한 항공 및 일반 기계 조립</p></div>
-<div class="c"><h3>자동화 라인</h3><p>로봇·코봇과 결합한 자동 체결 및 해체 작업</p></div>
-</div></div></section>
+<div class="c"><h3>🇨🇳 Shanghai ESTIC · 상하이</h3><p>전기차·스마트제조 급성장 시장 대응, 현지 맞춤 솔루션</p></div>
+<div class="c"><h3>🇹🇭 ESTIC (Thailand) · 방콕</h3><p>동남아시아 생산 허브, 자동차·전자 부품 업체 지원</p></div>
+<div class="c"><h3>🇺🇸 ESTIC America · 켄터키</h3><p>북미 영업·서비스 거점, 빠른 고객 대응 체계</p></div>
+<div class="c"><h3>🔬 Novi Technical Center · 미시건</h3><p>디트로이트 자동차 산업 중심지의 기술 개발·엔지니어링</p></div>
+</div>
+<div class="tl">
+<p><b>1993 창립</b> — 타이요철강(현 파커타이요)에서 분리 독립, 전동 체결 공구 전문기업으로 출발</p>
+<p><b>2001 중국 진출</b> — 중국법인 설립, 해외 시장 본격 진출</p>
+<p><b>2003 핵심 기술 확보</b> — 펄스 기술 특허 등록(일본·미국·중국), ISO9001:2000 인증 획득</p>
+<p><b>2006 도쿄증권거래소 상장</b> — 투명 경영 체계 구축, 시장 공신력 확보</p>
+<p><b>2012 글로벌 확장</b> — 태국·미국 법인 설립, 토고사업소 설비공장 개설</p>
+<p><b>2016 미국 기술센터 개설</b> — 미시건주 노바이에 테크니컬 센터 개설</p>
+<p><b>2020 스탠다드 시장 이전</b> — 도쿄증권거래소 스탠다드시장으로 이전 (현재)</p>
+<p><b>2022 기술개발센터(TDC) 개설</b> — 차세대 기술 개발 가속화, R&D 투자 확대</p>
+</div>
+</div></section>
 
 <section id="contact" class="alt cta"><div class="w">
-<h2>도입 상담</h2><p class="sub">체결 사양과 라인 구성에 맞는 제품을 제안해 드립니다.</p>
+<h2>도입 상담</h2><p class="sub">도입 비용, 기술 지원, 사후 A/S 등 어떤 부분이든 부담 없이 문의해 주세요. 데모 의뢰를 환영합니다.</p>
 <div class="c"><dl>
 <dt>회사명</dt><dd>[한국법인명 입력]</dd>
 <dt>주소</dt><dd>[주소 입력]</dd>
