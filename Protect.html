@@ -596,7 +596,6 @@ tbody tr:hover td{background:#f2f8ff}
   <div id="table-container"></div>
 </div>
 
-<script>
 const WEBAPP_URL = '/api/proxy';
 let currentSheet = 0;
 
@@ -640,8 +639,8 @@ function showDatabase(result) {
 
   window.scrollTo({ top:0, behavior:'smooth' });
 
-|   if (result.name || result.data) { |
-|     document.getElementById('sheet-name').innerText = result.name || '데이터베이스'; |
+  if (result.name || result.data) {
+    document.getElementById('sheet-name').innerText = result.name || '데이터베이스';
     updateSheetButtons(currentSheet);
     makeTable(result.data || []);
   } else {
@@ -700,8 +699,8 @@ function loadSheet(index) {
       return;
     }
 
-|     document.getElementById('sheet-name').innerText = result.name || '데이터베이스'; |
-|     makeTable(result.data || []); |
+    document.getElementById('sheet-name').innerText = result.name || '데이터베이스';
+    makeTable(result.data || []);
   })
   .catch(error => {
     console.error(error);
@@ -748,6 +747,8 @@ function filterTable() {
     row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none';
   });
 }
-</script>
+
+
+
 </body>
 </html>
