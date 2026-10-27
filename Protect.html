@@ -325,18 +325,29 @@ button{cursor:pointer}
   display:flex;
   align-items:center;
   gap:10px;
+  flex-wrap:wrap;
 }
 #sheet-name{
   font-size:24px;
   font-weight:800;
 }
-.btn-swap{
-  padding:9px 13px;
+.btn-sheet{
+  padding:9px 16px;
   border:1px solid #b9cde4;
   border-radius:7px;
   background:#fff;
   color:#244c7d;
   font-weight:700;
+  font-size:14px;
+  transition:.15s ease;
+}
+.btn-sheet:hover{
+  border-color:#8cbeef;
+}
+.btn-sheet.active{
+  background:var(--blue);
+  color:#fff;
+  border-color:var(--blue);
 }
 #search-box{
   width:min(100%,350px);
@@ -480,6 +491,14 @@ tbody tr:hover td{background:#f2f8ff}
   #search-box{
     width:100%;
   }
+
+  #top-bar{
+    justify-content:space-between;
+  }
+  .btn-sheet{
+    flex:1;
+    text-align:center;
+  }
 }
 </style>
 </head>
@@ -565,7 +584,8 @@ tbody tr:hover td{background:#f2f8ff}
   <div class="control-section">
     <div id="top-bar">
       <span id="sheet-name"></span>
-      <button class="btn-swap" onclick="swapSheet()">시트 전환</button>
+      <button class="btn-sheet" id="btn-sheet-0" onclick="loadSheet(0)">영업보호(구글설문지)이력</button>
+      <button class="btn-sheet" id="btn-sheet-1" onclick="loadSheet(1)">출하이력</button>
     </div>
     <div id="search-box">
       <input type="text" id="searchInput" placeholder="고객사, 담당자, 프로젝트 등 검색" onkeyup="filterTable()">
@@ -600,15 +620,20 @@ function escapeHtml(value) {
   if (value === null || value === undefined) return '';
 
   return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"')
+    .replace(/'/g, ''');
 }
 
 function showLoginError(show) {
   document.getElementById('error-message').style.display = show ? 'block' : 'none';
+}
+
+function updateSheetButtons(index) {
+  document.getElementById('btn-sheet-0').classList.toggle('active', index === 0);
+  document.getElementById('btn-sheet-1').classList.toggle('active', index === 1);
 }
 
 function showDatabase(result) {
@@ -618,8 +643,9 @@ function showDatabase(result) {
 
   window.scrollTo({ top:0, behavior:'smooth' });
 
-  if (result.name || result.data) {
-    document.getElementById('sheet-name').innerText = result.name || '데이터베이스';
+|   if (result.name || result.data) { |
+|     document.getElementById('sheet-name').innerText = result.name || '데이터베이스'; |
+    updateSheetButtons(currentSheet);
     makeTable(result.data || []);
   } else {
     loadSheet(0);
@@ -660,6 +686,7 @@ function login() {
 function loadSheet(index) {
   currentSheet = index;
   document.getElementById('searchInput').value = '';
+  updateSheetButtons(index);
 
   fetch(WEBAPP_URL, {
     method:'POST',
@@ -676,17 +703,13 @@ function loadSheet(index) {
       return;
     }
 
-    document.getElementById('sheet-name').innerText = result.name || '데이터베이스';
-    makeTable(result.data || []);
+|     document.getElementById('sheet-name').innerText = result.name || '데이터베이스'; |
+|     makeTable(result.data || []); |
   })
   .catch(error => {
     console.error(error);
     alert('통신 오류가 발생했습니다.');
   });
-}
-
-function swapSheet() {
-  loadSheet(currentSheet === 0 ? 1 : 0);
 }
 
 function makeTable(data) {
