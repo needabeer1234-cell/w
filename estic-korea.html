@@ -49,8 +49,9 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-siz
 .ch{background:var(--pri);color:var(--on);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;font-weight:700}
 .ch button{background:none;border:0;color:inherit;font-size:20px;cursor:pointer}
 .cm{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;font-size:14px}
-.m{max-width:85%;padding:9px 12px;border-radius:12px;background:var(--bg2);align-self:flex-start;white-space:pre-wrap}
+.m{word-break:keep-all;max-width:85%;padding:9px 12px;border-radius:12px;background:var(--bg2);align-self:flex-start;white-space:pre-wrap}
 .m.u{background:var(--pri);color:var(--on);align-self:flex-end}
+.cn{padding:0 14px 8px;font-size:12px;color:var(--mut);word-break:keep-all}
 .cl{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 10px}
 .cl a{text-align:center;text-decoration:none;font-weight:700;font-size:13.5px;padding:10px 6px;border-radius:8px}
 .cl .kk{background:#FEE500;color:#191919}
@@ -117,14 +118,15 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-siz
 <footer><div class="w">© ESTIC Korea. ESTIC은 ESTIC CORPORATION(일본)의 브랜드입니다. 제품 사양은 예고 없이 변경될 수 있습니다.</div></footer>
 <!-- ===== 플로팅 채팅 위젯 (HTML) ===== -->
 <button id="chat-fab" aria-label="상담 열기"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3c-1.3 0-2.5-.3-3.6-.8L3 21l1.9-5.1A8.1 8.1 0 0 1 4 11.5 8.4 8.4 0 0 1 12.5 3.2 8.4 8.4 0 0 1 21 11.5z"/></svg></button>
-<div id="chat-pop" role="dialog" aria-label="ESTIC Korea 상담">
-  <div class="ch"><span>ESTIC Korea 상담</span><button id="chat-x" aria-label="닫기">✕</button></div>
-  <div class="cm" id="chat-msgs"><div class="m">안녕하세요, ESTIC Korea입니다. 아래 채널로 상담하시거나 이곳에 문의를 남겨 주세요.</div></div>
+<div id="chat-pop" role="dialog" aria-label="ESTIC Korea AI 채팅">
+  <div class="ch"><span>ESTIC Korea AI 채팅</span><button id="chat-x" aria-label="닫기">✕</button></div>
+  <div class="cm" id="chat-msgs"><div class="m">안녕하세요, ESTIC Korea AI 채팅입니다. 제품과 서비스에 대해 궁금한 점을 물어보세요. AI 답변은 참고용이며, 정확한 사양은 담당자 확인이 필요합니다.</div></div>
+  <div class="cn">답변이 만족스럽지 못하면 카카오톡 또는 네이버 톡톡으로 문의해 주세요.</div>
   <div class="cl">
     <a class="kk" id="btn-kakao" href="#" target="_blank" rel="noopener">카카오톡 상담</a>
     <a class="nv" id="btn-naver" href="#" target="_blank" rel="noopener">네이버 톡톡 상담</a>
   </div>
-  <div class="ci"><input id="chat-in" type="text" placeholder="문의 내용을 입력하세요"><button id="chat-send">전송</button></div>
+  <div class="ci"><input id="chat-in" type="text" placeholder="궁금한 점을 입력하세요"><button id="chat-send">전송</button></div>
 </div>
 
 <script>
@@ -181,7 +183,7 @@ async function send() {
   add(text, true);
   // API_ENDPOINT가 비어 있으면 AI 답변 없이 안내만 표시
   if (!CONFIG.API_ENDPOINT) {
-    add("AI 상담은 준비 중입니다. 위의 카카오톡 또는 네이버 톡톡으로 문의해 주세요.", false);
+    add("AI 채팅은 준비 중입니다. 아래 카카오톡 또는 네이버 톡톡으로 문의해 주세요.", false);
     return;
   }
   try {
@@ -196,7 +198,7 @@ async function send() {
     history.push({ role: "user", content: text }, { role: "assistant", content: reply });
     add(reply, false);
   } catch (err) {
-    add("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.", false);
+    add("일시적인 오류가 발생했습니다. 잠시 후 다시 시도하시거나, 아래 카카오톡 또는 네이버 톡톡으로 문의해 주세요.", false);
   }
 }
 $("chat-send").onclick = send;
