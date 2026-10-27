@@ -216,7 +216,11 @@ button { cursor: pointer; }
   margin-bottom: 15px;
 }
 #top-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
-#sheet-name { font-size: 24px; font-weight: 800; }
+#sheet-name {
+  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: 800;
+}
 .btn-sheet {
   padding: 9px 16px;
   border: 1px solid #b9cde4;
@@ -380,7 +384,6 @@ tbody tr:hover td { background: #f2f8ff; }
 <div id="content" class="hidden">
   <div class="control-section">
     <div id="top-bar">
-      <span id="sheet-name"></span>
       <button type="button" class="btn-sheet" data-sheet="0">영업보호(구글설문지)이력</button>
       <button type="button" class="btn-sheet" data-sheet="1">출하이력</button>
     </div>
@@ -388,6 +391,8 @@ tbody tr:hover td { background: #f2f8ff; }
       <input type="text" id="searchInput" placeholder="고객사, 담당자, 프로젝트 등 검색">
     </div>
   </div>
+
+  <span id="sheet-name"></span>
 
   <hr class="divider">
   <div id="table-container"></div>
