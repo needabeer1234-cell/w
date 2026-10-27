@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ESTIC Korea | 정밀 체결 솔루션</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#fff;--bg2:#f2f5f9;--fg:#101a2b;--mut:#5a677d;--pri:#0b4ea2;--pri2:#e8f0fb;--line:#d9e0ea;--on:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1420;--bg2:#141d2c;--fg:#e8edf5;--mut:#9aa7bb;--pri:#5b9bff;--pri2:#16284a;--line:#26334a;--on:#08111f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1420;--bg2:#141d2c;--fg:#e8edf5;--mut:#9aa7bb;--pri:#5b9bff;--pri2:#16284a;--line:#26334a;--on:#08111f;color-scheme:dark}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Pretendard","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;line-height:1.65}
+.w{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+header .w{display:flex;align-items:center;justify-content:space-between;height:58px}
+.logo{font-weight:800;letter-spacing:.08em;color:var(--pri);font-size:20px}
+.logo small{font-weight:500;color:var(--mut);letter-spacing:0;margin-left:6px;font-size:13px}
+nav a{color:var(--fg);text-decoration:none;margin-left:20px;font-size:14px}
+.btn{display:inline-block;background:var(--pri);color:var(--on);padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:700}
+.btn.o{background:none;color:var(--pri);border:1.5px solid var(--pri);margin-left:10px}
+.hero{background:var(--bg2);padding:84px 0 72px}
+.hero h1{font-size:clamp(28px,5vw,46px);line-height:1.25;margin:0 0 16px}
+.hero p{color:var(--mut);max-width:620px;font-size:17px;margin:0 0 28px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:48px}
+.stats div{border-left:3px solid var(--pri);padding-left:14px}
+.stats b{display:block;font-size:22px;color:var(--pri)}
+.stats span{color:var(--mut);font-size:13px}
+section{padding:68px 0}
+section.alt{background:var(--bg2)}
+h2{font-size:28px;margin:0 0 8px}
+.sub{color:var(--mut);margin:0 0 32px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.c{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:24px}
+.c h3{margin:0 0 6px;font-size:18px}
+.c p{margin:0;color:var(--mut);font-size:14.5px}
+.tag{display:inline-block;background:var(--pri2);color:var(--pri);font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;margin-bottom:12px}
+ul.k{padding-left:18px;margin:12px 0 0;color:var(--mut);font-size:14px}
+.cta{text-align:center}
+.cta .c{max-width:560px;margin:28px auto 0;text-align:left}
+dl{display:grid;grid-template-columns:90px 1fr;gap:8px 12px;margin:0;font-size:15px}
+dt{color:var(--mut)}dd{margin:0}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-size:13px}
+/* ===== 플로팅 채팅 위젯 ===== */
+#chat-fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:60px;height:60px;border-radius:50%;border:0;background:var(--pri);color:var(--on);font-size:26px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:20}
+#chat-pop{position:fixed;right:20px;bottom:calc(92px + env(safe-area-inset-bottom,0px));width:340px;max-width:calc(100vw - 40px);height:460px;max-height:calc(100% - 140px);background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.28);display:none;flex-direction:column;overflow:hidden;z-index:20}
+#chat-pop.open{display:flex}
+.ch{background:var(--pri);color:var(--on);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.ch button{background:none;border:0;color:inherit;font-size:20px;cursor:pointer}
+.cm{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.m{max-width:85%;padding:9px 12px;border-radius:12px;background:var(--bg2);align-self:flex-start;white-space:pre-wrap}
+.m.u{background:var(--pri);color:var(--on);align-self:flex-end}
+.cl{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 10px}
+.cl a{text-align:center;text-decoration:none;font-weight:700;font-size:13.5px;padding:10px 6px;border-radius:8px}
+.cl .kk{background:#FEE500;color:#191919}
+.cl .nv{background:#03C75A;color:#fff}
+.ci{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
+.ci input{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:8px;padding:9px 10px;font:inherit;font-size:14px;min-width:0}
+.ci button{background:var(--pri);color:var(--on);border:0;border-radius:8px;padding:0 14px;font-weight:700;cursor:pointer}
+@media(max-width:640px){nav a:not(.btn){display:none}.btn.o{margin:10px 0 0}}
+</style>
+</head>
+<body>
+<header><div class="w"><div class="logo">ESTIC<small>Korea</small></div>
+<nav><a href="#products">제품</a><a href="#tech">기술</a><a href="#industry">적용 분야</a><a href="#contact" class="btn" style="padding:8px 16px;color:var(--on)">문의하기</a></nav></div></header>
+
+<div class="hero"><div class="w">
+<h1>높은 정밀도, 높은 신뢰성.<br>추적 관리가 필요한 체결 공정의 표준.</h1>
+<p>일본 ESTIC의 서보 너트러너 시스템을 한국 현장에 맞춰 공급·지원합니다. 자동차와 항공 분야에서 검증된 전동 체결 기술을 만나보세요.</p>
+<a class="btn" href="#contact">기술 상담 신청</a><a class="btn o" href="#products">제품 살펴보기</a>
+<div class="stats">
+<div><b>전동 서보</b><span>고정식·핸드형 체결 시스템</span></div>
+<div><b>3 ~ 140 N·m</b><span>핸드형 Pulse 툴 토크 범위(EH2 시리즈)</span></div>
+<div><b>Ethernet / Fieldbus</b><span>PLC 연동 및 이력 관리</span></div>
+<div><b>4개 거점</b><span>일본·중국·태국·미국 글로벌 네트워크</span></div>
+</div></div></div>
+
+<section id="products"><div class="w">
+<h2>제품 라인업</h2><p class="sub">공정 요구에 맞춰 조합하는 체결 솔루션</p>
+<div class="g">
+<div class="c"><span class="tag">고정식</span><h3>Z50 시리즈</h3><p>트랜스듀서 방식 고정식 서보 너트러너. 마스터 컨트롤과 AXIS 컨트롤 구성을 선택할 수 있습니다.</p>
+<ul class="k"><li>Ethernet·Fieldbus 통신</li><li>I/O 연결형 간이 구성</li></ul></div>
+<div class="c"><span class="tag">핸드형</span><h3>Handy 2000 시리즈</h3><p>ESTIC PULSE 기술로 반력을 줄인 전동 핸드 너트러너. 피스톨·스트레이트·앵글 타입을 제공합니다.</p>
+<ul class="k"><li>코드리스 모델 라인업</li><li>스트레인 게이지 토크 모니터링</li></ul></div>
+<div class="c"><span class="tag">협동로봇</span><h3>코봇 솔루션</h3><p>Pulse 모드 전용 툴로 다양한 방향의 체결이 가능하며, UR+ 인증 주변기기로 공급됩니다.</p></div>
+<div class="c"><span class="tag">프레스</span><h3>서보 프레스 MPU60</h3><p>압입 공정을 위한 서보 프레스. 체결 시스템과 함께 라인 구성이 가능합니다.</p></div>
+<div class="c"><span class="tag">주변기기</span><h3>트레이서 암 외</h3><p>작업자 부담을 줄이는 서포트 암 등 현장 작업성을 높이는 주변 장비입니다.</p></div>
+<div class="c"><span class="tag">서비스</span><h3>수리·점검</h3><p>제품 설치 후 수리 및 점검 지원으로 안정적인 가동을 돕습니다.</p></div>
+</div></div></section>
+
+<section id="tech" class="alt"><div class="w">
+<h2>ESTIC의 강점</h2><p class="sub">정밀도, 응답성, 내구성을 갖춘 전동 서보 기술</p>
+<div class="g">
+<div class="c"><h3>토크 추적성</h3><p>체결 데이터를 기록하고 관리하여 품질 이력이 필요한 공정에 대응합니다.</p></div>
+<div class="c"><h3>ESTIC PULSE</h3><p>고정밀·고속 회전과 낮은 반력을 동시에 구현하여 작업자 부담을 줄입니다.</p></div>
+<div class="c"><h3>유연한 시스템 구성</h3><p>PLC 직결부터 마스터 컨트롤 기반 대규모 구성까지, 요구 사양에 맞춰 설계합니다.</p></div>
+</div></div></section>
+
+<section id="industry"><div class="w">
+<h2>적용 분야</h2><p class="sub">높은 신뢰성이 요구되는 현장</p>
+<div class="g">
+<div class="c"><h3>자동차</h3><p>엔진·샤시·구동계 등 추적 관리가 필요한 조립 라인</p></div>
+<div class="c"><h3>항공·기계</h3><p>고신뢰 체결이 필요한 항공 및 일반 기계 조립</p></div>
+<div class="c"><h3>자동화 라인</h3><p>로봇·코봇과 결합한 자동 체결 및 해체 작업</p></div>
+</div></div></section>
+
+<section id="contact" class="alt cta"><div class="w">
+<h2>도입 상담</h2><p class="sub">체결 사양과 라인 구성에 맞는 제품을 제안해 드립니다.</p>
+<div class="c"><dl>
+<dt>회사명</dt><dd>[한국법인명 입력]</dd>
+<dt>주소</dt><dd>[주소 입력]</dd>
+<dt>전화</dt><dd>[전화번호 입력]</dd>
+<dt>이메일</dt><dd>[이메일 입력]</dd>
+</dl></div></div></section>
+
+<footer><div class="w">© ESTIC Korea. ESTIC은 ESTIC CORPORATION(일본)의 브랜드입니다. 제품 사양은 예고 없이 변경될 수 있습니다.</div></footer>
+<!-- ===== 플로팅 채팅 위젯 (HTML) ===== -->
+<button id="chat-fab" aria-label="상담 열기">💬</button>
+<div id="chat-pop" role="dialog" aria-label="ESTIC Korea 상담">
+  <div class="ch"><span>ESTIC Korea 상담</span><button id="chat-x" aria-label="닫기">✕</button></div>
+  <div class="cm" id="chat-msgs"><div class="m">안녕하세요, ESTIC Korea입니다. 아래 채널로 상담하시거나 이곳에 문의를 남겨 주세요.</div></div>
+  <div class="cl">
+    <a class="kk" id="btn-kakao" href="#" target="_blank" rel="noopener">카카오톡 상담</a>
+    <a class="nv" id="btn-naver" href="#" target="_blank" rel="noopener">네이버 톡톡 상담</a>
+  </div>
+  <div class="ci"><input id="chat-in" type="text" placeholder="문의 내용을 입력하세요"><button id="chat-send">전송</button></div>
+</div>
+
+<script>
+/* =====================================================================
+   ★★★ 설정 영역 (여기만 수정하면 됩니다) ★★★
+   ===================================================================== */
+const CONFIG = {
+  // [1] 카카오톡 채널 채팅 URL  예) https://pf.kakao.com/_xxxxxx/chat
+  KAKAO_CHANNEL_URL: "",
+
+  // [2] 네이버 톡톡 링크  예) 파트너센터 > 톡톡 배너/QR 코드에서 만든 링크
+  NAVER_TALK_URL: "",
+
+  /* ===================================================================
+     ★★★★★ [3] 향후 AI 챗봇 API 연결 주소 (여기에 입력!) ★★★★★
+     ★ 여기에는 '내 서버(Vercel 서버리스 함수 등)의 주소'를 넣습니다.
+     ★ 예) "https://내도메인.com/api/chat"
+     ★ 절대 금지: Gemini/GPT/Claude 등의 API 키를 이 HTML에 직접 넣지 마세요!
+     ★   브라우저 코드는 누구나 볼 수 있어 키가 유출됩니다.
+     ★   API 키는 서버의 환경변수(.env)에만 저장하고,
+     ★   서버가 AI API를 대신 호출한 뒤 {"reply": "답변"} 형태로 돌려주세요.
+     =================================================================== */
+  API_ENDPOINT: ""
+};
+
+/* ---------- 이하 동작 코드 ---------- */
+const $ = (id) => document.getElementById(id);
+const pop = $("chat-pop"), msgs = $("chat-msgs"), input = $("chat-in");
+const history = [];
+
+$("chat-fab").onclick = () => pop.classList.toggle("open");
+$("chat-x").onclick = () => pop.classList.remove("open");
+
+function add(text, me) {
+  const d = document.createElement("div");
+  d.className = "m" + (me ? " u" : "");
+  d.textContent = text;
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function bindLink(id, url, name) {
+  const a = $(id);
+  if (url) { a.href = url; return; }
+  a.onclick = (e) => { e.preventDefault(); add(name + " 채널은 준비 중입니다.", false); };
+}
+bindLink("btn-kakao", CONFIG.KAKAO_CHANNEL_URL, "카카오톡");
+bindLink("btn-naver", CONFIG.NAVER_TALK_URL, "네이버 톡톡");
+
+async function send() {
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = "";
+  add(text, true);
+  // API_ENDPOINT가 비어 있으면 AI 답변 없이 안내만 표시
+  if (!CONFIG.API_ENDPOINT) {
+    add("AI 상담은 준비 중입니다. 위의 카카오톡 또는 네이버 톡톡으로 문의해 주세요.", false);
+    return;
+  }
+  try {
+    // ★ 향후: 위 CONFIG.API_ENDPOINT(내 서버)로 요청. API 키는 보내지 않습니다.
+    const r = await fetch(CONFIG.API_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text, history })
+    });
+    const data = await r.json();
+    const reply = data.reply || "답변을 받지 못했습니다.";
+    history.push({ role: "user", content: text }, { role: "assistant", content: reply });
+    add(reply, false);
+  } catch (err) {
+    add("일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.", false);
+  }
+}
+$("chat-send").onclick = send;
+input.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.isComposing) send(); });
+</script>
+</body>
+</html>
